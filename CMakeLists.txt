@@ -12,14 +12,13 @@ set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
 list(TRANSFORM SRC_FILES PREPEND ${SRC_DIR}/)
 list(TRANSFORM INCLUDE_FILES PREPEND ${INCLUDE_DIR}/)
 
-# file(GLOB_RECURSE SRC_FILES src/*)
-# file(GLOB_RECURSE HEADER_FILES include/*)
+file(GLOB_RECURSE SRC_FILES src/*.cpp)
+file(GLOB_RECURSE HEADER_FILES include/*.hpp)
 
-add_executable(${PROJECT_NAME}
-    ${SRC_DIR}/main.cpp
-    ${SRC_FILES}
-    ${HEADER_FILES}
-)
+#are these necessary?
+#src/AppUtil.cpp
+#include/AppUtil.hpp
+add_executable(${PROJECT_NAME} ${SRC_FILES} ${HEADER_FILES})
 
 if(MSVC)
     target_compile_options(${PROJECT_NAME} PRIVATE /W4)
