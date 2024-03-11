@@ -12,11 +12,11 @@
 class TaskText : public Util::GameObject {
 public:
     TaskText() : GameObject(
-            std::make_unique<Util::Text>("/Users/wengtinghao/-tiptree/Resources/Font/Inkfree.ttf", 50,
+            std::make_unique<Util::Text>(RESOURCE_DIR"/Font/Inkfree.ttf", 30,
                                          append_string_views(s_PhaseTasks[0], s_Validation),
-                                         Util::Color::FromName(Util::Colors::BLACK)),
-            100) {
-        m_Transform.translation = {0.0F, -270.F};
+                                         Util::Color::FromName(Util::Colors::WHITE)),
+                                         100) {
+            m_Transform.translation = {-50.0F, -300.F};
     }
 
     void NextPhase(const int phase) {
@@ -26,11 +26,11 @@ public:
 
 private:
     inline static std::string append_string_views(std::string_view sv1, std::string_view sv2) {
-        return std::string(sv1) + "\n" + std::string(sv2);
+        return std::string(sv1) + "\n" + std::string(sv2) + "\n" + "Watch your head, there are invisible walls";
     }
 
     static constexpr std::string_view s_PhaseTasks[6] = {
-            "This is Phase 1",
+            "Tiptree, a programmer you can trust",
             "This is Phase 2"
     };
     static constexpr std::string_view s_Validation = "Press WASD to move";

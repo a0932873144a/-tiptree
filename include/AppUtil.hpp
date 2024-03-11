@@ -14,7 +14,7 @@
 
 [[nodiscard]]inline bool AreAllDoorsOpen(const std::vector<std::shared_ptr<Character>>& doors) {
     return std::all_of(doors.begin(), doors.end(), [](const auto& door) { return door->GetImagePath() ==
-                                                                                 "/Users/wengtinghao/-tiptree/Resources/Image/Character/boss1.png"; });
+            RESOURCE_DIR"/Image/Character/boss1.png"; });
 }
 
 #endif //APP_UTIL_HPP

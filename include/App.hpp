@@ -11,6 +11,7 @@
 
 class App {
 public:
+    App();
     enum class State {
         START,
         UPDATE,
@@ -27,6 +28,10 @@ public:
 
 private:
     void ValidTask();
+    void Move(const std::shared_ptr<Character>& other) const;
+    void Push(const std::shared_ptr<Character>& player, const std::shared_ptr<Character>& other) const;
+    void HitBoundary(const std::shared_ptr<Character>& other) const;
+    void CrushEnemy(const std::shared_ptr<Character>& enemy, const std::shared_ptr<Character>& other) const;
 
 private:
     enum class Phase {
@@ -40,17 +45,26 @@ private:
 
     Util::Root m_Root;
 
-    std::shared_ptr<Character> m_player;
-    std::shared_ptr<Character> m_boss1;
-//    std::shared_ptr<Character> m_Chest;
+    std::shared_ptr<Character> m_Player;
+    std::shared_ptr<Character> m_Boss1;
+    std::shared_ptr<Character> m_Rock;
+    std::shared_ptr<Character> m_Enemy;
+
+    std::shared_ptr<Character> m_BoundaryR;
+    std::shared_ptr<Character> m_BoundaryL;
+    std::shared_ptr<Character> m_BoundaryT;
+    std::shared_ptr<Character> m_BoundaryB;
+
+    std::shared_ptr<StepText> m_StepText;
+
 //    std::vector<std::shared_ptr<Character>> m_Doors;
-//
 //    std::shared_ptr<AnimatedCharacter> m_Bee;
 //    std::shared_ptr<AnimatedCharacter> m_Ball;
 
     std::shared_ptr<PhaseResourceManger> m_PRM;
 
-    bool m_EnterDown = false;
+    const float grid_size = 70.0f;
+
 };
 
 #endif

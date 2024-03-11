@@ -22,3 +22,24 @@ This is a [PTSD](https://github.com/ntut-open-source-club/practical-tools-for-si
    cmake -DCMAKE_BUILD_TYPE=Debug -B build # -G Ninja
    ```
    better read [PTSD README](https://github.com/ntut-open-source-club/practical-tools-for-simple-design)
+
+# UPDATE_NOTE
+
+After making new things, please write here to notify the other.
+
+## 3/11 by Tiptree
+
+1. I won't take time to write any update before today. If you want to know, just call me.
+2. At Resources: 
+   1. remove background_test.png  
+   2. add boundary_straight.png/horizontal.png at /Image/Background
+   3. adjust the size of player.png, enemy.png
+3. At src:
+   1. add GameMechanics.cpp, create new functions like Move(), Push(), HitBoundary(), CrushEnemy() which declare at App.hpp
+   2. add the boundary at App.cpp and App.hpp
+   3. add some lines to declare objects at App.cpp(and App.hpp)
+4. At include:
+   1. change some words at TaskText.hpp
+   2. add StepText.hpp, which declare at App.hpp, with functions that can control the steps
+   3. add GameMechanics.hpp, but barely write nothing in it
+   4. add const float grid_size at App.hpp

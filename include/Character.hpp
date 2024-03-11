@@ -8,6 +8,7 @@
 #include <string>
 
 #include "Util/GameObject.hpp"
+#include "Util/Input.hpp"
 
 class Character : public Util::GameObject {
 public:
@@ -33,23 +34,30 @@ public:
 
     // Collision detection function
     [[nodiscard]] bool IfCollides(const std::shared_ptr<Character>& other) const {
-        float positionX = this->GetPosition()[0];
-        float positionY = this->GetPosition()[1];
-        float width = this->GetScaledSize()[0];
-        float height = this->GetScaledSize()[1];
-
-        float other_positionX = other->GetPosition()[0];
-        float other_positionY = other->GetPosition()[1];
-        float other_width = other->GetScaledSize()[0];
-        float other_height = other->GetScaledSize()[1];
-
         // Check if the bounding boxes of the characters overlap
-        bool collideX = positionX < other_positionX + other_width &&
-                        positionX + width > other_positionX;
-        bool collideY = positionY < other_positionY + other_height &&
-                        positionY + height > other_positionY;
+        bool collideX = this->GetPosition().x < other->GetPosition().x + other->GetScaledSize().x &&
+                        this->GetPosition().x + this->GetScaledSize().x > other->GetPosition().x;
+        bool collideY = this->GetPosition().y < other->GetPosition().y + other->GetScaledSize().y &&
+                        this->GetPosition().y + this->GetScaledSize().y > other->GetPosition().y;
 
         return collideX && collideY;
+    }
+
+    //detect where to push the object
+    [[nodiscard]] char PushDirection(const std::shared_ptr<Character>& other) const {
+        if (IfCollides(other) && Util::Input::IsKeyPressed(Util::Keycode::A)) {
+            return 'A';
+        }
+        else if (IfCollides(other) && Util::Input::IsKeyPressed(Util::Keycode::S)) {
+            return 'S';
+        }
+        else if (IfCollides(other) && Util::Input::IsKeyPressed(Util::Keycode::D)) {
+            return 'D';
+        }
+        else if (IfCollides(other) && Util::Input::IsKeyPressed(Util::Keycode::W)) {
+            return 'W';
+        }
+        return 0;
     }
 
 private:

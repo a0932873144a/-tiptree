@@ -15,9 +15,6 @@ list(TRANSFORM INCLUDE_FILES PREPEND ${INCLUDE_DIR}/)
 file(GLOB_RECURSE SRC_FILES src/*.cpp)
 file(GLOB_RECURSE HEADER_FILES include/*.hpp)
 
-#are these necessary?
-#src/AppUtil.cpp
-#include/AppUtil.hpp
 add_executable(${PROJECT_NAME} ${SRC_FILES} ${HEADER_FILES})
 
 if(MSVC)

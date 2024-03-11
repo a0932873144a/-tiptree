@@ -5,76 +5,124 @@
 #include "Util/Keycode.hpp"
 #include "Util/Logger.hpp"
 
+App::App(){
+    //player
+    m_Player = std::make_shared<Character>(RESOURCE_DIR"/Image/Character/player.png");
+    m_Player->SetZIndex(50);
+    m_Root.AddChild(m_Player);
+
+    //boss1
+    m_Boss1 = std::make_shared<Character>(RESOURCE_DIR"/Image/Character/boss1.png");
+    m_Boss1->SetZIndex(50);
+    m_Root.AddChild(m_Boss1);
+
+    //rock
+    m_Rock = std::make_shared<Character>(RESOURCE_DIR"/Image/Character/rock.png");
+    m_Rock->SetZIndex(50);
+    m_Root.AddChild(m_Rock);
+
+    //enemy
+    m_Enemy = std::make_shared<Character>(RESOURCE_DIR"/Image/Character/enemy.png");
+    m_Enemy->SetZIndex(50);
+    m_Root.AddChild(m_Enemy);
+
+    //boundaries
+    m_BoundaryL = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundary_straight.png");
+    m_BoundaryL->SetZIndex(50);
+    m_Root.AddChild(m_BoundaryL);
+    m_BoundaryR = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundary_straight.png");
+    m_BoundaryR->SetZIndex(50);
+    m_Root.AddChild(m_BoundaryR);
+    m_BoundaryT = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundary_ horizontal.png");
+    m_BoundaryT->SetZIndex(50);
+    m_Root.AddChild(m_BoundaryT);
+    m_BoundaryB = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundary_ horizontal.png");
+    m_BoundaryB->SetZIndex(50);
+    m_Root.AddChild(m_BoundaryB);
+
+    //StepText
+    m_StepText = std::make_shared<StepText>();
+    m_Root.AddChild(m_StepText);
+
+    //PhaseResourceManger
+    m_PRM = std::make_shared<PhaseResourceManger>();
+    m_Root.AddChildren(m_PRM->GetChildren());
+}
+
 void App::Start() {
     LOG_TRACE("Start");
 
-    m_player = std::make_shared<Character>("/Users/wengtinghao/-tiptree/Resources/Image/Character/player.png");
-    m_player->SetPosition({-400, 0});
-    m_player->SetZIndex(50);
-    m_player->SetVisible(true);
-    m_Root.AddChild(m_player);
+    //player
+    m_Player->SetPosition({-150, 100});
+    m_Player->SetVisible(true);
 
-    m_boss1 = std::make_shared<Character>("/Users/wengtinghao/-tiptree/Resources/Image/Character/boss1.png");
-    m_boss1->SetPosition({150.1f, 50});
-    m_boss1->SetZIndex(50);
-    m_boss1->SetVisible(true);
-    m_Root.AddChild(m_boss1);
+    //boss1
+    m_Boss1->SetPosition({400.0f, 50.0f});
+    m_Boss1->SetVisible(true);
 
-    m_PRM = std::make_shared<PhaseResourceManger>();
-    m_Root.AddChildren(m_PRM->GetChildren());
+    //rock
+    m_Rock->SetPosition({100, -100});
+    m_Rock->SetVisible(true);
+
+    //enemy
+    m_Enemy->SetPosition({0, -100});
+    m_Enemy->SetVisible(true);
+
+    //boundaries
+    m_BoundaryL->SetPosition({-280, -300});
+    m_BoundaryL->SetVisible(false);
+    m_BoundaryR->SetPosition({300, -300});
+    m_BoundaryR->SetVisible(false);
+    m_BoundaryT->SetPosition({-200, 300});
+    m_BoundaryT->SetVisible(false);
+    m_BoundaryB->SetPosition({-200, -250});
+    m_BoundaryB->SetVisible(false);
+
+    //StepText
+    m_StepText->UpdatePhaseStep(static_cast<int>(m_Phase));
+    m_StepText->ShowLeftStep();
 
     m_CurrentState = State::UPDATE;
 }
 
 void App::Update() {
-    //make character move
-    if (Util::Input::IsKeyPressed(Util::Keycode::A)){
-        float  old_x = m_player->GetPosition()[0];
-        float  old_y = m_player->GetPosition()[1];
-        m_player->SetPosition({old_x - 5.0f, old_y});
+    //make player move
+    Move(m_Player);
+
+    //push object
+    Push(m_Player, m_Rock);
+    Push(m_Player, m_Enemy);
+
+    //the characters can't cross the boundaries
+    HitBoundary(m_Player);
+    HitBoundary(m_Rock);
+    HitBoundary(m_Enemy);
+
+    //if the enemy crash something, it will die
+    CrushEnemy(m_Enemy, m_Rock);
+
+    //Restart the game
+    if (Util::Input::IsKeyUp(Util::Keycode::R)) {
+        m_CurrentState = State::START;
     }
 
-    if (Util::Input::IsKeyPressed(Util::Keycode::D)){
-        float  old_x = m_player->GetPosition()[0];
-        float  old_y = m_player->GetPosition()[1];
-        m_player->SetPosition({old_x + 5.0f, old_y});
+    //If the step become zero, restart the game
+    if (m_StepText->IsStepZero()) {
+        m_CurrentState = State::START;
     }
 
-    if (Util::Input::IsKeyPressed(Util::Keycode::S)){
-        float  old_x = m_player->GetPosition()[0];
-        float  old_y = m_player->GetPosition()[1];
-        m_player->SetPosition({old_x, old_y - 5.0f});
+    //valid the task
+    if (Util::Input::IsKeyUp(Util::Keycode::RETURN)) {
+        ValidTask();
     }
 
-    if (Util::Input::IsKeyPressed(Util::Keycode::W)){
-        float  old_x = m_player->GetPosition()[0];
-        float  old_y = m_player->GetPosition()[1];
-        m_player->SetPosition({old_x, old_y + 5.0f});
-    }
-
-    if (m_player->IfCollides(m_boss1)) {
-        float  old_x = m_boss1->GetPosition()[0];
-        float  old_y = m_boss1->GetPosition()[1];
-        m_boss1->SetPosition({old_x + 5.0f, old_y});
-    }
-    
-    if (m_EnterDown) {
-        if (!Util::Input::IsKeyPressed(Util::Keycode::RETURN)) {
-            ValidTask();
-        }
-    }
-    m_EnterDown = Util::Input::IsKeyPressed(Util::Keycode::RETURN);
-
-    /*
-     * Do not touch the code below as they serve the purpose for
-     * closing the window.
-     */
-
+    //closing the window
     if (Util::Input::IsKeyUp(Util::Keycode::ESCAPE) ||
         Util::Input::IfExit()) {
         m_CurrentState = State::END;
     }
 
+    //update the root
     m_Root.Update();
 }
 
