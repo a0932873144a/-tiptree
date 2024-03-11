@@ -16,7 +16,7 @@ public:
                                          append_string_views(s_PhaseTasks[0], s_Validation),
                                          Util::Color::FromName(Util::Colors::WHITE)),
                                          100) {
-            m_Transform.translation = {-50.0F, -300.F};
+            m_Transform.translation = {0.0F, -300.F};
     }
 
     void NextPhase(const int phase) {
@@ -33,7 +33,7 @@ private:
             "Tiptree, a programmer you can trust",
             "This is Phase 2"
     };
-    static constexpr std::string_view s_Validation = "Press WASD to move";
+    static constexpr std::string_view s_Validation = "Press WASD to move, Press R to restart";
     //static constexpr std::string_view s_Validation = "Press Enter to validate";
 };
 
