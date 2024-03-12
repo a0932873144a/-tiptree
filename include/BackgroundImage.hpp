@@ -8,6 +8,7 @@
 #include "Util/GameObject.hpp"
 #include "Util/Image.hpp"
 
+//TODO: complete here
 class BackgroundImage : public Util::GameObject {
 
 public:
@@ -21,6 +22,7 @@ public:
     }
 
 private:
+    //TODO(to RAY): watch out name of the background, must be named phase + i(the number of phase)
     inline std::string ImagePath(const int phase) {
         return RESOURCE_DIR"/Image/Background/phase" + std::to_string(phase) + ".png";
     }

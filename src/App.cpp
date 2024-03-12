@@ -26,6 +26,16 @@ App::App(){
     m_Enemy->SetZIndex(50);
     m_Root.AddChild(m_Enemy);
 
+    //TODO(to RAY): example here (but not SetPosition here, go to AppUtil.cpp instead)
+    //rocks
+//    for (int i = 0; i < 3; ++i) {
+//        m_Rocks_Phase1.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Character/rock.png"));
+//        m_Rocks_Phase1[i]->SetZIndex(50);
+//        m_Rocks_Phase1[i]->SetPosition({205.5f - 80.f * i, -3.5f});
+//        m_Rocks_Phase1[i]->SetVisible(false);
+//        m_Root.AddChild(m_Rocks_Phase1[i]);
+//    }
+
     //boundaries
     m_BoundaryL = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundary_straight.png");
     m_BoundaryL->SetZIndex(50);

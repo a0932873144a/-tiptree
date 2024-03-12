@@ -29,6 +29,7 @@ private:
         return std::string(sv1) + "\n" + std::string(sv2) + "\n" + "Watch your head, there are invisible walls";
     }
 
+    //TODO: find out what to write here
     static constexpr std::string_view s_PhaseTasks[6] = {
             "Tiptree, a programmer you can trust",
             "This is Phase 2"

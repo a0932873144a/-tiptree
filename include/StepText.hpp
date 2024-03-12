@@ -28,6 +28,7 @@ public:
         step = s_PhaseTasks[phase];
     }
 
+    //TODO: find out why == -2
     [[nodiscard]] bool IsStepZero() const{
         return step == -2;
     }
@@ -37,6 +38,7 @@ private:
         return std::to_string(step);
     }
 
+    //TODO: add the limit step in each phase here
     static constexpr int s_PhaseTasks[6] = {
             26,
             28,

@@ -10,6 +10,7 @@ PhaseResourceManger::PhaseResourceManger() {
 }
 
 void PhaseResourceManger::NextPhase() {
+    //TODO: remember to change the number here
     if (m_Phase == 3) return;
     LOG_DEBUG("Passed! Next phase: {}", m_Phase);
     m_Background->NextPhase(m_Phase);

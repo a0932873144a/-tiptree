@@ -57,7 +57,9 @@ private:
 
     std::shared_ptr<StepText> m_StepText;
 
-//    std::vector<std::shared_ptr<Character>> m_Doors;
+    //TODO(to RAY): example here
+//    std::vector<std::shared_ptr<Character>> m_Rocks_Phase1;
+//
 //    std::shared_ptr<AnimatedCharacter> m_Bee;
 //    std::shared_ptr<AnimatedCharacter> m_Ball;
 
