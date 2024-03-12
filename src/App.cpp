@@ -52,35 +52,7 @@ App::App(){
 void App::Start() {
     LOG_TRACE("Start");
 
-    //player
-    m_Player->SetPosition({-150, 100});
-    m_Player->SetVisible(true);
-
-    //boss1
-    m_Boss1->SetPosition({400.0f, 50.0f});
-    m_Boss1->SetVisible(true);
-
-    //rock
-    m_Rock->SetPosition({100, -100});
-    m_Rock->SetVisible(true);
-
-    //enemy
-    m_Enemy->SetPosition({0, -100});
-    m_Enemy->SetVisible(true);
-
-    //boundaries
-    m_BoundaryL->SetPosition({-280, -300});
-    m_BoundaryL->SetVisible(false);
-    m_BoundaryR->SetPosition({300, -300});
-    m_BoundaryR->SetVisible(false);
-    m_BoundaryT->SetPosition({-200, 300});
-    m_BoundaryT->SetVisible(false);
-    m_BoundaryB->SetPosition({-200, -250});
-    m_BoundaryB->SetVisible(false);
-
-    //StepText
-    m_StepText->UpdatePhaseStep(static_cast<int>(m_Phase));
-    m_StepText->ShowLeftStep();
+    ValidTask();
 
     m_CurrentState = State::UPDATE;
 }
@@ -109,11 +81,6 @@ void App::Update() {
     //If the step become zero, restart the game
     if (m_StepText->IsStepZero()) {
         m_CurrentState = State::START;
-    }
-
-    //valid the task
-    if (Util::Input::IsKeyUp(Util::Keycode::RETURN)) {
-        ValidTask();
     }
 
     //closing the window

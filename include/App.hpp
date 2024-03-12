@@ -63,6 +63,7 @@ private:
 
     std::shared_ptr<PhaseResourceManger> m_PRM;
 
+    //TODO(to RAY): adjust grid_size that make player move on the grid, also adjust the image size
     const float grid_size = 70.0f;
 
 };

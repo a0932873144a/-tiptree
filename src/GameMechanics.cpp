@@ -6,6 +6,8 @@
 #include "Util/Input.hpp"
 #include "App.hpp"
 
+//TODO: if there is something behind the rock, then it can't be pushed (you can't push rock to crush enemy)
+//TODO: if enemy is pushed to boundary, it will be crush too
 //make character move
 //Move(the character you want to control)
 void App::Move(const std::shared_ptr<Character>& other) const{
