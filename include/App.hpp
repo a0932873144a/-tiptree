@@ -50,12 +50,44 @@ private:
     std::shared_ptr<Character> m_Rock;
     std::shared_ptr<Character> m_Enemy;
 
-    std::shared_ptr<Character> m_BoundaryR;
-    std::shared_ptr<Character> m_BoundaryL;
-    std::shared_ptr<Character> m_BoundaryT;
-    std::shared_ptr<Character> m_BoundaryB;
+    //boundary_precise
+    std::shared_ptr<Character> m_BoundaryT1;
+    std::shared_ptr<Character> m_BoundaryT2;
+    std::shared_ptr<Character> m_BoundaryT3;
+    std::shared_ptr<Character> m_BoundaryT4;
+    std::shared_ptr<Character> m_BoundaryT5;
+
+    std::shared_ptr<Character> m_BoundaryL1;
+    std::shared_ptr<Character> m_BoundaryL2;
+    std::shared_ptr<Character> m_BoundaryL3;
+    std::shared_ptr<Character> m_BoundaryL4;
+    std::shared_ptr<Character> m_BoundaryL5;
+
+    std::shared_ptr<Character> m_BoundaryR1;
+    std::shared_ptr<Character> m_BoundaryR2;
+    std::shared_ptr<Character> m_BoundaryR3;
+    std::shared_ptr<Character> m_BoundaryR4;
+    std::shared_ptr<Character> m_BoundaryR5;
+    std::shared_ptr<Character> m_BoundaryR6;
+
+    std::shared_ptr<Character> m_BoundaryIB1;
+    std::shared_ptr<Character> m_BoundaryIB2;
+    std::shared_ptr<Character> m_BoundaryIB3;
+    std::shared_ptr<Character> m_BoundaryIB4;
+
+
+    std::shared_ptr<Character> m_BoundaryB1;
+    std::shared_ptr<Character> m_BoundaryB2;
+    std::shared_ptr<Character> m_BoundaryB3;
+    std::shared_ptr<Character> m_BoundaryB4;
+    std::shared_ptr<Character> m_BoundaryB5;
+    std::shared_ptr<Character> m_BoundaryB6;
+    std::shared_ptr<Character> m_BoundaryB7;
+
+
 
     std::shared_ptr<StepText> m_StepText;
+
 
     //TODO(to RAY): example here
 //    std::vector<std::shared_ptr<Character>> m_Rocks_Phase1;

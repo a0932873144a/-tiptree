@@ -60,20 +60,64 @@ void App::Push(const std::shared_ptr<Character>& player, const std::shared_ptr<C
     }
 }
 
+
 //make character hit the boundaries
 //HitBoundary(the character you want to keep it on the table)
 void App::HitBoundary(const std::shared_ptr<Character>& other) const{
-    if (other->IfCollides(m_BoundaryL))
+
+    if (other->IfCollides(m_BoundaryL1))
+        other->SetPosition({other->GetPosition().x + grid_size, other->GetPosition().y});
+    if (other->IfCollides(m_BoundaryL2))
+        other->SetPosition({other->GetPosition().x + grid_size, other->GetPosition().y});
+    if (other->IfCollides(m_BoundaryL3))
+        other->SetPosition({other->GetPosition().x + grid_size, other->GetPosition().y});
+    if (other->IfCollides(m_BoundaryL4))
+        other->SetPosition({other->GetPosition().x + grid_size, other->GetPosition().y});
+    if (other->IfCollides(m_BoundaryL5))
         other->SetPosition({other->GetPosition().x + grid_size, other->GetPosition().y});
 
-    if (other->IfCollides(m_BoundaryR))
+
+    if (other->IfCollides(m_BoundaryR1))
+        other->SetPosition({other->GetPosition().x - grid_size, other->GetPosition().y});
+    if (other->IfCollides(m_BoundaryR2))
+        other->SetPosition({other->GetPosition().x - grid_size, other->GetPosition().y});
+    if (other->IfCollides(m_BoundaryR3))
+        other->SetPosition({other->GetPosition().x - grid_size, other->GetPosition().y});
+    if (other->IfCollides(m_BoundaryR5))
+        other->SetPosition({other->GetPosition().x - grid_size, other->GetPosition().y});
+    if (other->IfCollides(m_BoundaryR6))
         other->SetPosition({other->GetPosition().x - grid_size, other->GetPosition().y});
 
-    if (other->IfCollides(m_BoundaryT))
+    if (other->IfCollides(m_BoundaryT1))
+        other->SetPosition({other->GetPosition().x, other->GetPosition().y - grid_size});
+    if (other->IfCollides(m_BoundaryT2))
+        other->SetPosition({other->GetPosition().x, other->GetPosition().y - grid_size});
+    if (other->IfCollides(m_BoundaryT3))
+        other->SetPosition({other->GetPosition().x, other->GetPosition().y - grid_size});
+    if (other->IfCollides(m_BoundaryT4))
+        other->SetPosition({other->GetPosition().x, other->GetPosition().y - grid_size});
+    if (other->IfCollides(m_BoundaryT5))
+        other->SetPosition({other->GetPosition().x, other->GetPosition().y - grid_size});
+    if (other->IfCollides(m_BoundaryR4))
         other->SetPosition({other->GetPosition().x, other->GetPosition().y - grid_size});
 
-    if (other->IfCollides(m_BoundaryB))
-        other->SetPosition({other->GetPosition().x - grid_size, other->GetPosition().y + grid_size});
+
+    if (other->IfCollides(m_BoundaryB1))
+        other->SetPosition({other->GetPosition().x, other->GetPosition().y + grid_size});
+    if (other->IfCollides(m_BoundaryB2))
+        other->SetPosition({other->GetPosition().x, other->GetPosition().y + grid_size});
+    if (other->IfCollides(m_BoundaryB3))
+        other->SetPosition({other->GetPosition().x, other->GetPosition().y + grid_size});
+    if (other->IfCollides(m_BoundaryB4))
+        other->SetPosition({other->GetPosition().x, other->GetPosition().y + grid_size});
+    if (other->IfCollides(m_BoundaryB5))
+        other->SetPosition({other->GetPosition().x, other->GetPosition().y + grid_size});
+    if (other->IfCollides(m_BoundaryB6))
+        other->SetPosition({other->GetPosition().x, other->GetPosition().y + grid_size});
+    if (other->IfCollides(m_BoundaryB7))
+        other->SetPosition({other->GetPosition().x, other->GetPosition().y + grid_size});
+
+
 }
 
 //TODO: make CrushEnemy really delete the object
