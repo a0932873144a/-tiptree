@@ -15,118 +15,124 @@
 void App::ValidTask() {
     LOG_DEBUG("Validating the task {}", static_cast<int>(m_Phase));
     switch (m_Phase) {
+        //Phase1
         case Phase::Phase1:
             //player
-            m_Player->SetPosition({-150, 100});
+            m_Player->SetPosition({138, 180});
             m_Player->SetVisible(true);
 
             //boss1
-            m_Boss1->SetPosition({400.0f, 50.0f});
+            m_Boss1->SetPosition({210, -160});
             m_Boss1->SetVisible(true);
 
-            //rock
-            m_Rock->SetPosition({100, -100});
-            m_Rock->SetVisible(true);
+            //rocks
+            m_Rocks[0]->SetPosition({72, -105});
+            m_Rocks[0]->SetVisible(true);
+            m_Rocks[1]->SetPosition({-5, -180});
+            m_Rocks[1]->SetVisible(true);
+            m_Rocks[2]->SetPosition({-145, -105});
+            m_Rocks[2]->SetVisible(true);
+            m_Rocks[3]->SetPosition({-145, -180});
+            m_Rocks[3]->SetVisible(true);
 
-            //enemy
-            m_Enemy->SetPosition({0, -100});
-            m_Enemy->SetVisible(true);
-
-            //boundaries
-//            m_BoundaryL->SetPosition({-280, -300});
-//            m_BoundaryL->SetVisible(false);
-//            m_BoundaryR->SetPosition({300, -300});
-//            m_BoundaryR->SetVisible(false);
-//            m_BoundaryT->SetPosition({-200, 300});
-//            m_BoundaryT->SetVisible(false);
-//            m_BoundaryB->SetPosition({-200, -250});
-//            m_BoundaryB->SetVisible(false);
+            //enemies
+            m_Enemies[0]->SetPosition({70, 35});
+            m_Enemies[0]->SetVisible(true);
+            m_Enemies[1]->SetPosition({-5, 110});
+            m_Enemies[1]->SetVisible(true);
+            m_Enemies[2]->SetPosition({-75, 35});
+            m_Enemies[2]->SetVisible(true);
 
             //boundaries_precise
-            m_BoundaryT1->SetPosition({140, 245});
-            m_BoundaryT1->SetVisible(false);
-            m_BoundaryT2->SetPosition({70, 245});
-            m_BoundaryT2->SetVisible(false);
-            m_BoundaryT3->SetPosition({-5, 180});
-            m_BoundaryT3->SetVisible(false);
-            m_BoundaryT4->SetPosition({-75, 180});
-            m_BoundaryT4->SetVisible(false);
-            m_BoundaryT5->SetPosition({-145, 180});
-            m_BoundaryT5->SetVisible(false);
+            m_BoundaryTs[0]->SetPosition({140, 245});
+            m_BoundaryTs[1]->SetPosition({70, 245});
+            m_BoundaryTs[2]->SetPosition({-5, 180});
+            m_BoundaryTs[3]->SetPosition({-75, 180});
+            m_BoundaryTs[4]->SetPosition({-145, 180});
 
-            m_BoundaryL1->SetPosition({-210, 110});
-            m_BoundaryL1->SetVisible(false);
-            m_BoundaryL2->SetPosition({-210, 35});
-            m_BoundaryL2->SetVisible(false);
-            m_BoundaryL3->SetPosition({-285, -35});
-            m_BoundaryL3->SetVisible(false);
-            m_BoundaryL4->SetPosition({-285, -105});
-            m_BoundaryL4->SetVisible(false);
-            m_BoundaryL5->SetPosition({-285, -180});
-            m_BoundaryL5->SetVisible(false);
+            m_BoundaryLs[0]->SetPosition({-210, 110});
+            m_BoundaryLs[1]->SetPosition({-210, 35});
+            m_BoundaryLs[2]->SetPosition({-285, -35});
+            m_BoundaryLs[3]->SetPosition({-285, -105});
+            m_BoundaryLs[4]->SetPosition({-285, -180});
 
-            m_BoundaryR1->SetPosition({210, 180});
-            m_BoundaryR1->SetVisible(false);
-            m_BoundaryR2->SetPosition({210, 110});
-            m_BoundaryR2->SetVisible(false);
-            m_BoundaryR3->SetPosition({140, 35});
-            m_BoundaryR3->SetVisible(false);
-            m_BoundaryR4->SetPosition({210, -35});
-            m_BoundaryR4->SetVisible(false);
-            m_BoundaryR5->SetPosition({280, -105});
-            m_BoundaryR5->SetVisible(false);
-            m_BoundaryR6->SetPosition({280, -180});
-            m_BoundaryR6->SetVisible(false);
+            m_BoundaryRs[0]->SetPosition({210, 180});
+            m_BoundaryRs[1]->SetPosition({210, 110});
+            m_BoundaryRs[2]->SetPosition({140, 35});
+            m_BoundaryRs[3]->SetPosition({210, -105});
+            m_BoundaryRs[4]->SetPosition({280, -105});
+            m_BoundaryRs[5]->SetPosition({280, -180});
 
-            m_BoundaryIB1->SetPosition({140, -40});
-            m_BoundaryIB1->SetVisible(true);
-            m_BoundaryIB2->SetPosition({70, -40});
-            m_BoundaryIB2->SetVisible(true);
-            m_BoundaryIB3->SetPosition({-5, -40});
-            m_BoundaryIB3->SetVisible(true);
-            m_BoundaryIB4->SetPosition({-75, -40});
-            m_BoundaryIB4->SetVisible(true);
+            m_BoundaryIBs[0]->SetPosition({142, -38});
+            m_BoundaryIBs[1]->SetPosition({72, -38});
+            m_BoundaryIBs[2]->SetPosition({-2, -38});
+            m_BoundaryIBs[3]->SetPosition({-73, -38});
 
-
-
-            m_BoundaryB1->SetPosition({210, -240});
-            m_BoundaryB1->SetVisible(false);
-            m_BoundaryB2->SetPosition({140, -240});
-            m_BoundaryB2->SetVisible(false);
-            m_BoundaryB3->SetPosition({70, -240});
-            m_BoundaryB3->SetVisible(false);
-            m_BoundaryB4->SetPosition({-5, -240});
-            m_BoundaryB4->SetVisible(false);
-            m_BoundaryB5->SetPosition({-75, -240});
-            m_BoundaryB5->SetVisible(false);
-            m_BoundaryB6->SetPosition({-145, -240});
-            m_BoundaryB6->SetVisible(false);
-            m_BoundaryB7->SetPosition({-210, -240});
-            m_BoundaryB7->SetVisible(false);
-
+            m_BoundaryBs[0]->SetPosition({210, -240});
+            m_BoundaryBs[1]->SetPosition({140, -240});
+            m_BoundaryBs[2]->SetPosition({70, -240});
+            m_BoundaryBs[3]->SetPosition({-5, -240});
+            m_BoundaryBs[4]->SetPosition({-75, -240});
+            m_BoundaryBs[5]->SetPosition({-145, -240});
+            m_BoundaryBs[6]->SetPosition({-210, -240});
 
             //StepText
             m_StepText->UpdatePhaseStep(static_cast<int>(m_Phase));
             m_StepText->ShowLeftStep();
 
-            if (m_Player->GetImagePath() == RESOURCE_DIR"/Image/Character/rock.png") {
-                m_Phase = Phase::Phase2;
-                m_Player->SetPosition({-112.5f, -140.5f});
-
-                m_PRM->NextPhase();
-            } else {
-                LOG_DEBUG("You do not pass yet");
-            }
             break;
 
-
+        //Phase2
         case Phase::Phase2:
-            if (isInsideTheSquare(*m_Player)) {
-                LOG_DEBUG("Congratulations!");
-                m_CurrentState = State::END;
-            } else {
-                LOG_DEBUG("You do not pass yet");
-            }
+            //player
+            m_Player->SetPosition({-100, -100});
+            m_Player->SetVisible(true);
+
+            //StepText
+            m_StepText->UpdatePhaseStep(static_cast<int>(m_Phase));
+            m_StepText->ShowLeftStep();
+
             break;
+
+        //Phase3
+        case Phase::Phase3:
+
+            //StepText
+            m_StepText->UpdatePhaseStep(static_cast<int>(m_Phase));
+            m_StepText->ShowLeftStep();
+
+            break;
+
+        //Phase4
+        case Phase::Phase4:
+            break;
+
+        //Phase5
+        case Phase::Phase5:
+            break;
+
+        //Phase6
+        case Phase::Phase6:
+            break;
+
+        //Phase7
+        case Phase::Phase7:
+            break;
+
+        //Phase8
+        case Phase::Phase8:
+            break;
+
+        //Phase9
+        case Phase::Phase9:
+            break;
+
+        //Phase10
+        case Phase::Phase10:
+            break;
+
+        default:
+            break;
+
     }
 }

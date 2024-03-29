@@ -24,7 +24,7 @@ public:
         temp->SetText(convert_int_to_string(step--));
     }
 
-    void UpdatePhaseStep(const int phase) {
+    void UpdatePhaseStep(int phase) {
         step = s_PhaseTasks[phase];
     }
 
@@ -40,8 +40,9 @@ private:
 
     //TODO(to RAY): add the limit step in each phase here
     static constexpr int s_PhaseTasks[6] = {
-            26,
-            28,
+            23,
+            24,
+            32,
     };
 
     int step = s_PhaseTasks[0];

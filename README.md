@@ -35,7 +35,7 @@ After making new things, please write here to notify the other.
    2. add boundary_straight.png/horizontal.png at /Image/Background
    3. adjust the size of player.png, enemy.png
 3. At src:
-   1. add GameMechanics.cpp, create new functions like Move(), Push(), HitBoundary(), CrushEnemy() which declare at App.hpp
+   1. add GameMechanics.cpp, create new functions like Move(), Push(), HitBoundaryGetBack(), CrushEnemy() which declare at App.hpp
    2. add the boundary at App.cpp and App.hpp
    3. add some lines to declare objects at App.cpp(and App.hpp)
 4. At include:

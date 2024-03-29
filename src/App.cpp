@@ -16,138 +16,55 @@ App::App(){
     m_Boss1->SetZIndex(50);
     m_Root.AddChild(m_Boss1);
 
-    //rock
-    m_Rock = std::make_shared<Character>(RESOURCE_DIR"/Image/Character/rock.png");
-    m_Rock->SetZIndex(50);
-    m_Root.AddChild(m_Rock);
-
-    //enemy
-    m_Enemy = std::make_shared<Character>(RESOURCE_DIR"/Image/Character/enemy.png");
-    m_Enemy->SetZIndex(50);
-    m_Root.AddChild(m_Enemy);
-
-    //TODO(to RAY): example here (but not SetPosition here, go to AppUtil.cpp instead)
     //rocks
-//    for (int i = 0; i < 3; ++i) {
-//        m_Rocks_Phase1.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Character/rock.png"));
-//        m_Rocks_Phase1[i]->SetZIndex(50);
-//        m_Rocks_Phase1[i]->SetPosition({205.5f - 80.f * i, -3.5f});
-//        m_Rocks_Phase1[i]->SetVisible(false);
-//        m_Root.AddChild(m_Rocks_Phase1[i]);
-//    }
+    for (int i = 0; i < 4; i++) {
+        m_Rocks.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/rock.png"));
+        m_Rocks[i]->SetZIndex(50);
+        m_Root.AddChild(m_Rocks[i]);
+    }
 
-    //boundaries
-//    m_BoundaryL = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundary_straight.png");
-//    m_BoundaryL->SetZIndex(50);
-//    m_Root.AddChild(m_BoundaryL);
-//    m_BoundaryR = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundary_straight.png");
-//    m_BoundaryR->SetZIndex(50);
-//    m_Root.AddChild(m_BoundaryR);
-//    m_BoundaryT = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundary_ horizontal.png");
-//    m_BoundaryT->SetZIndex(50);
-//    m_Root.AddChild(m_BoundaryT);
-//    m_BoundaryB = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundary_ horizontal.png");
-//    m_BoundaryB->SetZIndex(50);
-//    m_Root.AddChild(m_BoundaryB);
+    //enemies
+    for (int i = 0; i < 3; i++) {
+        m_Enemies.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Character/enemy.png"));
+        m_Enemies[i]->SetZIndex(50);
+        m_Root.AddChild(m_Enemies[i]);
+    }
 
     //boundaries_precise
-    m_BoundaryT1 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryT1->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryT1);
-    m_BoundaryT2 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryT2->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryT2);
-    m_BoundaryT3 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryT3->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryT3);
-    m_BoundaryT4 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryT4->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryT4);
-    m_BoundaryT5 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryT5->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryT5);
+    for (int i = 0; i < 5; ++i) {
+        m_BoundaryTs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Background/Boundary/boundaryRocks.png"));
+        m_BoundaryTs[i]->SetZIndex(5);
+        m_BoundaryTs[i]->SetVisible(false);
+        m_Root.AddChild(m_BoundaryTs[i]);
+    }
 
-    m_BoundaryL1 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryL1->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryL1);
-    m_BoundaryL2 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryL2->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryL2);
-    m_BoundaryL3 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryL3->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryL3);
-    m_BoundaryL4 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryL4->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryL4);
-    m_BoundaryL5 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryL5->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryL5);
+    for (int i = 0; i < 5; ++i) {
+        m_BoundaryLs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Background/Boundary/boundaryRocks.png"));
+        m_BoundaryLs[i]->SetZIndex(5);
+        m_BoundaryLs[i]->SetVisible(false);
+        m_Root.AddChild(m_BoundaryLs[i]);
+    }
 
-    m_BoundaryR1 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryR1->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryR1);
-    m_BoundaryR2 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryR2->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryR2);
-    m_BoundaryR3 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryR3->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryR3);
-    m_BoundaryR4 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryR4->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryR4);
-    m_BoundaryR5 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryR5->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryR5);
-    m_BoundaryR6 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryR6->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryR6);
+    for (int i = 0; i < 6; ++i) {
+        m_BoundaryRs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Background/Boundary/boundaryRocks.png"));
+        m_BoundaryRs[i]->SetZIndex(5);
+        m_BoundaryRs[i]->SetVisible(false);
+        m_Root.AddChild(m_BoundaryRs[i]);
+    }
 
-    m_BoundaryIB1 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryIB1->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryIB1);
-    m_BoundaryIB2 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryIB2->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryIB2);
-    m_BoundaryIB3 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryIB3->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryIB3);
-    m_BoundaryIB4 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryIB4->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryIB4);
-    m_BoundaryIB2 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryIB2->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryIB2);
-    m_BoundaryIB3 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryIB3->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryIB3);
-    m_BoundaryIB4 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryIB4->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryIB4);
-    m_BoundaryIB4 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryIB4->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryIB4);
+    for (int i = 0; i < 4; ++i) {
+        m_BoundaryIBs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Background/Boundary/boundaryRocks.png"));
+        m_BoundaryIBs[i]->SetZIndex(5);
+        m_BoundaryIBs[i]->SetVisible(false);
+        m_Root.AddChild(m_BoundaryIBs[i]);
+    }
 
-    m_BoundaryB1 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryB1->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryB1);
-    m_BoundaryB2 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryB2->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryB2);
-    m_BoundaryB3 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryB3->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryB3);
-    m_BoundaryB4 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryB4->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryB4);
-    m_BoundaryB5 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryB5->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryB5);
-    m_BoundaryB6 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryB6->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryB6);
-    m_BoundaryB7 = std::make_shared<Character>(RESOURCE_DIR"/Image/Background/boundaryRocks.png");
-    m_BoundaryB7->SetZIndex(50);
-    m_Root.AddChild(m_BoundaryB7);
+    for (int i = 0; i < 7; ++i) {
+        m_BoundaryBs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Background/Boundary/boundaryRocks.png"));
+        m_BoundaryBs[i]->SetZIndex(5);
+        m_BoundaryBs[i]->SetVisible(false);
+        m_Root.AddChild(m_BoundaryBs[i]);
+    }
 
     //StepText
     m_StepText = std::make_shared<StepText>();
@@ -171,16 +88,77 @@ void App::Update() {
     Move(m_Player);
 
     //push object
-    Push(m_Player, m_Rock);
-    Push(m_Player, m_Enemy);
+    for (int i = 0; i < 4; i++) {
+        Push(m_Player, m_Rocks[i]);
+    }
+    for (int i = 0; i < 3; i++) {
+        Push(m_Player, m_Enemies[i]);
+    }
 
-    //the characters can't cross the boundaries
-    HitBoundary(m_Player);
-    HitBoundary(m_Rock);
-    HitBoundary(m_Enemy);
+    //set the boundaries reaction
+    for (int i = 0; i < 5; ++i) {
+        HitBoundaryGetBack(m_Player, m_BoundaryTs[i]);
+        for (int j = 0; j < 4; j++) {
+            HitBoundaryGetBack(m_Rocks[j], m_BoundaryTs[i]);
+        }
+        for (int k = 0; k < 3; k++) {
+            CrushEnemy(m_Enemies[k], m_BoundaryTs[i]);
+        }
+    }
+    for (int i = 0; i < 5; ++i){
+        HitBoundaryGetBack(m_Player, m_BoundaryLs[i]);
+        for (int j = 0; j < 4; j++) {
+            HitBoundaryGetBack(m_Rocks[j], m_BoundaryLs[i]);
+        }
+        for (int k = 0; k < 3; k++) {
+            CrushEnemy(m_Enemies[k], m_BoundaryLs[i]);
+        }
+    }
+    for (int i = 0; i < 6; ++i){
+        HitBoundaryGetBack(m_Player, m_BoundaryRs[i]);
+        for (int j = 0; j < 4; j++) {
+            HitBoundaryGetBack(m_Rocks[j], m_BoundaryRs[i]);
+        }
+        for (int k = 0; k < 3; k++) {
+            CrushEnemy(m_Enemies[k], m_BoundaryRs[i]);
+        }
+    }
+    for (int i = 0; i < 4; ++i){
+        HitBoundaryGetBack(m_Player, m_BoundaryIBs[i]);
+        for (int j = 0; j < 4; j++) {
+            HitBoundaryGetBack(m_Rocks[j], m_BoundaryIBs[i]);
+        }
+        for (int k = 0; k < 3; k++) {
+            CrushEnemy(m_Enemies[k], m_BoundaryIBs[i]);
+        }
+    }
+    for (int i = 0; i < 7; ++i){
+        HitBoundaryGetBack(m_Player, m_BoundaryBs[i]);
+        for (int j = 0; j < 4; j++) {
+            HitBoundaryGetBack(m_Rocks[j], m_BoundaryBs[i]);
+        }
+        for (int k = 0; k < 3; k++) {
+            CrushEnemy(m_Enemies[k], m_BoundaryBs[i]);
+        }
+    }
 
-    //if the enemy crash something, it will die
-    CrushEnemy(m_Enemy, m_Rock);
+    //if the enemy crash rock, it will die
+    for (int i = 0; i < 3; i++) {
+        for (int j = 0; j < 4; j++)
+            CrushEnemy(m_Enemies[i], m_Rocks[j]);
+    }
+
+    //if the enemy crash enemy, it will die
+    for (int i = 0; i < 3; i++) {
+        for (int j = i; j < 3; j++) {
+            if (i == j) {
+                continue;
+            }
+            else {
+                CrushEnemy(m_Enemies[i], m_Enemies[j]);
+            }
+        }
+    }
 
     //Restart the game
     if (Util::Input::IsKeyUp(Util::Keycode::R)) {
@@ -189,7 +167,9 @@ void App::Update() {
 
     //If the step become zero, restart the game
     if (m_StepText->IsStepZero()) {
-        m_CurrentState = State::START;
+        if (!IsPhase1Passed()) {
+            m_CurrentState = State::START;
+        }
     }
 
     //closing the window
@@ -200,6 +180,35 @@ void App::Update() {
 
     //update the root
     m_Root.Update();
+
+    //check if phase1 is passed
+    if (m_Phase == Phase::Phase1) {
+        if (IsPhase1Passed()) {
+            m_Phase = Phase::Phase2;
+            m_PRM->NextPhase();
+            m_CurrentState = State::START;
+        }
+    }
+
+    //temporary pass phase
+    if (Util::Input::IsKeyPressed(Util::Keycode::NUM_1)) {
+        m_Phase = Phase::Phase1;
+        m_PRM->SetPhase(0);
+        m_PRM->NextPhase();
+        m_CurrentState = State::START;
+    }
+    else if (Util::Input::IsKeyPressed(Util::Keycode::NUM_2)) {
+        m_Phase = Phase::Phase2;
+        m_PRM->SetPhase(1);
+        m_PRM->NextPhase();
+        m_CurrentState = State::START;
+    }
+    else if (Util::Input::IsKeyPressed(Util::Keycode::NUM_3)) {
+        m_Phase = Phase::Phase3;
+        m_PRM->SetPhase(2);
+        m_PRM->NextPhase();
+        m_CurrentState = State::START;
+    }
 }
 
 void App::End() { // NOLINT(this method will mutate members in the future)

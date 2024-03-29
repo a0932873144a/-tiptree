@@ -43,8 +43,8 @@ public:
         return collideX && collideY;
     }
 
-    //detect where to push the object
-    [[nodiscard]] char PushDirection(const std::shared_ptr<Character>& other) const {
+    //detect where to move
+    [[nodiscard]] char MoveDirection(const std::shared_ptr<Character>& other) const {
         if (IfCollides(other) && Util::Input::IsKeyPressed(Util::Keycode::A)) {
             return 'A';
         }
@@ -60,8 +60,19 @@ public:
         return 0;
     }
 
+
+
 private:
     void ResetPosition() { m_Transform.translation = {0, 0}; }
+
+    enum class Tag {
+        Player,
+        Rock,
+        Enemy,
+        Boundary,
+    };
+
+    Tag m_tag;
 
     std::string m_ImagePath;
 };

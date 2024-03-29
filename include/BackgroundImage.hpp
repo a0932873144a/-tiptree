@@ -13,7 +13,7 @@ class BackgroundImage : public Util::GameObject {
 
 public:
     BackgroundImage() : GameObject(
-            std::make_unique<Util::Image>(RESOURCE_DIR"/Image/Background/phase1.png"), -10) {
+            std::make_unique<Util::Image>(RESOURCE_DIR"/Image/Background/Map/phase0.png"), -10) {
     }
 
     void NextPhase(const int phase) {
@@ -22,9 +22,8 @@ public:
     }
 
 private:
-    //TODO(to RAY): watch out name of the background, must be named phase + i(the number of phase)
-    inline std::string ImagePath(const int phase) {
-        return RESOURCE_DIR"/Image/Background/phase" + std::to_string(phase) + ".png";
+    static inline std::string ImagePath(const int phase) {
+        return RESOURCE_DIR"/Image/Background/Map/phase" + std::to_string(phase) + ".png";
     }
 };
 

@@ -21,10 +21,13 @@ public:
 
     void NextPhase();
 
+    void SetPhase(int i) {
+        m_Phase = i;
+    }
+
 private:
     std::shared_ptr<TaskText> m_TaskText;
     std::shared_ptr<BackgroundImage> m_Background;
-
 
     int m_Phase = 1;
 };
