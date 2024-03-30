@@ -35,6 +35,7 @@ void App::Move(const std::shared_ptr<Character>& other) const{
 //Push(the one pushes, the other being pushed)
 void App::Push(const std::shared_ptr<Character>& player, const std::shared_ptr<Character>& other) const{
     if (player->IfCollides(other)){
+        player->SetLastTouched(other->GetTag());
         switch (player->MoveDirection(other)) {
             case 'A':
                 player->SetPosition({player->GetPosition().x + grid_size, player->GetPosition().y});
@@ -62,6 +63,7 @@ void App::Push(const std::shared_ptr<Character>& player, const std::shared_ptr<C
 //HitBoundaryGetBack(the character you want to keep it on the table)
 void App::HitBoundaryGetBack(const std::shared_ptr<Character>& ptr, const std::shared_ptr<Character>& boundary) const{
     if (ptr->IfCollides(boundary)) {
+        ptr->SetLastTouched(boundary->GetTag());
         switch (ptr->MoveDirection(boundary)) {
             case 'A':
                 ptr->SetPosition({ptr->GetPosition().x + grid_size, ptr->GetPosition().y});
@@ -84,17 +86,35 @@ void App::HitBoundaryGetBack(const std::shared_ptr<Character>& ptr, const std::s
 //if the player let an enemy crash something, the enemy will die
 //CrushEnemy(the enemy, something being hit)
 void App::CrushEnemy(const std::shared_ptr<Character>& enemy, const std::shared_ptr<Character>& other) {
-    if (enemy->IfCollides(other)) {
+    if (enemy->IfCollides(other) && (m_Player->GetLastTouched() == Character::Tag::Enemy)) {
+        enemy->SetLastTouched(other->GetTag());
         enemy->SetVisible(false);
         enemy->SetPosition({-1000, -1000});
     }
 }
 
+//Check if phase1 is passed
 bool App::IsPhase1Passed() {
     if (m_Player->GetPosition().x + 70 >= m_Boss1->GetPosition().x && m_Player->GetPosition().y - 20 <= m_Boss1->GetPosition().y) {
         return true;
     }
     else {
         return false;
+    }
+}
+
+//if the player step into a trap, the step text will reduce 1
+void App::StepIntoTrap(const std::shared_ptr<Character>& player, const std::shared_ptr<Character>& trap) {
+    if ((player->MoveDirection(trap) != 0) && trap->GetVisibility()) {
+        player->SetLastTouched(trap->GetTag());
+        m_StepText->ShowLeftStep();
+    }
+}
+
+//if the player get the key, the key will disappear
+void App::GetKey(const std::shared_ptr<Character>& player, const std::shared_ptr<Character>& key) {
+    if (player->IfCollides(key)) {
+        player->SetLastTouched(key->GetTag());
+        key->SetVisible(false);
     }
 }

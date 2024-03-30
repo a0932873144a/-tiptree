@@ -31,8 +31,11 @@ private:
     void Move(const std::shared_ptr<Character>& other) const;
     void Push(const std::shared_ptr<Character>& player, const std::shared_ptr<Character>& other) const;
     void HitBoundaryGetBack(const std::shared_ptr<Character>& ptr, const std::shared_ptr<Character>& boundary) const;
-    static void CrushEnemy(const std::shared_ptr<Character>& enemy, const std::shared_ptr<Character>& other) ;
+    void CrushEnemy(const std::shared_ptr<Character>& enemy, const std::shared_ptr<Character>& other);
     bool IsPhase1Passed();
+    void StepIntoTrap(const std::shared_ptr<Character>& player, const std::shared_ptr<Character>& trap);
+    void GetKey(const std::shared_ptr<Character>& player, const std::shared_ptr<Character>& trap);
+
 
 private:
     enum class Phase {

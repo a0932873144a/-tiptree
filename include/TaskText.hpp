@@ -31,7 +31,7 @@ private:
 
     //TODO: find out what to write here
     static constexpr std::string_view s_PhaseTasks[6] = {
-            "Tiptree, a programmer you can trust",
+            "This is Phase 1",
             "This is Phase 2",
             "This is Phase 3"
     };

@@ -28,7 +28,6 @@ public:
         step = s_PhaseTasks[phase];
     }
 
-    //TODO: find out why == -2
     [[nodiscard]] bool IsStepZero() const{
         return step == -2;
     }

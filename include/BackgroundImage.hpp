@@ -8,7 +8,6 @@
 #include "Util/GameObject.hpp"
 #include "Util/Image.hpp"
 
-//TODO: complete here
 class BackgroundImage : public Util::GameObject {
 
 public:

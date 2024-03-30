@@ -57,22 +57,44 @@ public:
         else if (IfCollides(other) && Util::Input::IsKeyPressed(Util::Keycode::W)) {
             return 'W';
         }
-        return 0;
+        else {
+            return 0;
+        }
     }
-
-
-
-private:
-    void ResetPosition() { m_Transform.translation = {0, 0}; }
 
     enum class Tag {
         Player,
         Rock,
         Enemy,
         Boundary,
+        Boss,
+        SpikeTrap,
+        Key,
+        Chest,
     };
 
-    Tag m_tag;
+    void SetLastTouched(Tag tag) {
+        m_TouchedTag = tag;
+    }
+
+    Tag GetLastTouched() {
+        return m_TouchedTag;
+    }
+
+    Tag GetTag() {
+        return m_Tag;
+    }
+
+    void SetTag(Tag tag) {
+        m_Tag = tag;
+    }
+
+private:
+    void ResetPosition() { m_Transform.translation = {0, 0}; }
+
+    Tag m_TouchedTag;
+
+    Tag m_Tag;
 
     std::string m_ImagePath;
 };

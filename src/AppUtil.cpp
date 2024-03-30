@@ -36,7 +36,7 @@ void App::ValidTask() {
             m_Rocks[3]->SetVisible(true);
 
             //enemies
-            m_Enemies[0]->SetPosition({70, 35});
+            m_Enemies[0]->SetPosition({72, 35});
             m_Enemies[0]->SetVisible(true);
             m_Enemies[1]->SetPosition({-5, 110});
             m_Enemies[1]->SetVisible(true);
