@@ -19,7 +19,7 @@ App::App(){
     m_Root.AddChild(m_Boss1);
 
     //rocks
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 20; i++) {
         m_Rocks.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/rock.png"));
         m_Rocks[i]->SetZIndex(50);
         m_Rocks[i]->SetTag(Character::Tag::Rock);
@@ -27,7 +27,7 @@ App::App(){
     }
 
     //enemies
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 20; i++) {
         m_Enemies.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Character/enemy.png"));
         m_Enemies[i]->SetZIndex(50);
         m_Enemies[i]->SetTag(Character::Tag::Enemy);
@@ -35,7 +35,7 @@ App::App(){
     }
 
     //boundaries_precise
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 20; ++i) {
         m_BoundaryTs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Background/Boundary/boundaryRocks.png"));
         m_BoundaryTs[i]->SetZIndex(5);
         m_BoundaryTs[i]->SetVisible(false);
@@ -43,7 +43,7 @@ App::App(){
         m_Root.AddChild(m_BoundaryTs[i]);
     }
 
-    for (int i = 0; i < 5; ++i) {
+    for (int i = 0; i < 20; ++i) {
         m_BoundaryLs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Background/Boundary/boundaryRocks.png"));
         m_BoundaryLs[i]->SetZIndex(5);
         m_BoundaryLs[i]->SetVisible(false);
@@ -51,7 +51,7 @@ App::App(){
         m_Root.AddChild(m_BoundaryLs[i]);
     }
 
-    for (int i = 0; i < 6; ++i) {
+    for (int i = 0; i < 20; ++i) {
         m_BoundaryRs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Background/Boundary/boundaryRocks.png"));
         m_BoundaryRs[i]->SetZIndex(5);
         m_BoundaryRs[i]->SetVisible(false);
@@ -59,7 +59,7 @@ App::App(){
         m_Root.AddChild(m_BoundaryRs[i]);
     }
 
-    for (int i = 0; i < 4; ++i) {
+    for (int i = 0; i < 20; ++i) {
         m_BoundaryIBs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Background/Boundary/boundaryRocks.png"));
         m_BoundaryIBs[i]->SetZIndex(5);
         m_BoundaryIBs[i]->SetVisible(false);
@@ -213,20 +213,77 @@ void App::Update() {
         }
     }
 
+    if (m_Phase == Phase::Phase2) {
+
+        for (int i = 0; i < 2; i++) {
+            Push(m_Player, m_Rocks[i]);
+        }
+        for (int i = 0; i < 2; i++) {
+            Push(m_Player, m_Enemies[i]);
+        }
+
+        //set the boundaries reaction
+        for (int i = 0; i < 6; ++i) {
+            HitBoundaryGetBack(m_Player, m_BoundaryTs[i]);
+            for (int j = 0; j < 4; j++) {
+                HitBoundaryGetBack(m_Rocks[j], m_BoundaryTs[i]);
+            }
+            for (int k = 0; k < 3; k++) {
+                CrushEnemy(m_Enemies[k], m_BoundaryTs[i]);
+            }
+        }
+        for (int i = 0; i < 5; ++i){
+            HitBoundaryGetBack(m_Player, m_BoundaryLs[i]);
+            for (int j = 0; j < 4; j++) {
+                HitBoundaryGetBack(m_Rocks[j], m_BoundaryLs[i]);
+            }
+            for (int k = 0; k < 3; k++) {
+                CrushEnemy(m_Enemies[k], m_BoundaryLs[i]);
+            }
+        }
+        for (int i = 0; i < 6; ++i){
+            HitBoundaryGetBack(m_Player, m_BoundaryRs[i]);
+            for (int j = 0; j < 4; j++) {
+                HitBoundaryGetBack(m_Rocks[j], m_BoundaryRs[i]);
+            }
+            for (int k = 0; k < 3; k++) {
+                CrushEnemy(m_Enemies[k], m_BoundaryRs[i]);
+            }
+        }
+        for (int i = 0; i < 10; ++i){
+            HitBoundaryGetBack(m_Player, m_BoundaryIBs[i]);
+            for (int j = 0; j < 4; j++) {
+                HitBoundaryGetBack(m_Rocks[j], m_BoundaryIBs[i]);
+            }
+            for (int k = 0; k < 3; k++) {
+                CrushEnemy(m_Enemies[k], m_BoundaryIBs[i]);
+            }
+        }
+        for (int i = 0; i < 7; ++i){
+            HitBoundaryGetBack(m_Player, m_BoundaryBs[i]);
+            for (int j = 0; j < 4; j++) {
+                HitBoundaryGetBack(m_Rocks[j], m_BoundaryBs[i]);
+            }
+            for (int k = 0; k < 3; k++) {
+                CrushEnemy(m_Enemies[k], m_BoundaryBs[i]);
+            }
+        }
+    }
+
     //temporary pass phase
-    if (Util::Input::IsKeyPressed(Util::Keycode::NUM_1)) {
+    if (Util::Input::IsKeyDown(Util::Keycode::NUM_1)) {
         m_Phase = Phase::Phase1;
         m_PRM->SetPhase(0);
         m_PRM->NextPhase();
         m_CurrentState = State::START;
     }
-    else if (Util::Input::IsKeyPressed(Util::Keycode::NUM_2)) {
+    else if (Util::Input::IsKeyDown(Util::Keycode::NUM_2)) {
         m_Phase = Phase::Phase2;
         m_PRM->SetPhase(1);
         m_PRM->NextPhase();
         m_CurrentState = State::START;
     }
-    else if (Util::Input::IsKeyPressed(Util::Keycode::NUM_3)) {
+    else if (Util::Input::IsKeyDown(Util::Keycode::NUM_3)) {
         m_Phase = Phase::Phase3;
         m_PRM->SetPhase(2);
         m_PRM->NextPhase();
