@@ -99,7 +99,7 @@ void App::ValidTask() {
             //enemies
             m_Enemies[0]->SetPosition({-145, 105});
             m_Enemies[0]->SetVisible(true);
-            m_Enemies[1]->SetPosition({105, -105});
+            m_Enemies[1]->SetPosition({150, -105});
             m_Enemies[1]->SetVisible(true);
             m_Enemies[2]->SetPosition({220, -180});
             m_Enemies[2]->SetVisible(true);
@@ -153,6 +153,24 @@ void App::ValidTask() {
         //Phase3
         case Phase::Phase3:
 
+            //player
+            m_Player->SetPosition({250, 70});
+            m_Player->SetVisible(true);
+
+            //StepText
+            m_StepText->UpdatePhaseStep(static_cast<int>(m_Phase));
+            m_StepText->ShowLeftStep();
+
+            //boss1
+            m_Boss1->SetPosition({105, 220});
+            m_Boss1->SetVisible(true);
+
+            //enemies
+            m_Enemies[0]->SetPosition({105, -210});
+            m_Enemies[0]->SetVisible(true);
+            m_Enemies[1]->SetPosition({30, -70});
+            m_Enemies[1]->SetVisible(true);
+
             //boundaries_precise
             m_BoundaryTs[0]->SetPosition({180, 280});
             m_BoundaryTs[1]->SetPosition({105, 280});
@@ -174,8 +192,8 @@ void App::ValidTask() {
             m_BoundaryRs[2]->SetPosition({320, 70});
             m_BoundaryRs[3]->SetPosition({320, 0});
             m_BoundaryRs[4]->SetPosition({320, -70});
-            m_BoundaryRs[3]->SetPosition({320, -140});
-            m_BoundaryRs[4]->SetPosition({320, -210});
+            m_BoundaryRs[5]->SetPosition({250, -140});
+            m_BoundaryRs[6]->SetPosition({250, -210});
 
             m_BoundaryIBs[0]->SetPosition({105, 150});
             m_BoundaryIBs[1]->SetPosition({105, 0});
@@ -194,15 +212,7 @@ void App::ValidTask() {
             m_BoundaryBs[5]->SetPosition({-180, -280});
             m_BoundaryBs[6]->SetPosition({-250, -280});
 
-            //player
-            m_Player->SetPosition({250, 70});
-            m_Player->SetVisible(true);
 
-
-
-            //StepText
-            m_StepText->UpdatePhaseStep(static_cast<int>(m_Phase));
-            m_StepText->ShowLeftStep();
 
             break;
 
