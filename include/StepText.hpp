@@ -34,14 +34,21 @@ public:
 
 private:
     inline static std::string convert_int_to_string(int step) {
+        if (step == 0) {
+            return "X";
+        }
         return std::to_string(step);
     }
 
-    //TODO(to RAY): add the limit step in each phase here
-    static constexpr int s_PhaseTasks[6] = {
+    static constexpr int s_PhaseTasks[15] = {
             23,
             24,
             32,
+            23,
+            23,
+            43,
+            32,
+            12,
     };
 
     int step = s_PhaseTasks[0];

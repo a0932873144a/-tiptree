@@ -26,16 +26,24 @@ public:
 
     void End(); // NOLINT(readability-convert-member-functions-to-static)
 
+    //if the player let an enemy crash something, the enemy will die
+//CrushEnemy(the enemy, something being hit)
+    void CrushEnemy(const std::shared_ptr<Character>& enemy) const {
+        enemy->SetVisible(false);
+        enemy->SetPosition({-1000, -1000});
+    }
+
 private:
     void ValidTask();
-    void Move(const std::shared_ptr<Character>& other) const;
-    void Push(const std::shared_ptr<Character>& player, const std::shared_ptr<Character>& other) const;
-    void HitBoundaryGetBack(const std::shared_ptr<Character>& ptr, const std::shared_ptr<Character>& boundary) const;
-    void CrushEnemy(const std::shared_ptr<Character>& enemy, const std::shared_ptr<Character>& other);
-    bool IsPhase1Passed();
-    void StepIntoTrap(const std::shared_ptr<Character>& player, const std::shared_ptr<Character>& trap);
-    void GetKey(const std::shared_ptr<Character>& player, const std::shared_ptr<Character>& trap);
+    void Origin();
 
+    void Move(const std::shared_ptr<Character>& player) const;
+    void Push(const std::shared_ptr<Character>& player, const std::shared_ptr<Character>& other, char direction) const;
+    void StepIntoTrap(const std::shared_ptr<Character>& player, const std::shared_ptr<Character>& trap);
+    void GetKey(const std::shared_ptr<Character>& player, const std::shared_ptr<Character>& key);
+
+    bool IsPhasePassed();
+    bool IsPhase3Passed();
 
 private:
     enum class Phase {
@@ -57,10 +65,19 @@ private:
 
     Util::Root m_Root;
 
+    std::vector<std::shared_ptr<Character>> m_CollideObjects;
+
     std::shared_ptr<Character> m_Player;
-    std::shared_ptr<Character> m_Boss1;
+    std::shared_ptr<Character> m_Boss;
+    std::vector<std::shared_ptr<Character>> m_Bosses;
+
     std::vector<std::shared_ptr<Character>> m_Rocks;
     std::vector<std::shared_ptr<Character>> m_Enemies;
+    std::vector<std::shared_ptr<Character>> m_SpikeTraps;
+    std::vector<std::shared_ptr<Character>> m_HiddenSpikeTraps;
+
+    std::shared_ptr<Character> m_Key;
+    std::shared_ptr<Character> m_TreasureBox;
 
     //boundary_precise
     std::vector<std::shared_ptr<Character>> m_BoundaryTs;

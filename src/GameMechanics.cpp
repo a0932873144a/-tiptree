@@ -6,97 +6,263 @@
 #include "Util/Input.hpp"
 #include "App.hpp"
 
-//TODO: if there is something behind the rock, then it can't be pushed (you can't push rock to crush enemy)
-//make character move
 //Move(the character you want to control)
-void App::Move(const std::shared_ptr<Character>& other) const{
+void App::Move(const std::shared_ptr<Character>& player) const{
+    std::shared_ptr<Character> tempPtr = std::make_shared<Character>(RESOURCE_DIR"/Image/Character/player.png");
+    std::shared_ptr<Character> collidtion;
     if (Util::Input::IsKeyDown(Util::Keycode::A)) {
-        m_StepText->ShowLeftStep();
-        other->SetPosition({other->GetPosition().x - grid_size, other->GetPosition().y});
+        tempPtr->SetPosition({player->GetPosition().x - grid_size, player->GetPosition().y});
+        collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
+        if (collidtion == nullptr) {
+            player->SetPosition({player->GetPosition().x - grid_size, player->GetPosition().y});
+            m_StepText->ShowLeftStep();
+        }
+        else if (collidtion->GetTag() == Character::Tag::Boundary) {
+            tempPtr.reset();
+            collidtion.reset();
+            return;
+        }
+        else if (collidtion->GetTag() == Character::Tag::Enemy) {
+            Push(player, collidtion, 'A');
+            m_StepText->ShowLeftStep();
+        }
+        else if (collidtion->GetTag() == Character::Tag::Rock) {
+            Push(player, collidtion, 'A');
+            m_StepText->ShowLeftStep();
+        }
+        else {
+            player->SetPosition({player->GetPosition().x - grid_size, player->GetPosition().y});
+            m_StepText->ShowLeftStep();
+        }
+        tempPtr.reset();
+        collidtion.reset();
+        return;
     }
 
     if (Util::Input::IsKeyDown(Util::Keycode::D)) {
-        m_StepText->ShowLeftStep();
-        other->SetPosition({other->GetPosition().x + grid_size, other->GetPosition().y});
+        tempPtr->SetPosition({player->GetPosition().x + grid_size, player->GetPosition().y});
+        collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
+        if (collidtion == nullptr) {
+            player->SetPosition({player->GetPosition().x + grid_size, player->GetPosition().y});
+            m_StepText->ShowLeftStep();
+        }
+        else if (collidtion->GetTag() == Character::Tag::Boundary) {
+            tempPtr.reset();
+            collidtion.reset();
+            return;
+        }
+        else if (collidtion->GetTag() == Character::Tag::Enemy) {
+            Push(player, collidtion, 'D');
+            m_StepText->ShowLeftStep();
+        }
+        else if (collidtion->GetTag() == Character::Tag::Rock) {
+            Push(player, collidtion, 'D');
+            m_StepText->ShowLeftStep();
+        }
+        else {
+            player->SetPosition({player->GetPosition().x + grid_size, player->GetPosition().y});
+            m_StepText->ShowLeftStep();
+        }
+        tempPtr.reset();
+        collidtion.reset();
+        return;
     }
 
     if (Util::Input::IsKeyDown(Util::Keycode::S)) {
-        m_StepText->ShowLeftStep();
-        other->SetPosition({other->GetPosition().x, other->GetPosition().y - grid_size});
+        tempPtr->SetPosition({player->GetPosition().x, player->GetPosition().y - grid_size});
+        collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
+        if (collidtion == nullptr) {
+            player->SetPosition({player->GetPosition().x, player->GetPosition().y - grid_size});
+            m_StepText->ShowLeftStep();
+        }
+        else if (collidtion->GetTag() == Character::Tag::Boundary) {
+            tempPtr.reset();
+            collidtion.reset();
+            return;
+        }
+        else if (collidtion->GetTag() == Character::Tag::Enemy) {
+            Push(player, collidtion, 'S');
+            m_StepText->ShowLeftStep();
+        }
+        else if (collidtion->GetTag() == Character::Tag::Rock) {
+            Push(player, collidtion, 'S');
+            m_StepText->ShowLeftStep();
+        }
+        else {
+            player->SetPosition({player->GetPosition().x, player->GetPosition().y - grid_size});
+            m_StepText->ShowLeftStep();
+        }
+        tempPtr.reset();
+        collidtion.reset();
+        return;
     }
 
     if (Util::Input::IsKeyDown(Util::Keycode::W)) {
-        m_StepText->ShowLeftStep();
-        other->SetPosition({other->GetPosition().x, other->GetPosition().y + grid_size});
+        tempPtr->SetPosition({player->GetPosition().x, player->GetPosition().y + grid_size});
+        collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
+        if (collidtion == nullptr) {
+            player->SetPosition({player->GetPosition().x, player->GetPosition().y + grid_size});
+            m_StepText->ShowLeftStep();
+        }
+        else if (collidtion->GetTag() == Character::Tag::Boundary) {
+            tempPtr.reset();
+            collidtion.reset();
+            return;
+        }
+        else if (collidtion->GetTag() == Character::Tag::Enemy || collidtion->GetTag() == Character::Tag::Rock) {
+            Push(player, collidtion, 'W');
+            m_StepText->ShowLeftStep();
+        }
+        else {
+            player->SetPosition({player->GetPosition().x, player->GetPosition().y + grid_size});
+            m_StepText->ShowLeftStep();
+        }
+        tempPtr.reset();
+        collidtion.reset();
+        return;
     }
+
+    tempPtr.reset();
 }
 
 //make character push other object
 //Push(the one pushes, the other being pushed)
-void App::Push(const std::shared_ptr<Character>& player, const std::shared_ptr<Character>& other) const{
-    if (player->IfCollides(other)){
-        player->SetLastTouched(other->GetTag());
-        switch (player->MoveDirection(other)) {
-            case 'A':
-                player->SetPosition({player->GetPosition().x + grid_size, player->GetPosition().y});
+void App::Push(const std::shared_ptr<Character>& player, const std::shared_ptr<Character>& other, char direction) const{
+    std::shared_ptr<Character> tempPtr = std::make_shared<Character>(RESOURCE_DIR"/Image/Character/player.png");
+    std::shared_ptr<Character> collidtion;
+    player->SetLastTouched(other->GetTag());
+    switch (direction) {
+        case 'A':
+            tempPtr->SetPosition({other->GetPosition().x - grid_size, other->GetPosition().y});
+            collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
+            if (collidtion == nullptr) {
                 other->SetPosition({other->GetPosition().x - grid_size, other->GetPosition().y});
-                break;
-            case 'D':
-                player->SetPosition({player->GetPosition().x - grid_size, player->GetPosition().y});
+            }
+            else if (collidtion->GetTag() == Character::Tag::Boundary) {
+                if (other->GetTag() == Character::Tag::Enemy) {
+                    CrushEnemy(other);
+                }
+            }
+            else if (collidtion->GetTag() == Character::Tag::Enemy) {
+                if (other->GetTag() == Character::Tag::Enemy) {
+                    CrushEnemy(other);
+                }
+            }
+            else if (collidtion->GetTag() == Character::Tag::Rock) {
+                if (other->GetTag() == Character::Tag::Enemy) {
+                    CrushEnemy(other);
+                }
+            }
+            else {
+                other->SetPosition({other->GetPosition().x - grid_size, other->GetPosition().y});
+            }
+            tempPtr.reset();
+            collidtion.reset();
+            break;
+        case 'D':
+            tempPtr->SetPosition({other->GetPosition().x + grid_size, other->GetPosition().y});
+            collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
+            if (collidtion == nullptr) {
                 other->SetPosition({other->GetPosition().x + grid_size, other->GetPosition().y});
-                break;
-            case 'S':
-                player->SetPosition({player->GetPosition().x, player->GetPosition().y + grid_size});
+            }
+            else if (collidtion->GetTag() == Character::Tag::Boundary) {
+                if (other->GetTag() == Character::Tag::Enemy) {
+                    CrushEnemy(other);
+                }
+            }
+            else if (collidtion->GetTag() == Character::Tag::Enemy) {
+                if (other->GetTag() == Character::Tag::Enemy) {
+                    CrushEnemy(other);
+                }
+            }
+            else if (collidtion->GetTag() == Character::Tag::Rock) {
+                if (other->GetTag() == Character::Tag::Enemy) {
+                    CrushEnemy(other);
+                }
+            }
+            else {
+                other->SetPosition({other->GetPosition().x + grid_size, other->GetPosition().y});
+            }
+            tempPtr.reset();
+            collidtion.reset();
+            break;
+        case 'S':
+            tempPtr->SetPosition({other->GetPosition().x, other->GetPosition().y - grid_size});
+            collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
+            if (collidtion == nullptr) {
                 other->SetPosition({other->GetPosition().x, other->GetPosition().y - grid_size});
-                break;
-            case 'W':
-                player->SetPosition({player->GetPosition().x, player->GetPosition().y - grid_size});
+            }
+            else if (collidtion->GetTag() == Character::Tag::Boundary) {
+                if (other->GetTag() == Character::Tag::Enemy) {
+                    CrushEnemy(other);
+                }
+            }
+            else if (collidtion->GetTag() == Character::Tag::Enemy) {
+                if (other->GetTag() == Character::Tag::Enemy) {
+                    CrushEnemy(other);
+                }
+            }
+            else if (collidtion->GetTag() == Character::Tag::Rock) {
+                if (other->GetTag() == Character::Tag::Enemy) {
+                    CrushEnemy(other);
+                }
+            }
+            else {
+                other->SetPosition({other->GetPosition().x, other->GetPosition().y - grid_size});
+            }
+            tempPtr.reset();
+            collidtion.reset();
+            break;
+        case 'W':
+            tempPtr->SetPosition({other->GetPosition().x, other->GetPosition().y + grid_size});
+            collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
+            if (collidtion == nullptr) {
                 other->SetPosition({other->GetPosition().x, other->GetPosition().y + grid_size});
-                break;
-            default:
-                break;
+            }
+            else if (collidtion->GetTag() == Character::Tag::Boundary) {
+                if (other->GetTag() == Character::Tag::Enemy) {
+                    CrushEnemy(other);
+                }
+            }
+            else if (collidtion->GetTag() == Character::Tag::Enemy) {
+                if (other->GetTag() == Character::Tag::Enemy) {
+                    CrushEnemy(other);
+                }
+            }
+            else if (collidtion->GetTag() == Character::Tag::Rock) {
+                if (other->GetTag() == Character::Tag::Enemy) {
+                    CrushEnemy(other);
+                }
+            }
+            else {
+                other->SetPosition({other->GetPosition().x, other->GetPosition().y + grid_size});
+            }
+            tempPtr.reset();
+            collidtion.reset();
+            break;
+        default:
+            break;
+    }
+}
+
+//Check if phase is passed
+bool App::IsPhasePassed() {
+    if (m_Player->IfCollides(m_Boss)) {
+        if (m_Player->GetVisibility() && m_Boss->GetVisibility()) {
+            return true;
         }
     }
+    else {
+        return false;
+    }
 }
 
-//make character hit the boundaries and get back
-//HitBoundaryGetBack(the character you want to keep it on the table)
-void App::HitBoundaryGetBack(const std::shared_ptr<Character>& ptr, const std::shared_ptr<Character>& boundary) const{
-    if (ptr->IfCollides(boundary)) {
-        ptr->SetLastTouched(boundary->GetTag());
-        switch (ptr->MoveDirection(boundary)) {
-            case 'A':
-                ptr->SetPosition({ptr->GetPosition().x + grid_size, ptr->GetPosition().y});
-                break;
-            case 'D':
-                ptr->SetPosition({ptr->GetPosition().x - grid_size, ptr->GetPosition().y});
-                break;
-            case 'S':
-                ptr->SetPosition({ptr->GetPosition().x, ptr->GetPosition().y + grid_size});
-                break;
-            case 'W':
-                ptr->SetPosition({ptr->GetPosition().x, ptr->GetPosition().y - grid_size});
-                break;
-            default:
-                break;
+//Check if phase3 is passed, phase3 is special because of mutiple bosses
+bool App::IsPhase3Passed() {
+    if (m_Player->IfCollides(m_Bosses[0])) {
+        if (m_Player->GetVisibility() && m_Bosses[0]->GetVisibility()) {
+            return true;
         }
-    }
-}
-
-//if the player let an enemy crash something, the enemy will die
-//CrushEnemy(the enemy, something being hit)
-void App::CrushEnemy(const std::shared_ptr<Character>& enemy, const std::shared_ptr<Character>& other) {
-    if (enemy->IfCollides(other) && (m_Player->GetLastTouched() == Character::Tag::Enemy)) {
-        enemy->SetLastTouched(other->GetTag());
-        enemy->SetVisible(false);
-        enemy->SetPosition({-1000, -1000});
-    }
-}
-
-//Check if phase1 is passed
-bool App::IsPhase1Passed() {
-    if (m_Player->GetPosition().x + 70 >= m_Boss1->GetPosition().x && m_Player->GetPosition().y - 20 <= m_Boss1->GetPosition().y) {
-        return true;
     }
     else {
         return false;
@@ -105,7 +271,7 @@ bool App::IsPhase1Passed() {
 
 //if the player step into a trap, the step text will reduce 1
 void App::StepIntoTrap(const std::shared_ptr<Character>& player, const std::shared_ptr<Character>& trap) {
-    if ((player->MoveDirection(trap) != 0) && trap->GetVisibility()) {
+    if (player->IfCollides(trap) && trap->GetVisibility()) {
         player->SetLastTouched(trap->GetTag());
         m_StepText->ShowLeftStep();
     }

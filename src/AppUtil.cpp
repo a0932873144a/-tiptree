@@ -17,13 +17,15 @@ void App::ValidTask() {
     switch (m_Phase) {
         //Phase1
         case Phase::Phase1:
+            Origin();
+
             //player
             m_Player->SetPosition({138, 180});
             m_Player->SetVisible(true);
 
-            //boss1
-            m_Boss1->SetPosition({210, -160});
-            m_Boss1->SetVisible(true);
+            //boss
+            m_Boss->SetPosition({210, -160});
+            m_Boss->SetVisible(true);
 
             //rocks
             m_Rocks[0]->SetPosition({72, -105});
@@ -84,6 +86,8 @@ void App::ValidTask() {
 
         //Phase2
         case Phase::Phase2:
+            Origin();
+
             //player
             m_Player->SetPosition({-210, -110});
             m_Player->SetVisible(true);
@@ -92,14 +96,14 @@ void App::ValidTask() {
             m_StepText->UpdatePhaseStep(static_cast<int>(m_Phase));
             m_StepText->ShowLeftStep();
 
-            //boss1
-            m_Boss1->SetPosition({80, -180});
-            m_Boss1->SetVisible(true);
+            //boss
+            m_Boss->SetPosition({80, -180});
+            m_Boss->SetVisible(true);
 
             //enemies
             m_Enemies[0]->SetPosition({-145, 105});
             m_Enemies[0]->SetVisible(true);
-            m_Enemies[1]->SetPosition({150, -105});
+            m_Enemies[1]->SetPosition({145, -105});
             m_Enemies[1]->SetVisible(true);
             m_Enemies[2]->SetPosition({220, -180});
             m_Enemies[2]->SetVisible(true);
@@ -152,6 +156,7 @@ void App::ValidTask() {
 
         //Phase3
         case Phase::Phase3:
+            Origin();
 
             //player
             m_Player->SetPosition({250, 70});
@@ -161,9 +166,13 @@ void App::ValidTask() {
             m_StepText->UpdatePhaseStep(static_cast<int>(m_Phase));
             m_StepText->ShowLeftStep();
 
-            //boss1
-            m_Boss1->SetPosition({105, 220});
-            m_Boss1->SetVisible(true);
+            //bosses
+            m_Bosses[0]->SetPosition({105, 220});
+            m_Bosses[0]->SetVisible(true);
+            m_Bosses[1]->SetPosition({35, 220});
+            m_Bosses[1]->SetVisible(true);
+            m_Bosses[2]->SetPosition({-45, 220});
+            m_Bosses[2]->SetVisible(true);
 
             //enemies
             m_Enemies[0]->SetPosition({105, -210});
@@ -176,7 +185,6 @@ void App::ValidTask() {
             m_BoundaryTs[1]->SetPosition({105, 280});
             m_BoundaryTs[2]->SetPosition({30, 280});
             m_BoundaryTs[3]->SetPosition({-40, 280});
-            m_BoundaryTs[4]->SetVisible(true);            //等你改喔寶
 
             m_BoundaryLs[0]->SetPosition({-110, 210});
             m_BoundaryLs[1]->SetPosition({-110, 150});
@@ -212,12 +220,12 @@ void App::ValidTask() {
             m_BoundaryBs[5]->SetPosition({-180, -280});
             m_BoundaryBs[6]->SetPosition({-250, -280});
 
-
-
             break;
 
         //Phase4
         case Phase::Phase4:
+            Origin();
+
             break;
 
         //Phase5
@@ -246,6 +254,69 @@ void App::ValidTask() {
 
         default:
             break;
+    }
+}
 
+void App::Origin() {
+    m_Player->SetPosition({-1000, -1000});
+    m_Player->SetVisible(false);
+
+    m_Boss->SetPosition({-1000, -1000});
+    m_Boss->SetVisible(false);
+
+    for (int i = 0; i < 3; i++) {
+        m_Bosses[i]->SetPosition({-1000, -1000});
+        m_Bosses[i]->SetVisible(false);
+    }
+
+    for (int i = 0; i < 15; i++) {
+        m_Rocks[i]->SetPosition({-1000, -1000});
+        m_Rocks[i]->SetVisible(false);
+    }
+
+    for (int i = 0; i < 10; i++) {
+        m_Enemies[i]->SetPosition({-1000, -1000});
+        m_Enemies[i]->SetVisible(false);
+    }
+
+    for (int i = 0; i < 10; i++) {
+        m_SpikeTraps[i]->SetPosition({-1000, -1000});
+        m_SpikeTraps[i]->SetVisible(false);
+    }
+
+    for (int i = 0; i < 10; i++) {
+        m_HiddenSpikeTraps[i]->SetPosition({-1000, -1000});
+        m_HiddenSpikeTraps[i]->SetVisible(false);
+    }
+
+    m_Key->SetPosition({-1000, -1000});
+    m_Key->SetVisible(false);
+
+    m_TreasureBox->SetPosition({-1000, -1000});
+    m_TreasureBox->SetVisible(false);
+
+    for (int i = 0; i < 10; i++) {
+        m_BoundaryTs[i]->SetPosition({-1000, -1000});
+        m_BoundaryTs[i]->SetVisible(false);
+    }
+
+    for (int i = 0; i < 10; i++) {
+        m_BoundaryLs[i]->SetPosition({-1000, -1000});
+        m_BoundaryLs[i]->SetVisible(false);
+    }
+
+    for (int i = 0; i < 10; i++) {
+        m_BoundaryRs[i]->SetPosition({-1000, -1000});
+        m_BoundaryRs[i]->SetVisible(false);
+    }
+
+    for (int i = 0; i < 10; i++) {
+        m_BoundaryIBs[i]->SetPosition({-1000, -1000});
+        m_BoundaryIBs[i]->SetVisible(false);
+    }
+
+    for (int i = 0; i < 10; i++) {
+        m_BoundaryBs[i]->SetPosition({-1000, -1000});
+        m_BoundaryBs[i]->SetVisible(false);
     }
 }

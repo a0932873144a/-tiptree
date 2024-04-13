@@ -6,12 +6,24 @@
 #define CHARACTER_HPP
 
 #include <string>
-
 #include "Util/GameObject.hpp"
 #include "Util/Input.hpp"
 
 class Character : public Util::GameObject {
+
 public:
+    enum class Tag {
+        Null,
+        Player,
+        Rock,
+        Enemy,
+        Boundary,
+        Boss,
+        SpikeTrap,
+        Key,
+        Chest,
+    };
+
     explicit Character(const std::string& ImagePath);
 
     Character(const Character&) = delete;
@@ -32,7 +44,7 @@ public:
 
     void SetPosition(const glm::vec2& Position) { m_Transform.translation = Position; }
 
-    // Collision detection function
+    //Collision detection function
     [[nodiscard]] bool IfCollides(const std::shared_ptr<Character>& other) const {
         // Check if the bounding boxes of the characters overlap
         bool collideX = this->GetPosition().x < other->GetPosition().x + other->GetScaledSize().x &&
@@ -43,35 +55,39 @@ public:
         return collideX && collideY;
     }
 
-    //detect where to move
-    [[nodiscard]] char MoveDirection(const std::shared_ptr<Character>& other) const {
-        if (IfCollides(other) && Util::Input::IsKeyPressed(Util::Keycode::A)) {
+    //Check if collide something
+    [[nodiscard]] std::shared_ptr<Character> IfCollideSomething(const std::vector<std::shared_ptr<Character>>& list) const {
+        for (const auto& Object : list) {
+            if (this == Object.get()) {
+                continue;
+            }
+            else{
+                if (this->IfCollides(Object) && this->GetVisibility()) {
+                    return Object;
+                }
+            }
+        }
+        return nullptr;
+    }
+
+    //Detect where to move
+    [[nodiscard]] char MoveDirection() const {
+        if (Util::Input::IsKeyPressed(Util::Keycode::A)) {
             return 'A';
         }
-        else if (IfCollides(other) && Util::Input::IsKeyPressed(Util::Keycode::S)) {
+        else if (Util::Input::IsKeyPressed(Util::Keycode::S)) {
             return 'S';
         }
-        else if (IfCollides(other) && Util::Input::IsKeyPressed(Util::Keycode::D)) {
+        else if (Util::Input::IsKeyPressed(Util::Keycode::D)) {
             return 'D';
         }
-        else if (IfCollides(other) && Util::Input::IsKeyPressed(Util::Keycode::W)) {
+        else if (Util::Input::IsKeyPressed(Util::Keycode::W)) {
             return 'W';
         }
         else {
             return 0;
         }
     }
-
-    enum class Tag {
-        Player,
-        Rock,
-        Enemy,
-        Boundary,
-        Boss,
-        SpikeTrap,
-        Key,
-        Chest,
-    };
 
     void SetLastTouched(Tag tag) {
         m_TouchedTag = tag;
@@ -81,7 +97,7 @@ public:
         return m_TouchedTag;
     }
 
-    Tag GetTag() {
+    Tag GetTag() const {
         return m_Tag;
     }
 
@@ -98,7 +114,6 @@ private:
 
     std::string m_ImagePath;
 };
-
 
 #endif //CHARACTER_HPP
 
