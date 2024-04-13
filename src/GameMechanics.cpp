@@ -138,6 +138,9 @@ void App::Push(const std::shared_ptr<Character>& player, const std::shared_ptr<C
             if (collidtion == nullptr) {
                 other->SetPosition({other->GetPosition().x - grid_size, other->GetPosition().y});
             }
+            else if (collidtion->GetTag() == Character::Tag::Boss) {
+
+            }
             else if (collidtion->GetTag() == Character::Tag::Boundary) {
                 if (other->GetTag() == Character::Tag::Enemy) {
                     CrushEnemy(other);
@@ -164,6 +167,9 @@ void App::Push(const std::shared_ptr<Character>& player, const std::shared_ptr<C
             collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
             if (collidtion == nullptr) {
                 other->SetPosition({other->GetPosition().x + grid_size, other->GetPosition().y});
+            }
+            else if (collidtion->GetTag() == Character::Tag::Boss) {
+
             }
             else if (collidtion->GetTag() == Character::Tag::Boundary) {
                 if (other->GetTag() == Character::Tag::Enemy) {
@@ -192,6 +198,9 @@ void App::Push(const std::shared_ptr<Character>& player, const std::shared_ptr<C
             if (collidtion == nullptr) {
                 other->SetPosition({other->GetPosition().x, other->GetPosition().y - grid_size});
             }
+            else if (collidtion->GetTag() == Character::Tag::Boss) {
+
+            }
             else if (collidtion->GetTag() == Character::Tag::Boundary) {
                 if (other->GetTag() == Character::Tag::Enemy) {
                     CrushEnemy(other);
@@ -218,6 +227,9 @@ void App::Push(const std::shared_ptr<Character>& player, const std::shared_ptr<C
             collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
             if (collidtion == nullptr) {
                 other->SetPosition({other->GetPosition().x, other->GetPosition().y + grid_size});
+            }
+            else if (collidtion->GetTag() == Character::Tag::Boss) {
+
             }
             else if (collidtion->GetTag() == Character::Tag::Boundary) {
                 if (other->GetTag() == Character::Tag::Enemy) {
