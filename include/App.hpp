@@ -27,10 +27,16 @@ public:
     void End(); // NOLINT(readability-convert-member-functions-to-static)
 
     //if the player let an enemy crash something, the enemy will die
-//CrushEnemy(the enemy, something being hit)
+    //CrushEnemy(the enemy, something being hit)
     void CrushEnemy(const std::shared_ptr<Character>& enemy) const {
         enemy->SetVisible(false);
         enemy->SetPosition({-1000, -1000});
+    }
+
+    //if the player get the key, the key will disappear
+    void GetKey(const std::shared_ptr<Character>& key) const {
+        key->SetVisible(false);
+        key->SetPosition({-1000, -1000});
     }
 
 private:

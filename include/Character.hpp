@@ -62,7 +62,7 @@ public:
                 continue;
             }
             else{
-                if (this->IfCollides(Object) && this->GetVisibility()) {
+                if (this->IfCollides(Object)) {
                     return Object;
                 }
             }

@@ -29,7 +29,7 @@ public:
     }
 
     [[nodiscard]] bool IsStepZero() const{
-        return step == -2;
+        return step <= -2;
     }
 
 private:

@@ -10,8 +10,6 @@
  * @warning modify this function.
  * @note See README.md for the task details.
  */
- //TODO(to RAY): complete the deploy of objects in each phase
- //TODO: complete the IsPass function
 void App::ValidTask() {
     LOG_DEBUG("Validating the task {}", static_cast<int>(m_Phase));
     switch (m_Phase) {
@@ -151,12 +149,12 @@ void App::ValidTask() {
             m_Rocks[2]->SetPosition({220, 30});
             m_Rocks[2]->SetVisible(true);
 
-            //traps
-            m_SpikeTraps[0]->SetPosition({150,-30});
+            //spikeTraps
+            m_SpikeTraps[0]->SetPosition({145,-30});
             m_SpikeTraps[0]->SetVisible(true);
-            m_SpikeTraps[1]->SetPosition({80, 105});
+            m_SpikeTraps[1]->SetPosition({75, 100});
             m_SpikeTraps[1]->SetVisible(true);
-            m_SpikeTraps[2]->SetPosition({5,105});
+            m_SpikeTraps[2]->SetPosition({0,100});
             m_SpikeTraps[2]->SetVisible(true);
             m_SpikeTraps[3]->SetPosition({-145,30});
             m_SpikeTraps[3]->SetVisible(true);
@@ -229,7 +227,7 @@ void App::ValidTask() {
             m_BoundaryBs[5]->SetPosition({-180, -280});
             m_BoundaryBs[6]->SetPosition({-250, -280});
 
-            //traps
+            //spikeTraps
             m_SpikeTraps[0]->SetPosition({180,-70});
             m_SpikeTraps[0]->SetVisible(true);
             m_SpikeTraps[1]->SetPosition({105, -70});
@@ -310,6 +308,7 @@ void App::ValidTask() {
 
         //Phase5
         case Phase::Phase5:
+            Origin();
             break;
 
         //Phase6

@@ -53,13 +53,14 @@ App::App(){
         m_SpikeTraps[i]->SetZIndex(50);
         m_SpikeTraps[i]->SetTag(Character::Tag::SpikeTrap);
         m_Root.AddChild(m_SpikeTraps[i]);
+        m_CollideObjects.push_back(m_SpikeTraps[i]);
     }
 
     //hiddenSpikeTraps
     for (int i = 0; i < 10; i++) {
         m_HiddenSpikeTraps.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/spikeTrap_hidden.png"));
         m_HiddenSpikeTraps[i]->SetZIndex(50);
-        m_HiddenSpikeTraps[i]->SetTag(Character::Tag::SpikeTrap);
+        m_HiddenSpikeTraps[i]->SetTag(Character::Tag::Null);
         m_Root.AddChild(m_HiddenSpikeTraps[i]);
     }
 
@@ -133,6 +134,7 @@ void App::Start() {
 
     ValidTask();
 
+    m_Player->SetLastTouched(Character::Tag::Null);
     m_CurrentState = State::UPDATE;
 }
 
