@@ -151,6 +151,15 @@ void App::ValidTask() {
             m_Rocks[2]->SetPosition({220, 30});
             m_Rocks[2]->SetVisible(true);
 
+            //traps
+            m_SpikeTraps[0]->SetPosition({150,-30});
+            m_SpikeTraps[0]->SetVisible(true);
+            m_SpikeTraps[1]->SetPosition({80, 105});
+            m_SpikeTraps[1]->SetVisible(true);
+            m_SpikeTraps[2]->SetPosition({5,105});
+            m_SpikeTraps[2]->SetVisible(true);
+            m_SpikeTraps[3]->SetPosition({-145,30});
+            m_SpikeTraps[3]->SetVisible(true);
 
             break;
 
@@ -199,7 +208,7 @@ void App::ValidTask() {
             m_BoundaryRs[1]->SetPosition({250, 150});
             m_BoundaryRs[2]->SetPosition({320, 70});
             m_BoundaryRs[3]->SetPosition({320, 0});
-            m_BoundaryRs[4]->SetPosition({320, -70});
+            m_BoundaryRs[4]->SetPosition({250, -70});
             m_BoundaryRs[5]->SetPosition({250, -140});
             m_BoundaryRs[6]->SetPosition({250, -210});
 
@@ -220,11 +229,82 @@ void App::ValidTask() {
             m_BoundaryBs[5]->SetPosition({-180, -280});
             m_BoundaryBs[6]->SetPosition({-250, -280});
 
+            //traps
+            m_SpikeTraps[0]->SetPosition({180,-70});
+            m_SpikeTraps[0]->SetVisible(true);
+            m_SpikeTraps[1]->SetPosition({105, -70});
+            m_SpikeTraps[1]->SetVisible(true);
+            m_SpikeTraps[2]->SetPosition({30,70});
+            m_SpikeTraps[2]->SetVisible(true);
+            m_SpikeTraps[3]->SetPosition({30,0});
+            m_SpikeTraps[3]->SetVisible(true);
+            m_SpikeTraps[4]->SetPosition({30,-140});
+            m_SpikeTraps[4]->SetVisible(true);
+            m_SpikeTraps[5]->SetPosition({-40,70});
+            m_SpikeTraps[5]->SetVisible(true);
+            m_SpikeTraps[6]->SetPosition({-110,0});
+            m_SpikeTraps[6]->SetVisible(true);
+            m_SpikeTraps[7]->SetPosition({-110,-140});
+            m_SpikeTraps[7]->SetVisible(true);
+
+            m_Key->SetPosition({-250, -140});
+            m_Key->SetVisible(true);
+
+            m_TreasureBox->SetPosition({180, 150});
+            m_TreasureBox->SetVisible(true);
+
             break;
 
         //Phase4
         case Phase::Phase4:
             Origin();
+
+            //player
+            m_Player->SetPosition({-248, 148});
+            m_Player->SetVisible(true);
+
+            //StepText
+            m_StepText->UpdatePhaseStep(static_cast<int>(m_Phase));
+            m_StepText->ShowLeftStep();
+
+            //bosses
+            m_Bosses[0]->SetPosition({255, 0});
+            m_Bosses[0]->SetVisible(true);
+
+            //boundaries_precise
+            m_BoundaryTs[0]->SetPosition({255, 70});
+            m_BoundaryTs[1]->SetPosition({180, 140});
+            m_BoundaryTs[2]->SetPosition({110, 140});
+            m_BoundaryTs[3]->SetPosition({40, 210});
+            m_BoundaryTs[4]->SetPosition({-40, 210});
+            m_BoundaryTs[5]->SetPosition({-110, 210});
+            m_BoundaryTs[6]->SetPosition({-175, 140});
+            m_BoundaryTs[7]->SetPosition({-250, 210});
+
+            m_BoundaryLs[0]->SetPosition({-310, 150});
+            m_BoundaryLs[1]->SetPosition({-310, 80});
+            m_BoundaryLs[2]->SetPosition({-310, 0});
+            m_BoundaryLs[3]->SetPosition({-310, -70});
+
+            m_BoundaryRs[0]->SetPosition({320, 0});
+            m_BoundaryRs[1]->SetPosition({320, -70});
+
+            m_BoundaryBs[0]->SetPosition({255, -140});
+            m_BoundaryBs[1]->SetPosition({180, -140});
+            m_BoundaryBs[2]->SetPosition({110, -210});
+            m_BoundaryBs[3]->SetPosition({40, -210});
+            m_BoundaryBs[4]->SetPosition({-40, -210});
+            m_BoundaryBs[5]->SetPosition({-110, -210});
+            m_BoundaryBs[6]->SetPosition({-175, -210});
+            m_BoundaryBs[7]->SetPosition({-250, -140});
+            m_BoundaryBs[0]->SetVisible(true);
+            m_BoundaryBs[1]->SetVisible(true);
+            m_BoundaryBs[2]->SetVisible(true);
+            m_BoundaryBs[3]->SetVisible(true);
+            m_BoundaryBs[4]->SetVisible(true);
+            m_BoundaryBs[5]->SetVisible(true);
+            m_BoundaryBs[6]->SetVisible(true);
+            m_BoundaryBs[7]->SetVisible(true);
 
             break;
 
