@@ -21,10 +21,6 @@ void App::Move(const std::shared_ptr<Character>& player) const{
             m_StepText->ShowLeftStep();
         }
         else if (collidtion->GetTag() == Character::Tag::Boundary) {
-            if (player->GetLastTouched() == Character::Tag::SpikeTrap) {
-                m_StepText->ShowLeftStep();
-                player->SetLastTouched(Character::Tag::Null);
-            }
             player->SetLastTouched(collidtion->GetTag());
             tempPtr.reset();
             collidtion.reset();
@@ -103,10 +99,6 @@ void App::Move(const std::shared_ptr<Character>& player) const{
             m_StepText->ShowLeftStep();
         }
         else if (collidtion->GetTag() == Character::Tag::Boundary) {
-            if (player->GetLastTouched() == Character::Tag::SpikeTrap) {
-                m_StepText->ShowLeftStep();
-                player->SetLastTouched(Character::Tag::Null);
-            }
             player->SetLastTouched(collidtion->GetTag());
             tempPtr.reset();
             collidtion.reset();
@@ -183,10 +175,6 @@ void App::Move(const std::shared_ptr<Character>& player) const{
             m_StepText->ShowLeftStep();
         }
         else if (collidtion->GetTag() == Character::Tag::Boundary) {
-            if (player->GetLastTouched() == Character::Tag::SpikeTrap) {
-                m_StepText->ShowLeftStep();
-                player->SetLastTouched(Character::Tag::Null);
-            }
             player->SetLastTouched(collidtion->GetTag());
             tempPtr.reset();
             collidtion.reset();
@@ -263,10 +251,6 @@ void App::Move(const std::shared_ptr<Character>& player) const{
             m_StepText->ShowLeftStep();
         }
         else if (collidtion->GetTag() == Character::Tag::Boundary) {
-            if (player->GetLastTouched() == Character::Tag::SpikeTrap) {
-                m_StepText->ShowLeftStep();
-                player->SetLastTouched(Character::Tag::Null);
-            }
             player->SetLastTouched(collidtion->GetTag());
             tempPtr.reset();
             collidtion.reset();
