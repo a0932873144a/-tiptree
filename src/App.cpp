@@ -14,7 +14,7 @@ App::App(){
     m_CollideObjects.push_back(m_Player);
 
     //boss
-    m_Boss = std::make_shared<Character>(RESOURCE_DIR"/Image/Character/boss1.png");
+    m_Boss = std::make_shared<Character>(RESOURCE_DIR"/Image/Character/boss/boss1.png");
     m_Boss->SetZIndex(50);
     m_Boss->SetTag(Character::Tag::Boss);
     m_Root.AddChild(m_Boss);
@@ -180,7 +180,9 @@ void App::Update() {
     }
 
     //make player move
-    Move(m_Player);
+    if (m_Player->GetVisibility()) {
+        Move(m_Player);
+    }
 
     //Restart the game
     if (Util::Input::IsKeyUp(Util::Keycode::R)) {

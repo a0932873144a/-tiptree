@@ -8,6 +8,8 @@
 
 //Move(the character you want to control)
 void App::Move(const std::shared_ptr<Character>& player) const{
+    IsEnemyHitTrap();
+
     std::shared_ptr<Character> tempPtr = std::make_shared<Character>(RESOURCE_DIR"/Image/Character/player.png");
     std::shared_ptr<Character> collidtion;
 
@@ -16,6 +18,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
         collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
 
         if (collidtion == nullptr) {
+            ChangeSpikeTrap();
             player->SetLastTouched(Character::Tag::Null);
             player->SetPosition({player->GetPosition().x - grid_size, player->GetPosition().y});
             m_StepText->ShowLeftStep();
@@ -38,6 +41,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
                 return;
             }
             else {
+                ChangeSpikeTrap();
                 collidtion->SetVisible(false);
                 collidtion->SetPosition({-1000, -1000});
                 player->SetPosition({player->GetPosition().x - grid_size, player->GetPosition().y});
@@ -46,6 +50,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
         }
         else if (collidtion->GetTag() == Character::Tag::Key) {
             if (collidtion->GetVisibility()) {
+                ChangeSpikeTrap();
                 player->SetLastTouched(collidtion->GetTag());
                 GetKey(collidtion);
                 player->SetPosition({player->GetPosition().x - grid_size, player->GetPosition().y});
@@ -53,6 +58,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
             }
         }
         else if (collidtion->GetTag() == Character::Tag::SpikeTrap) {
+            ChangeSpikeTrap();
             player->SetPosition({player->GetPosition().x - grid_size, player->GetPosition().y});
             m_StepText->ShowLeftStep();
             if (collidtion->GetVisibility()) {
@@ -79,6 +85,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
             m_StepText->ShowLeftStep();
         }
         else {
+            ChangeSpikeTrap();
             player->SetLastTouched(collidtion->GetTag());
             player->SetPosition({player->GetPosition().x - grid_size, player->GetPosition().y});
             m_StepText->ShowLeftStep();
@@ -94,6 +101,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
         collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
 
         if (collidtion == nullptr) {
+            ChangeSpikeTrap();
             player->SetLastTouched(Character::Tag::Null);
             player->SetPosition({player->GetPosition().x + grid_size, player->GetPosition().y});
             m_StepText->ShowLeftStep();
@@ -116,6 +124,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
                 return;
             }
             else {
+                ChangeSpikeTrap();
                 collidtion->SetVisible(false);
                 player->SetPosition({player->GetPosition().x + grid_size, player->GetPosition().y});
                 m_StepText->ShowLeftStep();
@@ -123,6 +132,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
         }
         else if (collidtion->GetTag() == Character::Tag::Key && collidtion->GetVisibility()) {
             if (collidtion->GetVisibility()) {
+                ChangeSpikeTrap();
                 player->SetLastTouched(collidtion->GetTag());
                 GetKey(collidtion);
                 player->SetPosition({player->GetPosition().x + grid_size, player->GetPosition().y});
@@ -130,6 +140,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
             }
         }
         else if (collidtion->GetTag() == Character::Tag::SpikeTrap) {
+            ChangeSpikeTrap();
             player->SetPosition({player->GetPosition().x + grid_size, player->GetPosition().y});
             m_StepText->ShowLeftStep();
             if (collidtion->GetVisibility()) {
@@ -156,6 +167,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
             m_StepText->ShowLeftStep();
         }
         else {
+            ChangeSpikeTrap();
             player->SetLastTouched(collidtion->GetTag());
             player->SetPosition({player->GetPosition().x + grid_size, player->GetPosition().y});
             m_StepText->ShowLeftStep();
@@ -170,6 +182,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
         tempPtr->SetPosition({player->GetPosition().x, player->GetPosition().y - grid_size});
         collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
         if (collidtion == nullptr) {
+            ChangeSpikeTrap();
             player->SetLastTouched(Character::Tag::Null);
             player->SetPosition({player->GetPosition().x, player->GetPosition().y - grid_size});
             m_StepText->ShowLeftStep();
@@ -192,6 +205,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
                 return;
             }
             else {
+                ChangeSpikeTrap();
                 collidtion->SetVisible(false);
                 player->SetPosition({player->GetPosition().x, player->GetPosition().y - grid_size});
                 m_StepText->ShowLeftStep();
@@ -199,6 +213,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
         }
         else if (collidtion->GetTag() == Character::Tag::Key && collidtion->GetVisibility()) {
             if (collidtion->GetVisibility()) {
+                ChangeSpikeTrap();
                 player->SetLastTouched(collidtion->GetTag());
                 GetKey(collidtion);
                 player->SetPosition({player->GetPosition().x, player->GetPosition().y - grid_size});
@@ -206,6 +221,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
             }
         }
         else if (collidtion->GetTag() == Character::Tag::SpikeTrap) {
+            ChangeSpikeTrap();
             player->SetPosition({player->GetPosition().x, player->GetPosition().y - grid_size});
             m_StepText->ShowLeftStep();
             if (collidtion->GetVisibility()) {
@@ -232,6 +248,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
             m_StepText->ShowLeftStep();
         }
         else {
+            ChangeSpikeTrap();
             player->SetLastTouched(collidtion->GetTag());
             player->SetPosition({player->GetPosition().x, player->GetPosition().y - grid_size});
             m_StepText->ShowLeftStep();
@@ -246,6 +263,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
         tempPtr->SetPosition({player->GetPosition().x, player->GetPosition().y + grid_size});
         collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
         if (collidtion == nullptr) {
+            ChangeSpikeTrap();
             player->SetLastTouched(Character::Tag::Null);
             player->SetPosition({player->GetPosition().x, player->GetPosition().y + grid_size});
             m_StepText->ShowLeftStep();
@@ -268,6 +286,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
                 return;
             }
             else {
+                ChangeSpikeTrap();
                 collidtion->SetVisible(false);
                 player->SetPosition({player->GetPosition().x, player->GetPosition().y + grid_size});
                 m_StepText->ShowLeftStep();
@@ -275,6 +294,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
         }
         else if (collidtion->GetTag() == Character::Tag::Key && collidtion->GetVisibility()) {
             if (collidtion->GetVisibility()) {
+                ChangeSpikeTrap();
                 player->SetLastTouched(collidtion->GetTag());
                 GetKey(collidtion);
                 player->SetPosition({player->GetPosition().x, player->GetPosition().y + grid_size});
@@ -282,6 +302,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
             }
         }
         else if (collidtion->GetTag() == Character::Tag::SpikeTrap) {
+            ChangeSpikeTrap();
             player->SetPosition({player->GetPosition().x, player->GetPosition().y + grid_size});
             m_StepText->ShowLeftStep();
             if (collidtion->GetVisibility()) {
@@ -299,6 +320,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
             m_StepText->ShowLeftStep();
         }
         else {
+            ChangeSpikeTrap();
             player->SetLastTouched(collidtion->GetTag());
             player->SetPosition({player->GetPosition().x, player->GetPosition().y + grid_size});
             m_StepText->ShowLeftStep();
@@ -490,4 +512,29 @@ bool App::IsPhase3Passed() {
         }
     }
     return false;
+}
+
+//If enemy crash trap, it dies.
+void App::IsEnemyHitTrap() const {
+    for (const auto& enemy : m_Enemies) {
+        for (const auto& spike : m_SpikeTraps) {
+            if (enemy->IfCollides(spike)) {
+                CrushEnemy(enemy);
+            }
+        }
+    }
+}
+
+//change moving spike trap
+void App::ChangeSpikeTrap() const {
+    if (m_Phase == Phase::Phase5 || m_Phase == Phase::Phase6 || m_Phase == Phase::Phase7) {
+        for (const auto& spike : m_SpikeTraps) {
+            if (spike->GetVisibility()) {
+                spike->SetVisible(false);
+            }
+            else {
+                spike->SetVisible(true);
+            }
+        }
+    }
 }

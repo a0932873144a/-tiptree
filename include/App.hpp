@@ -45,8 +45,8 @@ private:
 
     void Move(const std::shared_ptr<Character>& player) const;
     void Push(const std::shared_ptr<Character>& player, const std::shared_ptr<Character>& other, char direction) const;
-    void StepIntoTrap(const std::shared_ptr<Character>& player, const std::shared_ptr<Character>& trap);
-    void GetKey(const std::shared_ptr<Character>& player, const std::shared_ptr<Character>& key);
+    void IsEnemyHitTrap() const;
+    void ChangeSpikeTrap() const;
 
     bool IsPhasePassed();
     bool IsPhase3Passed();

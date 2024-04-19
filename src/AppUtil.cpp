@@ -22,6 +22,7 @@ void App::ValidTask() {
             m_Player->SetVisible(true);
 
             //boss
+            m_Boss->SetImage(RESOURCE_DIR"/Image/Character/boss/boss1.png");
             m_Boss->SetPosition({210, -160});
             m_Boss->SetVisible(true);
 
@@ -95,6 +96,7 @@ void App::ValidTask() {
             m_StepText->ShowLeftStep();
 
             //boss
+            m_Boss->SetImage(RESOURCE_DIR"/Image/Character/boss/boss2.png");
             m_Boss->SetPosition({80, -180});
             m_Boss->SetVisible(true);
 
@@ -174,10 +176,13 @@ void App::ValidTask() {
             m_StepText->ShowLeftStep();
 
             //bosses
+            m_Bosses[0]->SetImage(RESOURCE_DIR"/Image/Character/boss/boss3a.png");
             m_Bosses[0]->SetPosition({105, 220});
             m_Bosses[0]->SetVisible(true);
+            m_Bosses[1]->SetImage(RESOURCE_DIR"/Image/Character/boss/boss3b.png");
             m_Bosses[1]->SetPosition({35, 220});
             m_Bosses[1]->SetVisible(true);
+            m_Bosses[2]->SetImage(RESOURCE_DIR"/Image/Character/boss/boss3c.png");
             m_Bosses[2]->SetPosition({-45, 220});
             m_Bosses[2]->SetVisible(true);
 
@@ -265,9 +270,10 @@ void App::ValidTask() {
             m_StepText->UpdatePhaseStep(static_cast<int>(m_Phase));
             m_StepText->ShowLeftStep();
 
-            //bosses
-            m_Bosses[0]->SetPosition({255, 0});
-            m_Bosses[0]->SetVisible(true);
+            //boss
+            m_Boss->SetImage(RESOURCE_DIR"/Image/Character/boss/boss4.png");
+            m_Boss->SetPosition({255, 0});
+            m_Boss->SetVisible(true);
 
             //boundaries_precise
             m_BoundaryTs[0]->SetPosition({255, 70});
@@ -309,6 +315,12 @@ void App::ValidTask() {
         //Phase5
         case Phase::Phase5:
             Origin();
+
+            //boss
+            m_Boss->SetImage(RESOURCE_DIR"/Image/Character/boss/boss5.png");
+            m_Boss->SetPosition({255, 0});
+            m_Boss->SetVisible(true);
+
             break;
 
         //Phase6
