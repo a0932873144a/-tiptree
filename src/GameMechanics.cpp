@@ -33,6 +33,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
             player->SetLastTouched(collidtion->GetTag());
             if (m_Key->GetVisibility()) {
                 if (player->GetLastTouched() == Character::Tag::SpikeTrap) {
+                    ChangeSpikeTrap();
                     m_StepText->ShowLeftStep();
                     player->SetLastTouched(Character::Tag::Null);
                 }
@@ -67,6 +68,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
             }
         }
         else if (collidtion->GetTag() == Character::Tag::Enemy) {
+            ChangeSpikeTrap();
             if (player->GetLastTouched() == Character::Tag::SpikeTrap) {
                 m_StepText->ShowLeftStep();
                 player->SetLastTouched(Character::Tag::Null);
@@ -76,6 +78,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
             m_StepText->ShowLeftStep();
         }
         else if (collidtion->GetTag() == Character::Tag::Rock) {
+            ChangeSpikeTrap();
             if (player->GetLastTouched() == Character::Tag::SpikeTrap) {
                 m_StepText->ShowLeftStep();
                 player->SetLastTouched(Character::Tag::Null);
@@ -149,6 +152,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
             }
         }
         else if (collidtion->GetTag() == Character::Tag::Enemy) {
+            ChangeSpikeTrap();
             if (player->GetLastTouched() == Character::Tag::SpikeTrap) {
                 m_StepText->ShowLeftStep();
                 player->SetLastTouched(Character::Tag::Null);
@@ -158,6 +162,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
             m_StepText->ShowLeftStep();
         }
         else if (collidtion->GetTag() == Character::Tag::Rock) {
+            ChangeSpikeTrap();
             if (player->GetLastTouched() == Character::Tag::SpikeTrap) {
                 m_StepText->ShowLeftStep();
                 player->SetLastTouched(Character::Tag::Null);
@@ -230,6 +235,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
             }
         }
         else if (collidtion->GetTag() == Character::Tag::Enemy) {
+            ChangeSpikeTrap();
             if (player->GetLastTouched() == Character::Tag::SpikeTrap) {
                 m_StepText->ShowLeftStep();
                 player->SetLastTouched(Character::Tag::Null);
@@ -239,6 +245,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
             m_StepText->ShowLeftStep();
         }
         else if (collidtion->GetTag() == Character::Tag::Rock) {
+            ChangeSpikeTrap();
             if (player->GetLastTouched() == Character::Tag::SpikeTrap) {
                 m_StepText->ShowLeftStep();
                 player->SetLastTouched(Character::Tag::Null);
@@ -311,6 +318,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
             }
         }
         else if (collidtion->GetTag() == Character::Tag::Enemy || collidtion->GetTag() == Character::Tag::Rock) {
+            ChangeSpikeTrap();
             if (player->GetLastTouched() == Character::Tag::SpikeTrap) {
                 m_StepText->ShowLeftStep();
                 player->SetLastTouched(Character::Tag::Null);

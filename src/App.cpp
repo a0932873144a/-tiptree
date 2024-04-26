@@ -7,7 +7,7 @@
 
 App::App(){
     //player
-    m_Player = std::make_shared<Character>(RESOURCE_DIR"/Image/Character/player.png");
+    m_Player = std::make_shared<Character>(RESOURCE_DIR"/Image/Character/nlnlouo.png");
     m_Player->SetZIndex(60);
     m_Player->SetTag(Character::Tag::Player);
     m_Root.AddChild(m_Player);
@@ -237,6 +237,16 @@ void App::Update() {
         //check if phase3 is passed
         if (IsPhasePassed()) {
             m_Phase = Phase::Phase5;
+            m_PRM->NextPhase();
+            m_CurrentState = State::START;
+            return;
+        }
+    }
+
+    if (m_Phase == Phase::Phase5) {
+        //check if phase3 is passed
+        if (IsPhasePassed()) {
+            m_Phase = Phase::Phase6;
             m_PRM->NextPhase();
             m_CurrentState = State::START;
             return;
