@@ -178,6 +178,20 @@ void App::Update() {
         m_CurrentState = State::START;
         return;
     }
+    else if (Util::Input::IsKeyDown(Util::Keycode::NUM_6)) {
+        m_Phase = Phase::Phase6;
+        m_PRM->SetPhase(5);
+        m_PRM->NextPhase();
+        m_CurrentState = State::START;
+        return;
+    }
+    else if (Util::Input::IsKeyDown(Util::Keycode::NUM_7)) {
+        m_Phase = Phase::Phase7;
+        m_PRM->SetPhase(6);
+        m_PRM->NextPhase();
+        m_CurrentState = State::START;
+        return;
+    }
 
     //make player move
     if (m_Player->GetVisibility()) {

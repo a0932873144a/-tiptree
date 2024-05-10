@@ -434,6 +434,8 @@ void App::ValidTask() {
             m_HiddenSpikeTraps[5]->SetPosition({-180, -140});
             m_HiddenSpikeTraps[5]->SetVisible(true);
 
+
+
             //enemies
             m_Enemies[0]->SetPosition({-180, -70});
             m_Enemies[0]->SetVisible(true);
@@ -443,14 +445,153 @@ void App::ValidTask() {
 
         //Phase6
         case Phase::Phase6:
+            Origin();
+
+            //player
+            m_Player->SetPosition({-70, 250});
+            m_Player->SetVisible(true);
+
+            //StepText
+            m_StepText->UpdatePhaseStep(static_cast<int>(m_Phase));
+            m_StepText->ShowLeftStep();
+
+            //boss
+            m_Boss->SetImage(RESOURCE_DIR"/Image/Character/boss/boss5.png");
+            m_Boss->SetPosition({140, -240});
+            m_Boss->SetVisible(true);
+
+            //boundaries_precise
+            m_BoundaryTs[0]->SetPosition({220, 40});
+            m_BoundaryTs[1]->SetPosition({140, 40});
+            m_BoundaryTs[2]->SetPosition({65, 120});
+            m_BoundaryTs[3]->SetPosition({0, 320});
+            m_BoundaryTs[4]->SetPosition({-70, 320});
+            m_BoundaryTs[5]->SetPosition({-150, 320});
+//            m_BoundaryTs[0]->SetVisible(true);
+//            m_BoundaryTs[1]->SetVisible(true);
+//            m_BoundaryTs[2]->SetVisible(true);
+//            m_BoundaryTs[3]->SetVisible(true);
+//            m_BoundaryTs[4]->SetVisible(true);
+//            m_BoundaryTs[5]->SetVisible(true);
+
+            m_BoundaryRs[0]->SetPosition({65, 250});
+            m_BoundaryRs[1]->SetPosition({65, 180});
+            m_BoundaryRs[2]->SetPosition({280, -30});
+            m_BoundaryRs[3]->SetPosition({280, -110});
+            m_BoundaryRs[4]->SetPosition({280, -170});
+//            m_BoundaryRs[0]->SetVisible(true);
+//            m_BoundaryRs[1]->SetVisible(true);
+//            m_BoundaryRs[2]->SetVisible(true);
+//            m_BoundaryRs[3]->SetVisible(true);
+//            m_BoundaryRs[4]->SetVisible(true);
+
+            m_BoundaryBs[0]->SetPosition({220, -240});
+            m_BoundaryBs[1]->SetPosition({140, -310});
+            m_BoundaryBs[2]->SetPosition({65, -310});
+            m_BoundaryBs[3]->SetPosition({0, -240});
+            m_BoundaryBs[4]->SetPosition({0, -170});
+            m_BoundaryBs[5]->SetPosition({-70, -170});
+            m_BoundaryBs[6]->SetPosition({-150, -170});
+//            m_BoundaryBs[0]->SetVisible(true);
+//            m_BoundaryBs[1]->SetVisible(true);
+//            m_BoundaryBs[2]->SetVisible(true);
+//            m_BoundaryBs[3]->SetVisible(true);
+//            m_BoundaryBs[4]->SetVisible(true);
+//            m_BoundaryBs[3]->SetVisible(true);
+//            m_BoundaryBs[4]->SetVisible(true);
+
+            m_BoundaryLs[0]->SetPosition({-220, 250});
+            m_BoundaryLs[1]->SetPosition({-220, 180});
+            m_BoundaryLs[2]->SetPosition({-290, 120});
+            m_BoundaryLs[3]->SetPosition({-220, 40});
+            m_BoundaryLs[4]->SetPosition({-220, -30});
+            m_BoundaryLs[5]->SetPosition({-220, -110});
+//            m_BoundaryLs[0]->SetVisible(true);
+//            m_BoundaryLs[1]->SetVisible(true);
+//            m_BoundaryLs[2]->SetVisible(true);
+//            m_BoundaryLs[3]->SetVisible(true);
+//            m_BoundaryLs[4]->SetVisible(true);
+//            m_BoundaryLs[5]->SetVisible(true);
+
+            m_BoundaryIBs[0]->SetPosition({220, -110});
+            m_BoundaryIBs[1]->SetPosition({-70, -30});
+
+            //rocks
+            m_Rocks[0]->SetPosition({140, -170});
+            m_Rocks[0]->SetVisible(true);
+            m_Rocks[1]->SetPosition({65, -30});
+            m_Rocks[1]->SetVisible(true);
+            m_Rocks[2]->SetPosition({0, 180});
+            m_Rocks[2]->SetVisible(true);
+            m_Rocks[3]->SetPosition({0, -30});
+            m_Rocks[3]->SetVisible(true);
+            m_Rocks[4]->SetPosition({0, -110});
+            m_Rocks[4]->SetVisible(true);
+            m_Rocks[5]->SetPosition({-70, 180});
+            m_Rocks[5]->SetVisible(true);
+            m_Rocks[6]->SetPosition({-70, 40});
+            m_Rocks[6]->SetVisible(true);
+            m_Rocks[7]->SetPosition({-150, 180});
+            m_Rocks[7]->SetVisible(true);
+
+            m_Key->SetPosition({0, 120});
+            m_Key->SetVisible(true);
+
+            m_TreasureBox->SetPosition({60, -170});
+            m_TreasureBox->SetVisible(true);
+
+            //spikeTraps
+            m_SpikeTraps[0]->SetPosition({-70,40});
+            m_SpikeTraps[1]->SetPosition({-150, 40});
+
+            //hiddenspikeTraps
+            m_HiddenSpikeTraps[0]->SetPosition({-70,40});
+            m_HiddenSpikeTraps[0]->SetVisible(true);
+            m_HiddenSpikeTraps[1]->SetPosition({-150, 40});
+            m_HiddenSpikeTraps[1]->SetVisible(true);
+
+            //enemies
+            m_Enemies[0]->SetPosition({140, -110});
+            m_Enemies[0]->SetVisible(true);
+            m_Enemies[1]->SetPosition({-150, -30});
+            m_Enemies[1]->SetVisible(true);
+
             break;
 
         //Phase7
         case Phase::Phase7:
+            Origin();
+
+            //player
+            m_Player->SetPosition({-180, 70});
+            m_Player->SetVisible(true);
+
+            //StepText
+            m_StepText->UpdatePhaseStep(static_cast<int>(m_Phase));
+            m_StepText->ShowLeftStep();
+
+            //boss
+            m_Boss->SetImage(RESOURCE_DIR"/Image/Character/boss/boss5.png");
+            m_Boss->SetPosition({105, 210});
+            m_Boss->SetVisible(true);
             break;
 
         //Phase8
         case Phase::Phase8:
+            Origin();
+
+            //player
+            m_Player->SetPosition({-180, 70});
+            m_Player->SetVisible(true);
+
+            //StepText
+            m_StepText->UpdatePhaseStep(static_cast<int>(m_Phase));
+            m_StepText->ShowLeftStep();
+
+            //boss
+            m_Boss->SetImage(RESOURCE_DIR"/Image/Character/boss/boss5.png");
+            m_Boss->SetPosition({105, 210});
+            m_Boss->SetVisible(true);
             break;
 
         //Phase9
