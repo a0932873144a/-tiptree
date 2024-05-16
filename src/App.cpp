@@ -87,7 +87,7 @@ App::App(){
         m_Root.AddChild(m_BoundaryTs[i]);
         m_CollideObjects.push_back(m_BoundaryTs[i]);
     }
-    for (int i = 0; i < 10; ++i) {
+    for (int i = 0; i < 11; ++i) {
         m_BoundaryLs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Background/Boundary/boundaryRocks.png"));
         m_BoundaryLs[i]->SetZIndex(5);
         m_BoundaryLs[i]->SetVisible(false);
@@ -95,7 +95,7 @@ App::App(){
         m_Root.AddChild(m_BoundaryLs[i]);
         m_CollideObjects.push_back(m_BoundaryLs[i]);
     }
-    for (int i = 0; i < 10; ++i) {
+    for (int i = 0; i < 11; ++i) {
         m_BoundaryRs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Background/Boundary/boundaryRocks.png"));
         m_BoundaryRs[i]->SetZIndex(5);
         m_BoundaryRs[i]->SetVisible(false);
