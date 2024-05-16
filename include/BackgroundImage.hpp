@@ -13,6 +13,7 @@ class BackgroundImage : public Util::GameObject {
 public:
     BackgroundImage() : GameObject(
             std::make_unique<Util::Image>(RESOURCE_DIR"/Image/Background/Map/phase0.png"), -10) {
+        m_ImagePath = RESOURCE_DIR"/Image/Background/Map/phase0.png";
     }
 
     void NextPhase(const int phase) {
@@ -20,10 +21,21 @@ public:
         temp->SetImage(ImagePath(phase));
     }
 
-private:
-    static inline std::string ImagePath(const int phase) {
-        return RESOURCE_DIR"/Image/Background/Map/phase" + std::to_string(phase) + ".png";
+    void SetImage(const std::string& ImagePath) {
+        auto temp = std::dynamic_pointer_cast<Util::Image>(m_Drawable);
+        temp->SetImage(ImagePath);
+        m_ImagePath = ImagePath;
     }
+
+    [[nodiscard]] const std::string& GetImagePath() const { return m_ImagePath; }
+
+private:
+    inline std::string ImagePath(const int phase) {
+        m_ImagePath = RESOURCE_DIR"/Image/Background/Map/phase" + std::to_string(phase) + ".png";
+        return m_ImagePath;
+    }
+
+    std::string m_ImagePath;
 };
 
 #endif //BACKGROUND_IMAGE_HPP

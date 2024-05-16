@@ -29,14 +29,20 @@ private:
         return std::string(sv1) + "\n" + std::string(sv2) + "\n" + "Watch your head, there are invisible walls";
     }
 
-    //TODO: find out what to write here
-    static constexpr std::string_view s_PhaseTasks[6] = {
+    static constexpr std::string_view s_PhaseTasks[15] = {
             "This is Phase 1",
             "This is Phase 2",
-            "This is Phase 3"
+            "This is Phase 3",
+            "This is Phase 4",
+            "This is Phase 5",
+            "This is Phase 6",
+            "This is Phase 7",
+            "This is Phase 8",
+            "This is Phase 9",
+            "This is Phase 10",
     };
+
     static constexpr std::string_view s_Validation = "Press WASD to move, Press R to restart";
-    //static constexpr std::string_view s_Validation = "Press Enter to validate";
 };
 
 

@@ -6,6 +6,7 @@
 #define CHARACTER_HPP
 
 #include <string>
+#include <queue>
 #include "Util/GameObject.hpp"
 #include "Util/Input.hpp"
 

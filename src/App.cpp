@@ -22,7 +22,7 @@ App::App(){
 
     //bosses
     for (int i = 0; i < 3; i++) {
-        m_Bosses.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Character/boss1.png"));
+        m_Bosses.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Character/boss/boss1.png"));
         m_Bosses[i]->SetZIndex(50);
         m_Bosses[i]->SetTag(Character::Tag::Boss);
         m_Root.AddChild(m_Bosses[i]);
@@ -192,6 +192,28 @@ void App::Update() {
         m_CurrentState = State::START;
         return;
     }
+    else if (Util::Input::IsKeyDown(Util::Keycode::NUM_8)) {
+        m_Phase = Phase::Phase8;
+        m_PRM->SetPhase(7);
+        m_PRM->NextPhase();
+        m_CurrentState = State::START;
+        return;
+    }
+    else if (Util::Input::IsKeyDown(Util::Keycode::NUM_9)) {
+        m_Phase = Phase::Phase9;
+        m_PRM->SetPhase(8);
+        m_PRM->NextPhase();
+        m_CurrentState = State::START;
+        return;
+    }
+
+    //Skip the puzzle
+    if (Util::Input::IsKeyUp(Util::Keycode::N)) {
+        m_Phase = nextPhase(m_Phase);
+        m_PRM->NextPhase();
+        m_CurrentState = State::START;
+        return;
+    }
 
     //make player move
     if (m_Player->GetVisibility()) {
@@ -207,6 +229,7 @@ void App::Update() {
     //If the step become zero, restart the game
     if (m_StepText->IsStepZero()) {
         m_CurrentState = State::START;
+        return;
     }
 
     //closing the window
@@ -248,7 +271,7 @@ void App::Update() {
     }
 
     if (m_Phase == Phase::Phase4) {
-        //check if phase3 is passed
+        //check if phase4 is passed
         if (IsPhasePassed()) {
             m_Phase = Phase::Phase5;
             m_PRM->NextPhase();
@@ -258,9 +281,59 @@ void App::Update() {
     }
 
     if (m_Phase == Phase::Phase5) {
-        //check if phase3 is passed
+        //check if phase5 is passed
         if (IsPhasePassed()) {
             m_Phase = Phase::Phase6;
+            m_PRM->NextPhase();
+            m_CurrentState = State::START;
+            return;
+        }
+    }
+
+    if (m_Phase == Phase::Phase6) {
+        //check if phase6 is passed
+        if (IsPhasePassed()) {
+            m_Phase = Phase::Phase7;
+            m_PRM->NextPhase();
+            m_CurrentState = State::START;
+            return;
+        }
+    }
+
+    if (m_Phase == Phase::Phase7) {
+        //check if phase7 is passed
+        if (IsPhasePassed()) {
+            m_Phase = Phase::Phase8;
+            m_PRM->NextPhase();
+            m_CurrentState = State::START;
+            return;
+        }
+    }
+
+    if (m_Phase == Phase::Phase8) {
+        //check if phase8 is passed
+        if (IsPhasePassed()) {
+            m_Phase = Phase::Phase9;
+            m_PRM->NextPhase();
+            m_CurrentState = State::START;
+            return;
+        }
+
+        //check if switch background
+        if (m_Player->GetPosition().y > 280) {
+            m_Player->SetPosition({0, 0});
+            m_PRM->SwitchTo7_2();
+        }
+        else if (m_Player->GetPosition().y < -280) {
+            m_Player->SetPosition({0, 0});
+            m_PRM->SwitchTo7();
+        }
+    }
+
+    if (m_Phase == Phase::Phase9) {
+        //check if phase9 is passed
+        if (IsPhasePassed()) {
+            m_Phase = Phase::Phase10;
             m_PRM->NextPhase();
             m_CurrentState = State::START;
             return;

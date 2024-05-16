@@ -21,6 +21,18 @@ public:
 
     void NextPhase();
 
+    void SwitchTo7_2() {
+        if (m_Background->GetImagePath() == RESOURCE_DIR"/Image/Background/Map/phase7.png") {
+            m_Background->SetImage(RESOURCE_DIR"/Image/Background/Map/phase7_2.png");
+        }
+    }
+
+    void SwitchTo7() {
+        if (m_Background->GetImagePath() == RESOURCE_DIR"/Image/Background/Map/phase7_2.png") {
+            m_Background->SetImage(RESOURCE_DIR"/Image/Background/Map/phase7.png");
+        }
+    }
+
     void SetPhase(int i) {
         m_Phase = i;
     }

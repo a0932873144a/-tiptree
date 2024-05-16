@@ -596,10 +596,42 @@ void App::ValidTask() {
 
         //Phase9
         case Phase::Phase9:
+            Origin();
+
+            //player
+            m_Player->SetPosition({-180, 70});
+            m_Player->SetVisible(true);
+
+            //StepText
+            m_StepText->UpdatePhaseStep(static_cast<int>(m_Phase));
+            m_StepText->ShowLeftStep();
+
+            //boss
+            m_Boss->SetImage(RESOURCE_DIR"/Image/Character/boss/boss5.png");
+            m_Boss->SetPosition({105, 210});
+            m_Boss->SetVisible(true);
             break;
 
         //Phase10
         case Phase::Phase10:
+            Origin();
+
+            //player
+            m_Player->SetPosition({-180, 70});
+            m_Player->SetVisible(true);
+
+            //StepText
+            m_StepText->UpdatePhaseStep(static_cast<int>(m_Phase));
+            m_StepText->ShowLeftStep();
+
+            //boss
+            m_Boss->SetImage(RESOURCE_DIR"/Image/Character/boss/boss5.png");
+            m_Boss->SetPosition({105, 210});
+            m_Boss->SetVisible(true);
+            break;
+
+        //Phase11
+        case Phase::Phase11:
             break;
 
         default:

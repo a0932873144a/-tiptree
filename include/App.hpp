@@ -63,8 +63,14 @@ private:
         Phase8,
         Phase9,
         Phase10,
+        Phase11,
+        Phase12,
+        Phase13,
     };
 
+    Phase nextPhase(Phase currentPhase) {
+        return static_cast<Phase>(static_cast<int>(currentPhase) + 1);
+    }
 
     State m_CurrentState = State::START;
     Phase m_Phase = Phase::Phase1;
