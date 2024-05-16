@@ -59,7 +59,7 @@ App::App(){
     //hiddenSpikeTraps
     for (int i = 0; i < 10; i++) {
         m_HiddenSpikeTraps.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/spikeTrap_hidden.png"));
-        m_HiddenSpikeTraps[i]->SetZIndex(50);
+        m_HiddenSpikeTraps[i]->SetZIndex(40);
         m_HiddenSpikeTraps[i]->SetTag(Character::Tag::Null);
         m_Root.AddChild(m_HiddenSpikeTraps[i]);
     }

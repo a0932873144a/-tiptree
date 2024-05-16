@@ -654,9 +654,12 @@ void App::ValidTask() {
             //spikeTraps
             m_SpikeTraps[0]->SetPosition({30,-140});
             m_SpikeTraps[1]->SetPosition({30, -210});
+            m_SpikeTraps[1]->SetVisible(true);
             m_SpikeTraps[2]->SetPosition({-40,-210});
             m_SpikeTraps[3]->SetPosition({-110, -210});
+            m_SpikeTraps[3]->SetVisible(true);
             m_SpikeTraps[4]->SetPosition({-180,-140});
+            m_SpikeTraps[4]->SetVisible(true);
             m_SpikeTraps[5]->SetPosition({-180, -210});
 
             //hiddenspikeTraps
