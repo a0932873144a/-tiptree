@@ -546,3 +546,10 @@ void App::ChangeSpikeTrap() const {
         }
     }
 }
+
+//detect if laser hit someting
+
+//laserRight
+void App::DetectLaserRight(const std::shared_ptr<Character>& laserMech) const {
+
+}

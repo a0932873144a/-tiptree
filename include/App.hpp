@@ -47,6 +47,7 @@ private:
     void Push(const std::shared_ptr<Character>& player, const std::shared_ptr<Character>& other, char direction) const;
     void IsEnemyHitTrap() const;
     void ChangeSpikeTrap() const;
+    void DetectLaserRight(const std::shared_ptr<Character>& laserMech) const;
 
     bool IsPhasePassed();
     bool IsPhase3Passed();
@@ -61,6 +62,7 @@ private:
         Phase6,
         Phase7,
         Phase8,
+        Phase8_2,
         Phase9,
         Phase10,
         Phase11,

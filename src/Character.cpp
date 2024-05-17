@@ -1,7 +1,6 @@
 //
 // Created by 翁廷豪 on 2024/3/6.
 //
-
 #include "Character.hpp"
 #include "Util/Image.hpp"
 

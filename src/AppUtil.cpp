@@ -686,8 +686,6 @@ void App::ValidTask() {
 
             break;
 
-
-
         //Phase8
         case Phase::Phase8:
             Origin();
@@ -700,7 +698,7 @@ void App::ValidTask() {
             m_StepText->UpdatePhaseStep(static_cast<int>(m_Phase));
             m_StepText->ShowLeftStep();
 
-
+            //boundaries_precise
             m_BoundaryIBs[0]->SetPosition({140, 290});
             m_BoundaryIBs[1]->SetPosition({140, 150});
             m_BoundaryIBs[2]->SetPosition({140, 10});
@@ -755,7 +753,60 @@ void App::ValidTask() {
             m_Enemies[6]->SetPosition({0, 360});
             m_Enemies[6]->SetVisible(true);
 
+            break;
 
+        //Phase8_2
+        case Phase::Phase8_2:
+            Origin();
+
+            if (m_StepText->IsStepZero()) {
+                m_Phase = Phase::Phase8;
+                m_PRM->SwitchTo8();
+                ValidTask();
+            }
+
+            //player
+            m_Player->SetPosition({0, -200});
+            m_Player->SetVisible(true);
+
+            //boundaries_precise
+            m_BoundaryIBs[0]->SetPosition({140, 290});
+            m_BoundaryIBs[1]->SetPosition({140, 150});
+            m_BoundaryIBs[2]->SetPosition({140, 10});
+            m_BoundaryIBs[3]->SetPosition({140, -130});
+            m_BoundaryIBs[4]->SetPosition({-140, 290});
+            m_BoundaryIBs[5]->SetPosition({-140, 150});
+            m_BoundaryIBs[6]->SetPosition({-140, 10});
+            m_BoundaryIBs[7]->SetPosition({-140, -130});
+
+            m_BoundaryRs[0]->SetPosition({350, 360});
+            m_BoundaryRs[1]->SetPosition({350, 290});
+            m_BoundaryRs[2]->SetPosition({350, 220});
+            m_BoundaryRs[3]->SetPosition({350, 150});
+            m_BoundaryRs[4]->SetPosition({350, 80});
+            m_BoundaryRs[5]->SetPosition({280, 10});
+            m_BoundaryRs[6]->SetPosition({280, -60});
+            m_BoundaryRs[7]->SetPosition({280, -130});
+            m_BoundaryRs[8]->SetPosition({280, -200});
+            m_BoundaryRs[9]->SetPosition({210, -270});
+            m_BoundaryRs[10]->SetPosition({140, -270});
+
+
+            m_BoundaryLs[0]->SetPosition({-350, 360});
+            m_BoundaryLs[1]->SetPosition({-350, 290});
+            m_BoundaryLs[2]->SetPosition({-350, 220});
+            m_BoundaryLs[3]->SetPosition({-350, 150});
+            m_BoundaryLs[4]->SetPosition({-350, 80});
+            m_BoundaryLs[5]->SetPosition({-280, 10});
+            m_BoundaryLs[6]->SetPosition({-280, -60});
+            m_BoundaryLs[7]->SetPosition({-280, -130});
+            m_BoundaryLs[8]->SetPosition({-280, -200});
+            m_BoundaryLs[9]->SetPosition({-210, -270});
+            m_BoundaryLs[10]->SetPosition({-140, -270});
+
+            m_BoundaryBs[0]->SetPosition({70, -340});
+            m_BoundaryBs[1]->SetPosition({0, -340});
+            m_BoundaryBs[2]->SetPosition({-70, -340});
 
             break;
 
@@ -775,6 +826,7 @@ void App::ValidTask() {
             m_Boss->SetImage(RESOURCE_DIR"/Image/Character/boss/boss5.png");
             m_Boss->SetPosition({105, 210});
             m_Boss->SetVisible(true);
+
             break;
 
         //Phase10
@@ -793,6 +845,7 @@ void App::ValidTask() {
             m_Boss->SetImage(RESOURCE_DIR"/Image/Character/boss/boss5.png");
             m_Boss->SetPosition({105, 210});
             m_Boss->SetVisible(true);
+
             break;
 
         //Phase11
@@ -847,12 +900,12 @@ void App::Origin() {
         m_BoundaryTs[i]->SetVisible(false);
     }
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 11; i++) {
         m_BoundaryLs[i]->SetPosition({-1000, -1000});
         m_BoundaryLs[i]->SetVisible(false);
     }
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 11; i++) {
         m_BoundaryRs[i]->SetPosition({-1000, -1000});
         m_BoundaryRs[i]->SetVisible(false);
     }

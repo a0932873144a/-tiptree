@@ -310,7 +310,7 @@ void App::Update() {
         }
     }
 
-    if (m_Phase == Phase::Phase8) {
+    if (m_Phase == Phase::Phase8 || m_Phase == Phase::Phase8_2) {
         //check if phase8 is passed
         if (IsPhasePassed()) {
             m_Phase = Phase::Phase9;
@@ -321,12 +321,16 @@ void App::Update() {
 
         //check if switch background
         if (m_Player->GetPosition().y > 280) {
-            m_Player->SetPosition({0, 0});
-            m_PRM->SwitchTo7_2();
+            m_Phase = Phase::Phase8_2;
+            m_PRM->SwitchTo8_2();
+            m_CurrentState = State::START;
+            return;
         }
         else if (m_Player->GetPosition().y < -280) {
-            m_Player->SetPosition({0, 0});
-            m_PRM->SwitchTo7();
+            m_Phase = Phase::Phase8;
+            m_PRM->SwitchTo8();
+            m_CurrentState = State::START;
+            return;
         }
     }
 

@@ -9,6 +9,7 @@
 #include <queue>
 #include "Util/GameObject.hpp"
 #include "Util/Input.hpp"
+#include "AnimatedCharacter.hpp"
 
 class Character : public Util::GameObject {
 
@@ -106,6 +107,14 @@ public:
         m_Tag = tag;
     }
 
+    [[nodiscard]] std::vector<std::shared_ptr<Character>> GetLaser() const {
+        return m_Laser;
+    }
+
+    [[nodiscard]] std::vector<std::shared_ptr<AnimatedCharacter>> GetLaserBlink() const {
+        return m_LaserBlink;
+    }
+
 private:
     void ResetPosition() { m_Transform.translation = {0, 0}; }
 
@@ -114,6 +123,10 @@ private:
     Tag m_Tag;
 
     std::string m_ImagePath;
+
+    std::vector<std::shared_ptr<Character>> m_Laser;
+
+    std::vector<std::shared_ptr<AnimatedCharacter>> m_LaserBlink;
 };
 
 #endif //CHARACTER_HPP
