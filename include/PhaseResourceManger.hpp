@@ -22,14 +22,14 @@ public:
     void NextPhase();
 
     void SwitchTo8_2() {
-        if (m_Background->GetImagePath() == RESOURCE_DIR"/Image/Background/Map/phase7.png") {
-            m_Background->SetImage(RESOURCE_DIR"/Image/Background/Map/phase7_2.png");
+        if (m_Background->GetImagePath() == RESOURCE_DIR"/Image/Background/Map/map7.png") {
+            m_Background->SetImage(RESOURCE_DIR"/Image/Background/Map/map7_2.png");
         }
     }
 
     void SwitchTo8() {
-        if (m_Background->GetImagePath() == RESOURCE_DIR"/Image/Background/Map/phase7_2.png") {
-            m_Background->SetImage(RESOURCE_DIR"/Image/Background/Map/phase7.png");
+        if (m_Background->GetImagePath() == RESOURCE_DIR"/Image/Background/Map/map7_2.png") {
+            m_Background->SetImage(RESOURCE_DIR"/Image/Background/Map/map7.png");
         }
     }
 

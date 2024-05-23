@@ -23,7 +23,7 @@ void App::Move(const std::shared_ptr<Character>& player) const{
             player->SetPosition({player->GetPosition().x - grid_size, player->GetPosition().y});
             m_StepText->ShowLeftStep();
         }
-        else if (collidtion->GetTag() == Character::Tag::Boundary) {
+        else if (collidtion->GetTag() == Character::Tag::Boundary || collidtion->GetTag() == Character::Tag::LaserMech) {
             player->SetLastTouched(collidtion->GetTag());
             tempPtr.reset();
             collidtion.reset();
@@ -550,6 +550,266 @@ void App::ChangeSpikeTrap() const {
 //detect if laser hit someting
 
 //laserRight
-void App::DetectLaserRight(const std::shared_ptr<Character>& laserMech) const {
+void App::ShootLaserR(const std::shared_ptr<Character>& laserMech) {
+    int laserCount = 0;
+    std::shared_ptr<Character> tempPtr = std::make_shared<Character>(RESOURCE_DIR"/Image/Object/laserMechBoxL.png");
+    std::shared_ptr<Character> collidtion;
+    tempPtr->SetPosition({laserMech->GetPosition().x + grid_size, laserMech->GetPosition().y});
+    collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
+    while (collidtion == nullptr) {
+        laserCount++;
+        tempPtr->SetPosition({laserMech->GetPosition().x + (grid_size * (laserCount + 1)), laserMech->GetPosition().y});
+        collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
+    }
 
+    std::vector<std::shared_ptr<Character>> laser;
+    for (int i = 0; i < laserCount; i++) {
+        laser.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/laserBeamR.png"));
+        laser[i]->SetPosition({laserMech->GetPosition().x + (grid_size * (i + 1)), laserMech->GetPosition().y});
+        laser[i]->SetZIndex(50);
+        laser[i]->SetVisible(true);
+        laser[i]->SetTag(Character::Tag::Laser);
+        m_Root.AddChild(laser[i]);
+    }
+    laserMech->SetLaser(laser);
+}
+
+//laserLeft
+void App::ShootLaserL(const std::shared_ptr<Character> &laserMech) {
+    int laserCount = 0;
+    bool collisionDetected = false;
+    std::vector<std::shared_ptr<Character>> newLaser;
+
+    //清除以前的激光
+    auto oldLaser = laserMech->GetLaser();
+    if (!oldLaser.empty()) {
+        for (const auto &laser: oldLaser) {
+            m_Root.RemoveChild(laser);
+        }
+        //清空激光列表
+        oldLaser.clear();
+    }
+
+    //計算激光並生成新激光
+    while (!collisionDetected) {
+        auto tempPtr = std::make_shared<Character>(RESOURCE_DIR"/Image/Object/laserBeamL.png");
+        tempPtr->SetPosition({laserMech->GetPosition().x - (grid_size * (laserCount + 1)), laserMech->GetPosition().y});
+        if (tempPtr->IfCollideSomething(m_CollideObjects) != nullptr) {
+            collisionDetected = true;
+        } else {
+            tempPtr->SetZIndex(50);
+            tempPtr->SetVisible(true);
+            tempPtr->SetTag(Character::Tag::Laser);
+            m_Root.AddChild(tempPtr);
+            newLaser.push_back(tempPtr);
+            laserCount++;
+        }
+    }
+
+    // 更新激光列表
+    laserMech->SetLaser(newLaser);
+}
+
+//laserTop
+void App::ShootLaserT(const std::shared_ptr<Character>& laserMech) {
+
+}
+
+//laserDown
+void App::ShootLaserB(const std::shared_ptr<Character>& laserMech) {
+
+}
+
+//Move(the character you want to control)
+void App::MoveEx(const std::shared_ptr<Character>& player) {
+    std::shared_ptr<Character> tempPtr = std::make_shared<Character>(RESOURCE_DIR"/Image/Character/player.png");
+    std::shared_ptr<Character> collidtion;
+
+    if (Util::Input::IsKeyDown(Util::Keycode::A)) {
+        ShootLaserL(m_LaserMechBoxes[0]);
+        tempPtr->SetPosition({player->GetPosition().x - grid_size, player->GetPosition().y});
+        collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
+
+        if (collidtion == nullptr) {
+            player->SetLastTouched(Character::Tag::Null);
+            player->SetPosition({player->GetPosition().x - grid_size, player->GetPosition().y});
+            if (m_Phase == Phase::Phase10) {
+
+            }
+            else {
+                m_StepText->ShowLeftStep();
+            }
+        }
+        else if (collidtion->GetTag() == Character::Tag::Boundary) {
+            player->SetLastTouched(collidtion->GetTag());
+            tempPtr.reset();
+            collidtion.reset();
+            return;
+        }
+        else if (collidtion->GetTag() == Character::Tag::Rock) {
+            player->SetLastTouched(collidtion->GetTag());
+            Push(player, collidtion, 'A');
+            if (m_Phase == Phase::Phase10) {
+
+            }
+            else {
+                m_StepText->ShowLeftStep();
+            }
+        }
+        else {
+            player->SetLastTouched(collidtion->GetTag());
+            player->SetPosition({player->GetPosition().x - grid_size, player->GetPosition().y});
+            if (m_Phase == Phase::Phase10) {
+
+            }
+            else {
+                m_StepText->ShowLeftStep();
+            }
+        }
+
+        tempPtr.reset();
+        collidtion.reset();
+        return;
+    }
+
+    if (Util::Input::IsKeyDown(Util::Keycode::D)) {
+        tempPtr->SetPosition({player->GetPosition().x + grid_size, player->GetPosition().y});
+        collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
+
+        if (collidtion == nullptr) {
+            player->SetLastTouched(Character::Tag::Null);
+            player->SetPosition({player->GetPosition().x + grid_size, player->GetPosition().y});
+            if (m_Phase == Phase::Phase10) {
+
+            }
+            else {
+                m_StepText->ShowLeftStep();
+            }
+        }
+        else if (collidtion->GetTag() == Character::Tag::Boundary) {
+            player->SetLastTouched(collidtion->GetTag());
+            tempPtr.reset();
+            collidtion.reset();
+            return;
+        }
+        else if (collidtion->GetTag() == Character::Tag::Rock) {
+            player->SetLastTouched(collidtion->GetTag());
+            Push(player, collidtion, 'D');
+            if (m_Phase == Phase::Phase10) {
+
+            }
+            else {
+                m_StepText->ShowLeftStep();
+            }
+        }
+        else {
+            player->SetLastTouched(collidtion->GetTag());
+            player->SetPosition({player->GetPosition().x + grid_size, player->GetPosition().y});
+            if (m_Phase == Phase::Phase10) {
+
+            }
+            else {
+                m_StepText->ShowLeftStep();
+            }
+        }
+
+        tempPtr.reset();
+        collidtion.reset();
+        return;
+    }
+
+    if (Util::Input::IsKeyDown(Util::Keycode::S)) {
+        tempPtr->SetPosition({player->GetPosition().x, player->GetPosition().y - grid_size});
+        collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
+
+        if (collidtion == nullptr) {
+            player->SetLastTouched(Character::Tag::Null);
+            player->SetPosition({player->GetPosition().x, player->GetPosition().y - grid_size});
+            if (m_Phase == Phase::Phase10) {
+
+            }
+            else {
+                m_StepText->ShowLeftStep();
+            }
+        }
+        else if (collidtion->GetTag() == Character::Tag::Boundary) {
+            player->SetLastTouched(collidtion->GetTag());
+            tempPtr.reset();
+            collidtion.reset();
+            return;
+        }
+        else if (collidtion->GetTag() == Character::Tag::Rock) {
+            player->SetLastTouched(collidtion->GetTag());
+            Push(player, collidtion, 'S');
+            if (m_Phase == Phase::Phase10) {
+
+            }
+            else {
+                m_StepText->ShowLeftStep();
+            }
+        }
+        else {
+            player->SetLastTouched(collidtion->GetTag());
+            player->SetPosition({player->GetPosition().x, player->GetPosition().y - grid_size});
+            if (m_Phase == Phase::Phase10) {
+
+            }
+            else {
+                m_StepText->ShowLeftStep();
+            }
+        }
+
+        tempPtr.reset();
+        collidtion.reset();
+        return;
+    }
+
+    if (Util::Input::IsKeyDown(Util::Keycode::W)) {
+        tempPtr->SetPosition({player->GetPosition().x, player->GetPosition().y + grid_size});
+        collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
+
+        if (collidtion == nullptr) {
+            player->SetLastTouched(Character::Tag::Null);
+            player->SetPosition({player->GetPosition().x, player->GetPosition().y + grid_size});
+            if (m_Phase == Phase::Phase10) {
+
+            }
+            else {
+                m_StepText->ShowLeftStep();
+            }
+        }
+        else if (collidtion->GetTag() == Character::Tag::Boundary) {
+            player->SetLastTouched(collidtion->GetTag());
+            tempPtr.reset();
+            collidtion.reset();
+            return;
+        }
+        else if (collidtion->GetTag() == Character::Tag::Rock) {
+            player->SetLastTouched(collidtion->GetTag());
+            Push(player, collidtion, 'W');
+            if (m_Phase == Phase::Phase10) {
+
+            }
+            else {
+                m_StepText->ShowLeftStep();
+            }
+        }
+        else {
+            player->SetLastTouched(collidtion->GetTag());
+            player->SetPosition({player->GetPosition().x, player->GetPosition().y + grid_size});
+            if (m_Phase == Phase::Phase10) {
+
+            }
+            else {
+                m_StepText->ShowLeftStep();
+            }
+        }
+
+        tempPtr.reset();
+        collidtion.reset();
+        return;
+    }
+
+    tempPtr.reset();
+    collidtion.reset();
 }

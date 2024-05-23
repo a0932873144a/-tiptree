@@ -44,10 +44,15 @@ private:
     void Origin();
 
     void Move(const std::shared_ptr<Character>& player) const;
+    void MoveEx(const std::shared_ptr<Character>& player);
     void Push(const std::shared_ptr<Character>& player, const std::shared_ptr<Character>& other, char direction) const;
     void IsEnemyHitTrap() const;
     void ChangeSpikeTrap() const;
-    void DetectLaserRight(const std::shared_ptr<Character>& laserMech) const;
+    void ShootLaserR(const std::shared_ptr<Character>& laserMech);
+    void ShootLaserL(const std::shared_ptr<Character>& laserMech);
+    void ShootLaserT(const std::shared_ptr<Character>& laserMech);
+    void ShootLaserB(const std::shared_ptr<Character>& laserMech);
+
 
     bool IsPhasePassed();
     bool IsPhase3Passed();
@@ -71,6 +76,9 @@ private:
     };
 
     Phase nextPhase(Phase currentPhase) {
+        if (currentPhase == Phase::Phase8 || currentPhase == Phase::Phase8_2) {
+            currentPhase = Phase::Phase8_2;
+        }
         return static_cast<Phase>(static_cast<int>(currentPhase) + 1);
     }
 
@@ -92,6 +100,8 @@ private:
 
     std::shared_ptr<Character> m_Key;
     std::shared_ptr<Character> m_TreasureBox;
+
+    std::vector<std::shared_ptr<Character>> m_LaserMechBoxes;
 
     //boundary_precise
     std::vector<std::shared_ptr<Character>> m_BoundaryTs;

@@ -551,7 +551,7 @@ void App::ValidTask() {
             m_HiddenSpikeTraps[1]->SetVisible(true);
 
             //enemies
-            m_Enemies[0]->SetPosition({140, -110});
+            m_Enemies[0]->SetPosition({140, -100});
             m_Enemies[0]->SetVisible(true);
             m_Enemies[1]->SetPosition({-150, -30});
             m_Enemies[1]->SetVisible(true);
@@ -648,7 +648,7 @@ void App::ValidTask() {
             m_Key->SetPosition({-110, 70});
             m_Key->SetVisible(true);
 
-            m_TreasureBox->SetPosition({105, 150});
+            m_TreasureBox->SetPosition({100, 150});
             m_TreasureBox->SetVisible(true);
 
             //spikeTraps
@@ -766,7 +766,7 @@ void App::ValidTask() {
             }
 
             //player
-            m_Player->SetPosition({0, -200});
+            m_Player->SetPosition({0, 0});
             m_Player->SetVisible(true);
 
             //boundaries_precise
@@ -804,10 +804,6 @@ void App::ValidTask() {
             m_BoundaryLs[9]->SetPosition({-210, -270});
             m_BoundaryLs[10]->SetPosition({-140, -270});
 
-            m_BoundaryBs[0]->SetPosition({70, -340});
-            m_BoundaryBs[1]->SetPosition({0, -340});
-            m_BoundaryBs[2]->SetPosition({-70, -340});
-
             break;
 
         //Phase9
@@ -815,7 +811,7 @@ void App::ValidTask() {
             Origin();
 
             //player
-            m_Player->SetPosition({-180, 70});
+            m_Player->SetPosition({0, 0});
             m_Player->SetVisible(true);
 
             //StepText
@@ -834,7 +830,7 @@ void App::ValidTask() {
             Origin();
 
             //player
-            m_Player->SetPosition({-180, 70});
+            m_Player->SetPosition({0, 200});
             m_Player->SetVisible(true);
 
             //StepText
@@ -845,6 +841,11 @@ void App::ValidTask() {
             m_Boss->SetImage(RESOURCE_DIR"/Image/Character/boss/boss5.png");
             m_Boss->SetPosition({105, 210});
             m_Boss->SetVisible(true);
+
+            //m_LaserMechBoxes
+            m_LaserMechBoxes[0]->SetImage(RESOURCE_DIR"/Image/Object/laserMechBoxL.png");
+            m_LaserMechBoxes[0]->SetPosition({170, -100});
+            m_LaserMechBoxes[0]->SetVisible(true);
 
             break;
 
@@ -894,6 +895,11 @@ void App::Origin() {
 
     m_TreasureBox->SetPosition({-1000, -1000});
     m_TreasureBox->SetVisible(false);
+
+    for (int i = 0; i < 10; i++) {
+        m_LaserMechBoxes[i]->SetPosition({-1000, -1000});
+        m_LaserMechBoxes[i]->SetVisible(false);
+    }
 
     for (int i = 0; i < 10; i++) {
         m_BoundaryTs[i]->SetPosition({-1000, -1000});

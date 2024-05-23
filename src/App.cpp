@@ -50,7 +50,7 @@ App::App(){
     //spikeTraps
     for (int i = 0; i < 10; i++) {
         m_SpikeTraps.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/spikeTrap.png"));
-        m_SpikeTraps[i]->SetZIndex(50);
+        m_SpikeTraps[i]->SetZIndex(45);
         m_SpikeTraps[i]->SetTag(Character::Tag::SpikeTrap);
         m_Root.AddChild(m_SpikeTraps[i]);
         m_CollideObjects.push_back(m_SpikeTraps[i]);
@@ -78,9 +78,18 @@ App::App(){
     m_Root.AddChild(m_TreasureBox);
     m_CollideObjects.push_back(m_TreasureBox);
 
+    //laserMechBoxes
+    for (int i = 0; i < 10; ++i) {
+        m_LaserMechBoxes.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/laserMechBoxL.png"));
+        m_LaserMechBoxes[i]->SetZIndex(50);
+        m_LaserMechBoxes[i]->SetTag(Character::Tag::LaserMech);
+        m_Root.AddChild(m_LaserMechBoxes[i]);
+        m_CollideObjects.push_back(m_LaserMechBoxes[i]);
+    }
+
     //boundaries_precise
     for (int i = 0; i < 10; ++i) {
-        m_BoundaryTs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Background/Boundary/boundaryRocks.png"));
+        m_BoundaryTs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Background/Boundary/newRock.png"));
         m_BoundaryTs[i]->SetZIndex(5);
         m_BoundaryTs[i]->SetVisible(false);
         m_BoundaryTs[i]->SetTag(Character::Tag::Boundary);
@@ -88,7 +97,7 @@ App::App(){
         m_CollideObjects.push_back(m_BoundaryTs[i]);
     }
     for (int i = 0; i < 11; ++i) {
-        m_BoundaryLs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Background/Boundary/boundaryRocks.png"));
+        m_BoundaryLs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Background/Boundary/newRock.png"));
         m_BoundaryLs[i]->SetZIndex(5);
         m_BoundaryLs[i]->SetVisible(false);
         m_BoundaryLs[i]->SetTag(Character::Tag::Boundary);
@@ -96,7 +105,7 @@ App::App(){
         m_CollideObjects.push_back(m_BoundaryLs[i]);
     }
     for (int i = 0; i < 11; ++i) {
-        m_BoundaryRs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Background/Boundary/boundaryRocks.png"));
+        m_BoundaryRs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Background/Boundary/newRock.png"));
         m_BoundaryRs[i]->SetZIndex(5);
         m_BoundaryRs[i]->SetVisible(false);
         m_BoundaryRs[i]->SetTag(Character::Tag::Boundary);
@@ -104,7 +113,7 @@ App::App(){
         m_CollideObjects.push_back(m_BoundaryRs[i]);
     }
     for (int i = 0; i < 10; ++i) {
-        m_BoundaryIBs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Background/Boundary/boundaryRocks.png"));
+        m_BoundaryIBs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Background/Boundary/newRock.png"));
         m_BoundaryIBs[i]->SetZIndex(5);
         m_BoundaryIBs[i]->SetVisible(false);
         m_BoundaryIBs[i]->SetTag(Character::Tag::Boundary);
@@ -112,7 +121,7 @@ App::App(){
         m_CollideObjects.push_back(m_BoundaryIBs[i]);
     }
     for (int i = 0; i < 10; ++i) {
-        m_BoundaryBs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Background/Boundary/boundaryRocks.png"));
+        m_BoundaryBs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Background/Boundary/newRock.png"));
         m_BoundaryBs[i]->SetZIndex(5);
         m_BoundaryBs[i]->SetVisible(false);
         m_BoundaryBs[i]->SetTag(Character::Tag::Boundary);
@@ -131,7 +140,6 @@ App::App(){
 
 void App::Start() {
     LOG_TRACE("Start");
-
     ValidTask();
 
     m_Player->SetLastTouched(Character::Tag::Null);
@@ -215,19 +223,8 @@ void App::Update() {
         return;
     }
 
-    //make player move
-    if (m_Player->GetVisibility()) {
-        Move(m_Player);
-    }
-
     //Restart the game
     if (Util::Input::IsKeyUp(Util::Keycode::R)) {
-        m_CurrentState = State::START;
-        return;
-    }
-
-    //If the step become zero, restart the game
-    if (m_StepText->IsStepZero()) {
         m_CurrentState = State::START;
         return;
     }
@@ -241,6 +238,11 @@ void App::Update() {
 
     //Phase1 setting
     if (m_Phase == Phase::Phase1) {
+        //make player move
+        if (m_Player->GetVisibility()) {
+            Move(m_Player);
+        }
+
         //check if phase1 is passed
         if (IsPhasePassed()) {
             m_Phase = Phase::Phase2;
@@ -251,6 +253,11 @@ void App::Update() {
     }
 
     if (m_Phase == Phase::Phase2) {
+        //make player move
+        if (m_Player->GetVisibility()) {
+            Move(m_Player);
+        }
+
         //check if phase2 is passed
         if (IsPhasePassed()) {
             m_Phase = Phase::Phase3;
@@ -261,6 +268,11 @@ void App::Update() {
     }
 
     if (m_Phase == Phase::Phase3) {
+        //make player move
+        if (m_Player->GetVisibility()) {
+            Move(m_Player);
+        }
+
         //check if phase3 is passed
         if (IsPhase3Passed()) {
             m_Phase = Phase::Phase4;
@@ -271,6 +283,11 @@ void App::Update() {
     }
 
     if (m_Phase == Phase::Phase4) {
+        //make player move
+        if (m_Player->GetVisibility()) {
+            Move(m_Player);
+        }
+
         //check if phase4 is passed
         if (IsPhasePassed()) {
             m_Phase = Phase::Phase5;
@@ -281,6 +298,11 @@ void App::Update() {
     }
 
     if (m_Phase == Phase::Phase5) {
+        //make player move
+        if (m_Player->GetVisibility()) {
+            Move(m_Player);
+        }
+
         //check if phase5 is passed
         if (IsPhasePassed()) {
             m_Phase = Phase::Phase6;
@@ -291,6 +313,11 @@ void App::Update() {
     }
 
     if (m_Phase == Phase::Phase6) {
+        //make player move
+        if (m_Player->GetVisibility()) {
+            Move(m_Player);
+        }
+
         //check if phase6 is passed
         if (IsPhasePassed()) {
             m_Phase = Phase::Phase7;
@@ -301,6 +328,11 @@ void App::Update() {
     }
 
     if (m_Phase == Phase::Phase7) {
+        //make player move
+        if (m_Player->GetVisibility()) {
+            Move(m_Player);
+        }
+
         //check if phase7 is passed
         if (IsPhasePassed()) {
             m_Phase = Phase::Phase8;
@@ -311,6 +343,11 @@ void App::Update() {
     }
 
     if (m_Phase == Phase::Phase8 || m_Phase == Phase::Phase8_2) {
+        //make player move
+        if (m_Player->GetVisibility()) {
+            Move(m_Player);
+        }
+
         //check if phase8 is passed
         if (IsPhasePassed()) {
             m_Phase = Phase::Phase9;
@@ -335,6 +372,11 @@ void App::Update() {
     }
 
     if (m_Phase == Phase::Phase9) {
+        //make player move
+        if (m_Player->GetVisibility()) {
+            Move(m_Player);
+        }
+
         //check if phase9 is passed
         if (IsPhasePassed()) {
             m_Phase = Phase::Phase10;
@@ -342,6 +384,20 @@ void App::Update() {
             m_CurrentState = State::START;
             return;
         }
+    }
+
+    if (m_Phase == Phase::Phase10) {
+        //make player move
+        if (m_Player->GetVisibility()) {
+            MoveEx(m_Player);
+        }
+
+    }
+
+    //If the step become zero, restart the game
+    if (m_StepText->IsStepZero()) {
+        m_CurrentState = State::START;
+        return;
     }
 }
 

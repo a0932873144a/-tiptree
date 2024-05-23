@@ -24,6 +24,8 @@ public:
         SpikeTrap,
         Key,
         Chest,
+        LaserMech,
+        Laser
     };
 
     explicit Character(const std::string& ImagePath);
@@ -73,7 +75,7 @@ public:
     }
 
     //Detect where to move
-    [[nodiscard]] char MoveDirection() const {
+    [[nodiscard]] static char MoveDirection() {
         if (Util::Input::IsKeyPressed(Util::Keycode::A)) {
             return 'A';
         }
@@ -113,6 +115,18 @@ public:
 
     [[nodiscard]] std::vector<std::shared_ptr<AnimatedCharacter>> GetLaserBlink() const {
         return m_LaserBlink;
+    }
+
+    void SetLaser(std::vector<std::shared_ptr<Character>>& laser) {
+        if (!laser.empty()){
+            m_Laser = laser;
+        }
+    }
+
+    void SetLaserBlink(std::vector<std::shared_ptr<AnimatedCharacter>>& laser) {
+        if (!laser.empty()){
+            m_LaserBlink = laser;
+        }
     }
 
 private:
