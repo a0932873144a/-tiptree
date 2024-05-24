@@ -109,25 +109,29 @@ public:
         m_Tag = tag;
     }
 
-    [[nodiscard]] std::vector<std::shared_ptr<Character>> GetLaser() const {
-        return m_Laser;
+    void SetUsed(bool ifUsed) {
+        isUsed = ifUsed;
     }
 
-    [[nodiscard]] std::vector<std::shared_ptr<AnimatedCharacter>> GetLaserBlink() const {
-        return m_LaserBlink;
+    bool IfUsed() {
+        return isUsed;
     }
 
-    void SetLaser(std::vector<std::shared_ptr<Character>>& laser) {
-        if (!laser.empty()){
-            m_Laser = laser;
-        }
+    std::vector<int> GetUsedLaserIndex() {
+        return usedLaser;
     }
 
-    void SetLaserBlink(std::vector<std::shared_ptr<AnimatedCharacter>>& laser) {
-        if (!laser.empty()){
-            m_LaserBlink = laser;
-        }
+    void SetUsedLaserIndex(int index) {
+        usedLaser.push_back(index);
     }
+
+    void ResetUsedLaserIndex() {
+        usedLaser.clear();
+    }
+
+    bool IfUsedLaserEmpty() {
+        return usedLaser.empty();
+    };
 
 private:
     void ResetPosition() { m_Transform.translation = {0, 0}; }
@@ -138,9 +142,9 @@ private:
 
     std::string m_ImagePath;
 
-    std::vector<std::shared_ptr<Character>> m_Laser;
+    bool isUsed = false;
 
-    std::vector<std::shared_ptr<AnimatedCharacter>> m_LaserBlink;
+    std::vector<int> usedLaser;
 };
 
 #endif //CHARACTER_HPP

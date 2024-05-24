@@ -80,11 +80,41 @@ App::App(){
 
     //laserMechBoxes
     for (int i = 0; i < 10; ++i) {
-        m_LaserMechBoxes.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/laserMechBoxL.png"));
+        m_LaserMechBoxes.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/laserMechBox.png"));
         m_LaserMechBoxes[i]->SetZIndex(50);
         m_LaserMechBoxes[i]->SetTag(Character::Tag::LaserMech);
         m_Root.AddChild(m_LaserMechBoxes[i]);
         m_CollideObjects.push_back(m_LaserMechBoxes[i]);
+    }
+
+    //lasers
+    for (int i = 0; i < 20; ++i) {
+        m_LaserTs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/laserBeamT.png"));
+        m_LaserTs[i]->SetZIndex(70);
+        m_LaserTs[i]->SetTag(Character::Tag::Laser);
+        m_Root.AddChild(m_LaserTs[i]);
+        m_CollideObjects.push_back(m_LaserTs[i]);
+    }
+    for (int i = 0; i < 20; ++i) {
+        m_LaserLs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/laserBeamL.png"));
+        m_LaserLs[i]->SetZIndex(70);
+        m_LaserLs[i]->SetTag(Character::Tag::Laser);
+        m_Root.AddChild(m_LaserLs[i]);
+        m_CollideObjects.push_back(m_LaserLs[i]);
+    }
+    for (int i = 0; i < 20; ++i) {
+        m_LaserRs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/laserBeamR.png"));
+        m_LaserRs[i]->SetZIndex(70);
+        m_LaserRs[i]->SetTag(Character::Tag::Laser);
+        m_Root.AddChild(m_LaserRs[i]);
+        m_CollideObjects.push_back(m_LaserRs[i]);
+    }
+    for (int i = 0; i < 20; ++i) {
+        m_LaserBs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/laserBeamB.png"));
+        m_LaserBs[i]->SetZIndex(70);
+        m_LaserBs[i]->SetTag(Character::Tag::Laser);
+        m_Root.AddChild(m_LaserBs[i]);
+        m_CollideObjects.push_back(m_LaserBs[i]);
     }
 
     //boundaries_precise
@@ -225,6 +255,10 @@ void App::Update() {
 
     //Restart the game
     if (Util::Input::IsKeyUp(Util::Keycode::R)) {
+        if (m_Phase == Phase::Phase8_2) {
+            m_Phase = Phase::Phase8;
+            m_PRM->SwitchTo8();
+        }
         m_CurrentState = State::START;
         return;
     }
@@ -368,6 +402,15 @@ void App::Update() {
             m_PRM->SwitchTo8();
             m_CurrentState = State::START;
             return;
+        }
+
+        if (m_Phase == Phase::Phase8_2) {
+            if (m_StepText->IsStepZero()) {
+                m_Phase = Phase::Phase8;
+                m_PRM->SwitchTo8();
+                m_CurrentState = State::START;
+                return;
+            }
         }
     }
 

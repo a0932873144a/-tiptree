@@ -551,63 +551,44 @@ void App::ChangeSpikeTrap() const {
 
 //laserRight
 void App::ShootLaserR(const std::shared_ptr<Character>& laserMech) {
-    int laserCount = 0;
-    std::shared_ptr<Character> tempPtr = std::make_shared<Character>(RESOURCE_DIR"/Image/Object/laserMechBoxL.png");
-    std::shared_ptr<Character> collidtion;
-    tempPtr->SetPosition({laserMech->GetPosition().x + grid_size, laserMech->GetPosition().y});
-    collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
-    while (collidtion == nullptr) {
-        laserCount++;
-        tempPtr->SetPosition({laserMech->GetPosition().x + (grid_size * (laserCount + 1)), laserMech->GetPosition().y});
-        collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
-    }
 
-    std::vector<std::shared_ptr<Character>> laser;
-    for (int i = 0; i < laserCount; i++) {
-        laser.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/laserBeamR.png"));
-        laser[i]->SetPosition({laserMech->GetPosition().x + (grid_size * (i + 1)), laserMech->GetPosition().y});
-        laser[i]->SetZIndex(50);
-        laser[i]->SetVisible(true);
-        laser[i]->SetTag(Character::Tag::Laser);
-        m_Root.AddChild(laser[i]);
-    }
-    laserMech->SetLaser(laser);
 }
 
 //laserLeft
 void App::ShootLaserL(const std::shared_ptr<Character> &laserMech) {
     int laserCount = 0;
     bool collisionDetected = false;
-    std::vector<std::shared_ptr<Character>> newLaser;
 
-    //清除以前的激光
-    auto oldLaser = laserMech->GetLaser();
-    if (!oldLaser.empty()) {
-        for (const auto &laser: oldLaser) {
-            m_Root.RemoveChild(laser);
+    //清除以前的laser
+    if (!laserMech->IfUsedLaserEmpty()) {
+        std::vector<int> index = laserMech->GetUsedLaserIndex();
+        for (auto &i : index) {
+            m_LaserLs[i]->SetPosition({-1000, -1000});
+            m_LaserLs[i]->SetVisible(false);
+            m_LaserLs[i]->SetUsed(false);
         }
-        //清空激光列表
-        oldLaser.clear();
+        //清空laser列表
+        laserMech->ResetUsedLaserIndex();
     }
 
-    //計算激光並生成新激光
+    //分配laser
     while (!collisionDetected) {
         auto tempPtr = std::make_shared<Character>(RESOURCE_DIR"/Image/Object/laserBeamL.png");
         tempPtr->SetPosition({laserMech->GetPosition().x - (grid_size * (laserCount + 1)), laserMech->GetPosition().y});
-        if (tempPtr->IfCollideSomething(m_CollideObjects) != nullptr) {
-            collisionDetected = true;
-        } else {
-            tempPtr->SetZIndex(50);
-            tempPtr->SetVisible(true);
-            tempPtr->SetTag(Character::Tag::Laser);
-            m_Root.AddChild(tempPtr);
-            newLaser.push_back(tempPtr);
+        auto collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
+        if (collidtion == nullptr) {
+            for (int i = 0; i < m_LaserLs.size(); ++i) {
+                if (!m_LaserLs[i]->IfUsed()) {
+                    m_LaserLs[i]->SetUsed(true);
+                    laserMech->SetUsedLaserIndex(i);
+                }
+            }
             laserCount++;
         }
+        else if (collidtion->GetTag() == Character::Tag::Boundary || collidtion->GetTag() == Character::Tag::Rock) {
+            collisionDetected = true;
+        }
     }
-
-    // 更新激光列表
-    laserMech->SetLaser(newLaser);
 }
 
 //laserTop
@@ -626,7 +607,6 @@ void App::MoveEx(const std::shared_ptr<Character>& player) {
     std::shared_ptr<Character> collidtion;
 
     if (Util::Input::IsKeyDown(Util::Keycode::A)) {
-        ShootLaserL(m_LaserMechBoxes[0]);
         tempPtr->SetPosition({player->GetPosition().x - grid_size, player->GetPosition().y});
         collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
 
@@ -719,6 +699,7 @@ void App::MoveEx(const std::shared_ptr<Character>& player) {
     }
 
     if (Util::Input::IsKeyDown(Util::Keycode::S)) {
+        ShootLaserL(m_LaserMechBoxes[0]);
         tempPtr->SetPosition({player->GetPosition().x, player->GetPosition().y - grid_size});
         collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
 
@@ -747,6 +728,12 @@ void App::MoveEx(const std::shared_ptr<Character>& player) {
             else {
                 m_StepText->ShowLeftStep();
             }
+        }
+        else if (collidtion->GetTag() == Character::Tag::Laser) {
+            tempPtr.reset();
+            collidtion.reset();
+            m_CurrentState = State::START;
+            return;
         }
         else {
             player->SetLastTouched(collidtion->GetTag());

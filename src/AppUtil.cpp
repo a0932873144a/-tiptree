@@ -759,14 +759,8 @@ void App::ValidTask() {
         case Phase::Phase8_2:
             Origin();
 
-            if (m_StepText->IsStepZero()) {
-                m_Phase = Phase::Phase8;
-                m_PRM->SwitchTo8();
-                ValidTask();
-            }
-
             //player
-            m_Player->SetPosition({0, 0});
+            m_Player->SetPosition({0, -140});
             m_Player->SetVisible(true);
 
             //boundaries_precise
@@ -843,7 +837,6 @@ void App::ValidTask() {
             m_Boss->SetVisible(true);
 
             //m_LaserMechBoxes
-            m_LaserMechBoxes[0]->SetImage(RESOURCE_DIR"/Image/Object/laserMechBoxL.png");
             m_LaserMechBoxes[0]->SetPosition({170, -100});
             m_LaserMechBoxes[0]->SetVisible(true);
 
@@ -901,26 +894,39 @@ void App::Origin() {
         m_LaserMechBoxes[i]->SetVisible(false);
     }
 
+    for (int i = 0; i < 20; ++i) {
+        m_LaserTs[i]->SetPosition({-1000, -1000});
+        m_LaserTs[i]->SetVisible(false);
+    }
+    for (int i = 0; i < 20; ++i) {
+        m_LaserLs[i]->SetPosition({-1000, -1000});
+        m_LaserLs[i]->SetVisible(false);
+    }
+    for (int i = 0; i < 20; ++i) {
+        m_LaserRs[i]->SetPosition({-1000, -1000});
+        m_LaserRs[i]->SetVisible(false);
+    }
+    for (int i = 0; i < 20; ++i) {
+        m_LaserBs[i]->SetPosition({-1000, -1000});
+        m_LaserBs[i]->SetVisible(false);
+    }
+
     for (int i = 0; i < 10; i++) {
         m_BoundaryTs[i]->SetPosition({-1000, -1000});
         m_BoundaryTs[i]->SetVisible(false);
     }
-
     for (int i = 0; i < 11; i++) {
         m_BoundaryLs[i]->SetPosition({-1000, -1000});
         m_BoundaryLs[i]->SetVisible(false);
     }
-
     for (int i = 0; i < 11; i++) {
         m_BoundaryRs[i]->SetPosition({-1000, -1000});
         m_BoundaryRs[i]->SetVisible(false);
     }
-
     for (int i = 0; i < 10; i++) {
         m_BoundaryIBs[i]->SetPosition({-1000, -1000});
         m_BoundaryIBs[i]->SetVisible(false);
     }
-
     for (int i = 0; i < 10; i++) {
         m_BoundaryBs[i]->SetPosition({-1000, -1000});
         m_BoundaryBs[i]->SetVisible(false);

@@ -103,6 +103,12 @@ private:
 
     std::vector<std::shared_ptr<Character>> m_LaserMechBoxes;
 
+    //lasers
+    std::vector<std::shared_ptr<Character>> m_LaserTs;
+    std::vector<std::shared_ptr<Character>> m_LaserLs;
+    std::vector<std::shared_ptr<Character>> m_LaserRs;
+    std::vector<std::shared_ptr<Character>> m_LaserBs;
+
     //boundary_precise
     std::vector<std::shared_ptr<Character>> m_BoundaryTs;
     std::vector<std::shared_ptr<Character>> m_BoundaryLs;

@@ -26,10 +26,15 @@ public:
 
     void UpdatePhaseStep(int phase) {
         step = s_PhaseTasks[phase];
+        m_Phase = phase;
     }
 
     [[nodiscard]] bool IsStepZero() const{
         return step <= -2;
+    }
+
+    int GetPhase() {
+        return  m_Phase;
     }
 
 private:
@@ -53,7 +58,7 @@ private:
     };
 
     int step = s_PhaseTasks[0];
-
+    int m_Phase;
 };
 
 #endif //STEPTEXT_HPP
