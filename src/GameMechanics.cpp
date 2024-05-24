@@ -580,6 +580,8 @@ void App::ShootLaserL(const std::shared_ptr<Character> &laserMech) {
             for (int i = 0; i < m_LaserLs.size(); ++i) {
                 if (!m_LaserLs[i]->IfUsed()) {
                     m_LaserLs[i]->SetUsed(true);
+                    m_LaserLs[i]->SetVisible(true);
+                    m_LaserLs[i]->SetPosition({tempPtr->GetPosition().x, tempPtr->GetPosition().y});
                     laserMech->SetUsedLaserIndex(i);
                 }
             }

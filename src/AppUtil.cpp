@@ -840,6 +840,17 @@ void App::ValidTask() {
             m_LaserMechBoxes[0]->SetPosition({170, -100});
             m_LaserMechBoxes[0]->SetVisible(true);
 
+            m_BoundaryLs[0]->SetPosition({-350, 70});
+            m_BoundaryLs[1]->SetPosition({-350, -30});
+            m_BoundaryLs[2]->SetPosition({-350, -100});
+            m_BoundaryLs[3]->SetPosition({-350, -170});
+            m_BoundaryLs[4]->SetPosition({-350, -240});
+            m_BoundaryLs[0]->SetVisible(true);
+            m_BoundaryLs[1]->SetVisible(true);
+            m_BoundaryLs[2]->SetVisible(true);
+            m_BoundaryLs[3]->SetVisible(true);
+            m_BoundaryLs[4]->SetVisible(true);
+
             break;
 
         //Phase11
