@@ -824,7 +824,7 @@ void App::ValidTask() {
             Origin();
 
             //player
-            m_Player->SetPosition({0, 200});
+            m_Player->SetPosition({-190, -330});
             m_Player->SetVisible(true);
 
             //StepText
@@ -836,25 +836,54 @@ void App::ValidTask() {
             m_Boss->SetPosition({105, 210});
             m_Boss->SetVisible(true);
 
+            m_BoundaryLs[0]->SetPosition({-120, 130});
+            m_BoundaryLs[1]->SetPosition({-120, 60});
+            m_BoundaryLs[2]->SetPosition({-190, -20});
+            m_BoundaryLs[3]->SetPosition({-190, -100});
+            m_BoundaryLs[4]->SetPosition({-190, -185});
+            m_BoundaryLs[5]->SetPosition({-190, -260});
+            m_BoundaryLs[6]->SetPosition({-260, -330});
+//            m_BoundaryLs[0]->SetVisible(true);
+//            m_BoundaryLs[1]->SetVisible(true);
+//            m_BoundaryLs[2]->SetVisible(true);
+//            m_BoundaryLs[3]->SetVisible(true);
+//            m_BoundaryLs[4]->SetVisible(true);
+//            m_BoundaryLs[5]->SetVisible(true);
+//            m_BoundaryLs[6]->SetVisible(true);
+
+            m_BoundaryTs[0]->SetPosition({-40, 140});
+            m_BoundaryTs[1]->SetPosition({30, 140});
+            m_BoundaryTs[2]->SetPosition({100, 140});
+//            m_BoundaryTs[0]->SetVisible(true);
+//            m_BoundaryTs[1]->SetVisible(true);
+//            m_BoundaryTs[2]->SetVisible(true);
+
+            m_BoundaryRs[0]->SetPosition({180, 130});
+            m_BoundaryRs[1]->SetPosition({180, 60});
+            m_BoundaryRs[2]->SetPosition({250, -20});
+            m_BoundaryRs[3]->SetPosition({250, -100});
+            m_BoundaryRs[4]->SetPosition({250, -185});
+            m_BoundaryRs[5]->SetPosition({180, -260});
+            m_BoundaryRs[6]->SetPosition({180, -330});
+//            m_BoundaryRs[0]->SetVisible(true);
+//            m_BoundaryRs[1]->SetVisible(true);
+//            m_BoundaryRs[2]->SetVisible(true);
+//            m_BoundaryRs[3]->SetVisible(true);
+//            m_BoundaryRs[4]->SetVisible(true);
+//            m_BoundaryRs[5]->SetVisible(true);
+//            m_BoundaryRs[6]->SetVisible(true);
+
             //m_LaserMechBoxes
             m_LaserMechBoxes[0]->SetPosition({170, -100});
             m_LaserMechBoxes[0]->SetVisible(true);
-
-            m_BoundaryLs[0]->SetPosition({-350, 70});
-            m_BoundaryLs[1]->SetPosition({-350, -30});
-            m_BoundaryLs[2]->SetPosition({-350, -100});
-            m_BoundaryLs[3]->SetPosition({-350, -170});
-            m_BoundaryLs[4]->SetPosition({-350, -240});
-            m_BoundaryLs[0]->SetVisible(true);
-            m_BoundaryLs[1]->SetVisible(true);
-            m_BoundaryLs[2]->SetVisible(true);
-            m_BoundaryLs[3]->SetVisible(true);
-            m_BoundaryLs[4]->SetVisible(true);
+            ShootLaserL(m_LaserMechBoxes[0]);
 
             break;
 
         //Phase11
         case Phase::Phase11:
+            Origin();
+
             break;
 
         default:
@@ -869,27 +898,27 @@ void App::Origin() {
     m_Boss->SetPosition({-1000, -1000});
     m_Boss->SetVisible(false);
 
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < m_Bosses.size(); i++) {
         m_Bosses[i]->SetPosition({-1000, -1000});
         m_Bosses[i]->SetVisible(false);
     }
 
-    for (int i = 0; i < 15; i++) {
+    for (int i = 0; i < m_Rocks.size(); i++) {
         m_Rocks[i]->SetPosition({-1000, -1000});
         m_Rocks[i]->SetVisible(false);
     }
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < m_Enemies.size(); i++) {
         m_Enemies[i]->SetPosition({-1000, -1000});
         m_Enemies[i]->SetVisible(false);
     }
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < m_SpikeTraps.size(); i++) {
         m_SpikeTraps[i]->SetPosition({-1000, -1000});
         m_SpikeTraps[i]->SetVisible(false);
     }
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < m_HiddenSpikeTraps.size(); i++) {
         m_HiddenSpikeTraps[i]->SetPosition({-1000, -1000});
         m_HiddenSpikeTraps[i]->SetVisible(false);
     }
@@ -900,45 +929,45 @@ void App::Origin() {
     m_TreasureBox->SetPosition({-1000, -1000});
     m_TreasureBox->SetVisible(false);
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < m_LaserMechBoxes.size(); i++) {
         m_LaserMechBoxes[i]->SetPosition({-1000, -1000});
         m_LaserMechBoxes[i]->SetVisible(false);
     }
 
-    for (int i = 0; i < 20; ++i) {
+    for (int i = 0; i < m_LaserTs.size(); ++i) {
         m_LaserTs[i]->SetPosition({-1000, -1000});
         m_LaserTs[i]->SetVisible(false);
     }
-    for (int i = 0; i < 20; ++i) {
+    for (int i = 0; i < m_LaserLs.size(); ++i) {
         m_LaserLs[i]->SetPosition({-1000, -1000});
         m_LaserLs[i]->SetVisible(false);
     }
-    for (int i = 0; i < 20; ++i) {
+    for (int i = 0; i < m_LaserRs.size(); ++i) {
         m_LaserRs[i]->SetPosition({-1000, -1000});
         m_LaserRs[i]->SetVisible(false);
     }
-    for (int i = 0; i < 20; ++i) {
+    for (int i = 0; i < m_LaserBs.size(); ++i) {
         m_LaserBs[i]->SetPosition({-1000, -1000});
         m_LaserBs[i]->SetVisible(false);
     }
 
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < m_BoundaryTs.size(); i++) {
         m_BoundaryTs[i]->SetPosition({-1000, -1000});
         m_BoundaryTs[i]->SetVisible(false);
     }
-    for (int i = 0; i < 11; i++) {
+    for (int i = 0; i < m_BoundaryLs.size(); i++) {
         m_BoundaryLs[i]->SetPosition({-1000, -1000});
         m_BoundaryLs[i]->SetVisible(false);
     }
-    for (int i = 0; i < 11; i++) {
+    for (int i = 0; i < m_BoundaryRs.size(); i++) {
         m_BoundaryRs[i]->SetPosition({-1000, -1000});
         m_BoundaryRs[i]->SetVisible(false);
     }
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < m_BoundaryIBs.size(); i++) {
         m_BoundaryIBs[i]->SetPosition({-1000, -1000});
         m_BoundaryIBs[i]->SetVisible(false);
     }
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < m_BoundaryBs.size(); i++) {
         m_BoundaryBs[i]->SetPosition({-1000, -1000});
         m_BoundaryBs[i]->SetVisible(false);
     }

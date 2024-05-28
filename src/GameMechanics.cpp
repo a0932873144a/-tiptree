@@ -583,9 +583,10 @@ void App::ShootLaserL(const std::shared_ptr<Character> &laserMech) {
                     m_LaserLs[i]->SetVisible(true);
                     m_LaserLs[i]->SetPosition({tempPtr->GetPosition().x, tempPtr->GetPosition().y});
                     laserMech->SetUsedLaserIndex(i);
+                    laserCount++;
+                    break;
                 }
             }
-            laserCount++;
         }
         else if (collidtion->GetTag() == Character::Tag::Boundary || collidtion->GetTag() == Character::Tag::Rock) {
             collisionDetected = true;
