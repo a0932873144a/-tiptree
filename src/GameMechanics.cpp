@@ -594,6 +594,8 @@ void App::ChangeSpikeTrap() const {
 void App::ShootLaserR(const std::shared_ptr<Character>& laserMech) {
     int laserCount = 0;
     bool collisionDetected = false;
+    std::vector<int> indexPre;
+    std::vector<int> indexPost;
 
     //清除以前的laser
     if (!laserMech->IfUsedLaserEmpty()) {
@@ -630,17 +632,23 @@ void App::ShootLaserR(const std::shared_ptr<Character>& laserMech) {
                 collisionDetected = true;
             }
         }
+        indexPost = laserMech->GetUsedLaserIndex();
+        if (indexPre.size() > indexPost.size()) {
+            m_LaserLs[indexPre[indexPre.size() - 1]]->SetImage(RESOURCE_DIR"/Image/Object/Transparent.png");
+        }
     }
 }
 //laserLeft
 void App::ShootLaserL(const std::shared_ptr<Character> &laserMech) {
     int laserCount = 0;
     bool collisionDetected = false;
+    std::vector<int> indexPre;
+    std::vector<int> indexPost;
 
     //清除以前的laser
     if (!laserMech->IfUsedLaserEmpty()) {
-        std::vector<int> index = laserMech->GetUsedLaserIndex();
-        for (auto &i : index) {
+        indexPre = laserMech->GetUsedLaserIndex();
+        for (auto &i : indexPre) {
             m_LaserLs[i]->SetPosition({-1000, -1000});
             m_LaserLs[i]->SetVisible(false);
             m_LaserLs[i]->SetUsed(false);
@@ -672,12 +680,18 @@ void App::ShootLaserL(const std::shared_ptr<Character> &laserMech) {
                 collisionDetected = true;
             }
         }
+        indexPost = laserMech->GetUsedLaserIndex();
+        if (indexPre.size() > indexPost.size()) {
+            m_LaserLs[indexPre[indexPre.size() - 1]]->SetImage(RESOURCE_DIR"/Image/Object/Transparent.png");
+        }
     }
 }
 //laserTop
 void App::ShootLaserT(const std::shared_ptr<Character>& laserMech) {
     int laserCount = 0;
     bool collisionDetected = false;
+    std::vector<int> indexPre;
+    std::vector<int> indexPost;
 
     //清除以前的laser
     if (!laserMech->IfUsedLaserEmpty()) {
@@ -714,12 +728,18 @@ void App::ShootLaserT(const std::shared_ptr<Character>& laserMech) {
                 collisionDetected = true;
             }
         }
+        indexPost = laserMech->GetUsedLaserIndex();
+        if (indexPre.size() > indexPost.size()) {
+            m_LaserLs[indexPre[indexPre.size() - 1]]->SetImage(RESOURCE_DIR"/Image/Object/Transparent.png");
+        }
     }
 }
 //laserBottom
 void App::ShootLaserB(const std::shared_ptr<Character>& laserMech) {
     int laserCount = 0;
     bool collisionDetected = false;
+    std::vector<int> indexPre;
+    std::vector<int> indexPost;
 
     //清除以前的laser
     if (!laserMech->IfUsedLaserEmpty()) {
@@ -755,6 +775,10 @@ void App::ShootLaserB(const std::shared_ptr<Character>& laserMech) {
             else if (collidtion->GetTag() == Character::Tag::Boundary || collidtion->GetTag() == Character::Tag::Rock) {
                 collisionDetected = true;
             }
+        }
+        indexPost = laserMech->GetUsedLaserIndex();
+        if (indexPre.size() > indexPost.size()) {
+            m_LaserLs[indexPre[indexPre.size() - 1]]->SetImage(RESOURCE_DIR"/Image/Object/Transparent.png");
         }
     }
 }
@@ -1054,16 +1078,16 @@ void App::MoveEx(const std::shared_ptr<Character>& player) {
 }
 
 void App::ControlShootLaser() {
-    if (m_Phase == Phase::Phase10) {
-        ShootLaserL(m_LaserMechBoxes[0]);
-        ShootLaserL(m_LaserMechBoxes[1]);
-        ShootLaserL(m_LaserMechBoxes[2]);
-    }
-    if (m_Phase == Phase::Phase11) {
-        ShootLaserL(m_LaserMechBoxes[0]);
-        ShootLaserL(m_LaserMechBoxes[1]);
-        ShootReverse(m_LaserMechBoxes[1], 'L');
-    }
+//    if (m_Phase == Phase::Phase10) {
+//        ShootLaserL(m_LaserMechBoxes[0]);
+//        ShootLaserL(m_LaserMechBoxes[1]);
+//        ShootLaserL(m_LaserMechBoxes[2]);
+//    }
+//    if (m_Phase == Phase::Phase11) {
+//        ShootLaserL(m_LaserMechBoxes[0]);
+//        ShootLaserL(m_LaserMechBoxes[1]);
+//        ShootReverse(m_LaserMechBoxes[1], 'L');
+//    }
 }
 
 void App::ShootReverse(const std::shared_ptr<Character>& laserMech, char direction) {
