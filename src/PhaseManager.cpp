@@ -10,7 +10,7 @@ PhaseResourceManger::PhaseResourceManger() {
 }
 
 void PhaseResourceManger::NextPhase() {
-    if (m_Phase == 15) return;
+    if (m_Phase == 16) return;
     m_Background->NextPhase(m_Phase);
     m_TaskText->NextPhase(m_Phase++);
 }

@@ -21,6 +21,10 @@ public:
 
     void NextPhase(const int phase) {
         auto temp = std::dynamic_pointer_cast<Util::Text>(m_Drawable);
+        if (phase > 8) {
+            temp->SetText(".");
+            return;
+        }
         temp->SetText(append_string_views(s_PhaseTasks[phase], s_Validation));
     }
 
@@ -29,7 +33,7 @@ private:
         return std::string(sv1) + "\n" + std::string(sv2) + "\n" + "Watch your head, there are invisible walls";
     }
 
-    static constexpr std::string_view s_PhaseTasks[15] = {
+    static constexpr std::string_view s_PhaseTasks[16] = {
             "This is Phase 1",
             "This is Phase 2",
             "This is Phase 3",
@@ -40,6 +44,9 @@ private:
             "This is Phase 8",
             "This is Phase 9",
             "This is Phase 10",
+            "",
+            "",
+            "",
     };
 
     static constexpr std::string_view s_Validation = "Press WASD to move, Press R to restart";

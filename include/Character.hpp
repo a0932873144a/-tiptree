@@ -25,7 +25,8 @@ public:
         Key,
         Chest,
         LaserMech,
-        Laser
+        Laser,
+        Machine,
     };
 
     explicit Character(const std::string& ImagePath);
@@ -133,6 +134,22 @@ public:
         return usedLaser.empty();
     };
 
+    bool GetIfHurt() {
+        return ifHurt;
+    }
+
+    void SetIfHurt(bool flag) {
+        ifHurt = flag;
+    }
+
+    bool GetIfReverse() {
+        return ifReverse;
+    }
+
+    void SetIfReverse(bool flag) {
+        ifReverse = flag;
+    }
+
 private:
     void ResetPosition() { m_Transform.translation = {0, 0}; }
 
@@ -145,6 +162,10 @@ private:
     bool isUsed = false;
 
     std::vector<int> usedLaser;
+
+    bool ifHurt = false;
+
+    bool ifReverse = false;
 };
 
 #endif //CHARACTER_HPP

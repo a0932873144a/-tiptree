@@ -824,17 +824,20 @@ void App::ValidTask() {
             Origin();
 
             //player
-            m_Player->SetPosition({-190, -330});
+            m_Player->SetPosition({-180, -300});
             m_Player->SetVisible(true);
 
             //StepText
             m_StepText->UpdatePhaseStep(static_cast<int>(m_Phase));
             m_StepText->ShowLeftStep();
 
-            //boss
-            m_Boss->SetImage(RESOURCE_DIR"/Image/Character/boss/boss5.png");
-            m_Boss->SetPosition({105, 210});
-            m_Boss->SetVisible(true);
+            //Machines
+            m_Machines[0]->SetPosition({30, 70});
+            m_Machines[0]->SetVisible(true);
+
+            //rocks
+            m_Rocks[0]->SetPosition({-40, -230});
+            m_Rocks[0]->SetVisible(true);
 
             m_BoundaryLs[0]->SetPosition({-120, 130});
             m_BoundaryLs[1]->SetPosition({-120, 60});
@@ -876,13 +879,43 @@ void App::ValidTask() {
             //m_LaserMechBoxes
             m_LaserMechBoxes[0]->SetPosition({170, -100});
             m_LaserMechBoxes[0]->SetVisible(true);
-            ShootLaserL(m_LaserMechBoxes[0]);
+
+            ControlShootLaser();
 
             break;
 
         //Phase11
         case Phase::Phase11:
             Origin();
+
+            //player
+            m_Player->SetPosition({0, -240});
+            m_Player->SetVisible(true);
+
+            //StepText
+            m_StepText->UpdatePhaseStep(static_cast<int>(m_Phase));
+            m_StepText->ShowLeftStep();
+
+            //Machines
+            m_Machines[0]->SetPosition({-100, 70});
+            m_Machines[0]->SetVisible(true);
+            m_Machines[1]->SetPosition({-200, 70});
+            m_Machines[1]->SetVisible(true);
+
+            //rocks
+            m_Rocks[0]->SetPosition({0, -100});
+            m_Rocks[0]->SetVisible(true);
+            m_Rocks[1]->SetPosition({0, -170});
+            m_Rocks[1]->SetVisible(true);
+
+            //m_LaserMechBoxes
+            m_LaserMechBoxes[0]->SetPosition({280, -100});
+            m_LaserMechBoxes[0]->SetVisible(true);
+            m_LaserMechBoxes[1]->SetPosition({280, -170});
+            m_LaserMechBoxes[1]->SetVisible(true);
+
+            InitiateBlinkLaser();
+            ControlShootLaser();
 
             break;
 
@@ -898,29 +931,35 @@ void App::Origin() {
     m_Boss->SetPosition({-1000, -1000});
     m_Boss->SetVisible(false);
 
-    for (int i = 0; i < m_Bosses.size(); i++) {
-        m_Bosses[i]->SetPosition({-1000, -1000});
-        m_Bosses[i]->SetVisible(false);
+    for (const auto & m_Bosse : m_Bosses) {
+        m_Bosse->SetPosition({-1000, -1000});
+        m_Bosse->SetVisible(false);
     }
 
-    for (int i = 0; i < m_Rocks.size(); i++) {
-        m_Rocks[i]->SetPosition({-1000, -1000});
-        m_Rocks[i]->SetVisible(false);
+    for (const auto & m_Machine : m_Machines) {
+        m_Machine->SetImage(RESOURCE_DIR"/Image/Object/BEEMO.png");
+        m_Machine->SetPosition({-1000, -1000});
+        m_Machine->SetVisible(false);
     }
 
-    for (int i = 0; i < m_Enemies.size(); i++) {
-        m_Enemies[i]->SetPosition({-1000, -1000});
-        m_Enemies[i]->SetVisible(false);
+    for (const auto & m_Rock : m_Rocks) {
+        m_Rock->SetPosition({-1000, -1000});
+        m_Rock->SetVisible(false);
     }
 
-    for (int i = 0; i < m_SpikeTraps.size(); i++) {
-        m_SpikeTraps[i]->SetPosition({-1000, -1000});
-        m_SpikeTraps[i]->SetVisible(false);
+    for (const auto & m_Enemie : m_Enemies) {
+        m_Enemie->SetPosition({-1000, -1000});
+        m_Enemie->SetVisible(false);
     }
 
-    for (int i = 0; i < m_HiddenSpikeTraps.size(); i++) {
-        m_HiddenSpikeTraps[i]->SetPosition({-1000, -1000});
-        m_HiddenSpikeTraps[i]->SetVisible(false);
+    for (const auto & m_SpikeTrap : m_SpikeTraps) {
+        m_SpikeTrap->SetPosition({-1000, -1000});
+        m_SpikeTrap->SetVisible(false);
+    }
+
+    for (const auto & m_HiddenSpikeTrap : m_HiddenSpikeTraps) {
+        m_HiddenSpikeTrap->SetPosition({-1000, -1000});
+        m_HiddenSpikeTrap->SetVisible(false);
     }
 
     m_Key->SetPosition({-1000, -1000});
@@ -929,46 +968,63 @@ void App::Origin() {
     m_TreasureBox->SetPosition({-1000, -1000});
     m_TreasureBox->SetVisible(false);
 
-    for (int i = 0; i < m_LaserMechBoxes.size(); i++) {
-        m_LaserMechBoxes[i]->SetPosition({-1000, -1000});
-        m_LaserMechBoxes[i]->SetVisible(false);
+    for (const auto & m_LaserMechBoxe : m_LaserMechBoxes) {
+        m_LaserMechBoxe->SetPosition({-1000, -1000});
+        m_LaserMechBoxe->SetVisible(false);
+        m_LaserMechBoxe->ResetUsedLaserIndex();
     }
 
-    for (int i = 0; i < m_LaserTs.size(); ++i) {
-        m_LaserTs[i]->SetPosition({-1000, -1000});
-        m_LaserTs[i]->SetVisible(false);
+    for (const auto & m_LaserT : m_LaserTs) {
+        m_LaserT->SetImage(RESOURCE_DIR"/Image/Object/laserBeamT.png");
+        m_LaserT->SetPosition({-1000, -1000});
+        m_LaserT->SetVisible(false);
+        m_LaserT->SetUsed(false);
+        m_LaserT->SetIfHurt(true);
+        m_LaserT->SetIfReverse(false);
     }
-    for (int i = 0; i < m_LaserLs.size(); ++i) {
-        m_LaserLs[i]->SetPosition({-1000, -1000});
-        m_LaserLs[i]->SetVisible(false);
+    for (const auto & m_LaserL : m_LaserLs) {
+        m_LaserL->SetImage(RESOURCE_DIR"/Image/Object/laserBeamL.png");
+        m_LaserL->SetPosition({-1000, -1000});
+        m_LaserL->SetVisible(false);
+        m_LaserL->SetUsed(false);
+        m_LaserL->SetIfHurt(true);
+        m_LaserL->SetIfReverse(false);
     }
-    for (int i = 0; i < m_LaserRs.size(); ++i) {
-        m_LaserRs[i]->SetPosition({-1000, -1000});
-        m_LaserRs[i]->SetVisible(false);
+    for (const auto & m_LaserR : m_LaserRs) {
+        m_LaserR->SetImage(RESOURCE_DIR"/Image/Object/laserBeamR.png");
+        m_LaserR->SetPosition({-1000, -1000});
+        m_LaserR->SetVisible(false);
+        m_LaserR->SetUsed(false);
+        m_LaserR->SetIfHurt(true);
+        m_LaserR->SetIfReverse(false);
     }
-    for (int i = 0; i < m_LaserBs.size(); ++i) {
-        m_LaserBs[i]->SetPosition({-1000, -1000});
-        m_LaserBs[i]->SetVisible(false);
+    for (const auto & m_LaserB : m_LaserBs) {
+        m_LaserB->SetImage(RESOURCE_DIR"/Image/Object/laserBeamB.png");
+        m_LaserB->SetPosition({-1000, -1000});
+        m_LaserB->SetVisible(false);
+        m_LaserB->SetUsed(false);
+        m_LaserB->SetIfHurt(true);
+        m_LaserB->SetIfReverse(false);
     }
 
-    for (int i = 0; i < m_BoundaryTs.size(); i++) {
-        m_BoundaryTs[i]->SetPosition({-1000, -1000});
-        m_BoundaryTs[i]->SetVisible(false);
+    for (const auto & m_BoundaryT : m_BoundaryTs) {
+        m_BoundaryT->SetPosition({-1000, -1000});
+        m_BoundaryT->SetVisible(false);
     }
-    for (int i = 0; i < m_BoundaryLs.size(); i++) {
-        m_BoundaryLs[i]->SetPosition({-1000, -1000});
-        m_BoundaryLs[i]->SetVisible(false);
+    for (const auto & m_BoundaryL : m_BoundaryLs) {
+        m_BoundaryL->SetPosition({-1000, -1000});
+        m_BoundaryL->SetVisible(false);
     }
-    for (int i = 0; i < m_BoundaryRs.size(); i++) {
-        m_BoundaryRs[i]->SetPosition({-1000, -1000});
-        m_BoundaryRs[i]->SetVisible(false);
+    for (const auto & m_BoundaryR : m_BoundaryRs) {
+        m_BoundaryR->SetPosition({-1000, -1000});
+        m_BoundaryR->SetVisible(false);
     }
-    for (int i = 0; i < m_BoundaryIBs.size(); i++) {
-        m_BoundaryIBs[i]->SetPosition({-1000, -1000});
-        m_BoundaryIBs[i]->SetVisible(false);
+    for (const auto & m_BoundaryIB : m_BoundaryIBs) {
+        m_BoundaryIB->SetPosition({-1000, -1000});
+        m_BoundaryIB->SetVisible(false);
     }
-    for (int i = 0; i < m_BoundaryBs.size(); i++) {
-        m_BoundaryBs[i]->SetPosition({-1000, -1000});
-        m_BoundaryBs[i]->SetVisible(false);
+    for (const auto & m_BoundaryB : m_BoundaryBs) {
+        m_BoundaryB->SetPosition({-1000, -1000});
+        m_BoundaryB->SetVisible(false);
     }
 }

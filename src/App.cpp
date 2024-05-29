@@ -4,6 +4,7 @@
 #include "Util/Input.hpp"
 #include "Util/Keycode.hpp"
 #include "Util/Logger.hpp"
+#include "Util/Time.hpp"
 
 App::App(){
     //player
@@ -27,6 +28,15 @@ App::App(){
         m_Bosses[i]->SetTag(Character::Tag::Boss);
         m_Root.AddChild(m_Bosses[i]);
         m_CollideObjects.push_back(m_Bosses[i]);
+    }
+
+    //Machines
+    for (int i = 0; i < 2; i++) {
+        m_Machines.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/BEEMO.png"));
+        m_Machines[i]->SetZIndex(50);
+        m_Machines[i]->SetTag(Character::Tag::Machine);
+        m_Root.AddChild(m_Machines[i]);
+        m_CollideObjects.push_back(m_Machines[i]);
     }
 
     //rocks
@@ -94,6 +104,7 @@ App::App(){
         m_LaserTs[i]->SetTag(Character::Tag::Laser);
         m_Root.AddChild(m_LaserTs[i]);
         m_CollideObjects.push_back(m_LaserTs[i]);
+        m_LaserTs[i]->SetIfHurt(true);
     }
     for (int i = 0; i < 20; ++i) {
         m_LaserLs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/laserBeamL.png"));
@@ -101,6 +112,7 @@ App::App(){
         m_LaserLs[i]->SetTag(Character::Tag::Laser);
         m_Root.AddChild(m_LaserLs[i]);
         m_CollideObjects.push_back(m_LaserLs[i]);
+        m_LaserLs[i]->SetIfHurt(true);
     }
     for (int i = 0; i < 20; ++i) {
         m_LaserRs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/laserBeamR.png"));
@@ -108,6 +120,7 @@ App::App(){
         m_LaserRs[i]->SetTag(Character::Tag::Laser);
         m_Root.AddChild(m_LaserRs[i]);
         m_CollideObjects.push_back(m_LaserRs[i]);
+        m_LaserRs[i]->SetIfHurt(true);
     }
     for (int i = 0; i < 20; ++i) {
         m_LaserBs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/laserBeamB.png"));
@@ -115,6 +128,7 @@ App::App(){
         m_LaserBs[i]->SetTag(Character::Tag::Laser);
         m_Root.AddChild(m_LaserBs[i]);
         m_CollideObjects.push_back(m_LaserBs[i]);
+        m_LaserBs[i]->SetIfHurt(true);
     }
 
     //boundaries_precise
@@ -173,6 +187,9 @@ void App::Start() {
     ValidTask();
 
     m_Player->SetLastTouched(Character::Tag::Null);
+    timer = 0;
+    switchImage = false;
+    switchCount = 0;
     m_CurrentState = State::UPDATE;
 }
 
@@ -240,6 +257,13 @@ void App::Update() {
     else if (Util::Input::IsKeyDown(Util::Keycode::NUM_9)) {
         m_Phase = Phase::Phase9;
         m_PRM->SetPhase(8);
+        m_PRM->NextPhase();
+        m_CurrentState = State::START;
+        return;
+    }
+    else if (Util::Input::IsKeyDown(Util::Keycode::NUM_0)) {
+        m_Phase = Phase::Phase10;
+        m_PRM->SetPhase(9);
         m_PRM->NextPhase();
         m_CurrentState = State::START;
         return;
@@ -435,6 +459,36 @@ void App::Update() {
             MoveEx(m_Player);
         }
 
+        //check if phase10 is passed
+        if (IsPhaseExPassed()) {
+            m_Phase = Phase::Phase11;
+            m_PRM->NextPhase();
+            m_CurrentState = State::START;
+            return;
+        }
+    }
+
+    if (m_Phase == Phase::Phase11) {
+        timer += Util::Time::GetDeltaTime();
+
+        //make lasers blink
+        BlinkLaser();
+
+        //make player move
+        if (m_Player->GetVisibility()) {
+            MoveEx(m_Player);
+        }
+
+        //Check if player touched the layer
+        IfPlayerTouchLaser();
+
+        //check if phase11 is passed
+        if (IsPhaseExPassed()) {
+            m_Phase = Phase::Phase12;
+            m_PRM->NextPhase();
+            m_CurrentState = State::START;
+            return;
+        }
     }
 
     //If the step become zero, restart the game

@@ -25,8 +25,15 @@ public:
     }
 
     void UpdatePhaseStep(int phase) {
-        step = s_PhaseTasks[phase];
-        m_Phase = phase;
+        if (phase >= 9) {
+            phase--;
+            step = s_PhaseTasks[phase];
+            m_Phase = phase;
+        }
+        else {
+            step = s_PhaseTasks[phase];
+            m_Phase = phase;
+        }
     }
 
     [[nodiscard]] bool IsStepZero() const{
@@ -45,7 +52,7 @@ private:
         return std::to_string(step);
     }
 
-    static constexpr int s_PhaseTasks[15] = {
+    static constexpr int s_PhaseTasks[16] = {
             23,
             24,
             32,
@@ -55,6 +62,13 @@ private:
             32,
             12,
             33,
+            21,
+            0,
+            35,
+            0,
+            49,
+            0,
+            0,
     };
 
     int step = s_PhaseTasks[0];
