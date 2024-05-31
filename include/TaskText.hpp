@@ -20,17 +20,24 @@ public:
     }
 
     void NextPhase(const int phase) {
+        SetVisible(true);
         auto temp = std::dynamic_pointer_cast<Util::Text>(m_Drawable);
         if (phase > 8) {
-            temp->SetText(".");
+            SetVisible(false);
             return;
         }
         temp->SetText(append_string_views(s_PhaseTasks[phase], s_Validation));
     }
 
+    [[nodiscard]] bool GetVisibility() const { return m_Visible; }
+
+    [[nodiscard]] const glm::vec2& GetPosition() const { return m_Transform.translation; }
+
+    void SetPosition(const glm::vec2& Position) { m_Transform.translation = Position; }
+
 private:
     inline static std::string append_string_views(std::string_view sv1, std::string_view sv2) {
-        return std::string(sv1) + "\n" + std::string(sv2) + "\n" + "Watch your head, there are invisible walls";
+        return std::string(sv1) + "\n" + std::string(sv2);
     }
 
     static constexpr std::string_view s_PhaseTasks[16] = {

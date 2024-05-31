@@ -491,6 +491,73 @@ void App::Update() {
         }
     }
 
+    if (m_Phase == Phase::Phase12) {
+        //make player move
+        if (m_Player->GetVisibility()) {
+            MoveEx(m_Player);
+        }
+
+        //check if phase10 is passed
+        if (IsPhaseExPassed()) {
+            m_Phase = Phase::Phase13;
+            m_PRM->NextPhase();
+            m_CurrentState = State::START;
+            return;
+        }
+    }
+
+    if (m_Phase == Phase::Phase13) {
+        //make player move
+        if (m_Player->GetVisibility()) {
+            MoveEx(m_Player);
+        }
+
+        //check if phase10 is passed
+        if (IsPhaseExPassed()) {
+            m_Phase = Phase::Phase14;
+            m_PRM->NextPhase();
+            m_CurrentState = State::START;
+            return;
+        }
+    }
+
+    if (m_Phase == Phase::Phase14) {
+        //make player move
+        if (m_Player->GetVisibility()) {
+            MoveEx(m_Player);
+        }
+
+        //check if phase10 is passed
+        if (IsPhaseExPassed()) {
+            m_Phase = Phase::Phase15;
+            m_PRM->NextPhase();
+            m_CurrentState = State::START;
+            return;
+        }
+    }
+
+    if (m_Phase == Phase::Phase15) {
+        //make player move
+        if (m_Player->GetVisibility()) {
+            MoveEx(m_Player);
+        }
+
+        //check if phase10 is passed
+        if (IsPhaseExPassed()) {
+            m_Phase = Phase::PhaseFindal;
+            m_PRM->NextPhase();
+            m_CurrentState = State::START;
+            return;
+        }
+    }
+
+    if (m_Phase == Phase::PhaseFindal) {
+        //make player move
+        if (m_Player->GetVisibility()) {
+            MoveEx(m_Player);
+        }
+    }
+
     //If the step become zero, restart the game
     if (m_StepText->IsStepZero()) {
         m_CurrentState = State::START;

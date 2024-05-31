@@ -31,8 +31,14 @@ public:
 
 private:
     inline std::string ImagePath(const int phase) {
-        m_ImagePath = RESOURCE_DIR"/Image/Background/Map/map" + std::to_string(phase) + ".png";
-        return m_ImagePath;
+        if (phase == 15) {
+            m_ImagePath = RESOURCE_DIR"/Image/Background/Map/mapBoss.png";
+            return m_ImagePath;
+        }
+        else {
+            m_ImagePath = RESOURCE_DIR"/Image/Background/Map/map" + std::to_string(phase) + ".png";
+            return m_ImagePath;
+        }
     }
 
     std::string m_ImagePath;

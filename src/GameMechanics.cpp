@@ -633,8 +633,10 @@ void App::ShootLaserR(const std::shared_ptr<Character>& laserMech) {
             }
         }
         indexPost = laserMech->GetUsedLaserIndex();
-        if (indexPre.size() > indexPost.size()) {
-            m_LaserLs[indexPre[indexPre.size() - 1]]->SetImage(RESOURCE_DIR"/Image/Object/Transparent.png");
+        if (m_Phase == Phase::Phase11 || m_Phase == Phase::Phase13 || m_Phase == Phase::Phase15) {
+            if (indexPre.size() > indexPost.size()) {
+                m_LaserLs[indexPre[indexPre.size() - 1]]->SetImage(RESOURCE_DIR"/Image/Object/Transparent.png");
+            }
         }
     }
 }
@@ -681,8 +683,10 @@ void App::ShootLaserL(const std::shared_ptr<Character> &laserMech) {
             }
         }
         indexPost = laserMech->GetUsedLaserIndex();
-        if (indexPre.size() > indexPost.size()) {
-            m_LaserLs[indexPre[indexPre.size() - 1]]->SetImage(RESOURCE_DIR"/Image/Object/Transparent.png");
+        if (m_Phase == Phase::Phase11 || m_Phase == Phase::Phase13 || m_Phase == Phase::Phase15) {
+            if (indexPre.size() > indexPost.size()) {
+                m_LaserLs[indexPre[indexPre.size() - 1]]->SetImage(RESOURCE_DIR"/Image/Object/Transparent.png");
+            }
         }
     }
 }
@@ -729,8 +733,10 @@ void App::ShootLaserT(const std::shared_ptr<Character>& laserMech) {
             }
         }
         indexPost = laserMech->GetUsedLaserIndex();
-        if (indexPre.size() > indexPost.size()) {
-            m_LaserLs[indexPre[indexPre.size() - 1]]->SetImage(RESOURCE_DIR"/Image/Object/Transparent.png");
+        if (m_Phase == Phase::Phase11 || m_Phase == Phase::Phase13 || m_Phase == Phase::Phase15) {
+            if (indexPre.size() > indexPost.size()) {
+                m_LaserLs[indexPre[indexPre.size() - 1]]->SetImage(RESOURCE_DIR"/Image/Object/Transparent.png");
+            }
         }
     }
 }
@@ -777,8 +783,10 @@ void App::ShootLaserB(const std::shared_ptr<Character>& laserMech) {
             }
         }
         indexPost = laserMech->GetUsedLaserIndex();
-        if (indexPre.size() > indexPost.size()) {
-            m_LaserLs[indexPre[indexPre.size() - 1]]->SetImage(RESOURCE_DIR"/Image/Object/Transparent.png");
+        if (m_Phase == Phase::Phase11 || m_Phase == Phase::Phase13 || m_Phase == Phase::Phase15) {
+            if (indexPre.size() > indexPost.size()) {
+                m_LaserLs[indexPre[indexPre.size() - 1]]->SetImage(RESOURCE_DIR"/Image/Object/Transparent.png");
+            }
         }
     }
 }
@@ -1085,8 +1093,58 @@ void App::ControlShootLaser() {
 //    }
 //    if (m_Phase == Phase::Phase11) {
 //        ShootLaserL(m_LaserMechBoxes[0]);
+//        ShootReverse(m_LaserMechBoxes[0], 'L');
 //        ShootLaserL(m_LaserMechBoxes[1]);
 //        ShootReverse(m_LaserMechBoxes[1], 'L');
+//        ShootLaserB(m_LaserMechBoxes[2]);
+//        ShootLaserB(m_LaserMechBoxes[3]);
+//        ShootReverse(m_LaserMechBoxes[3], 'B');
+//        ShootLaserB(m_LaserMechBoxes[4]);
+//        ShootLaserR(m_LaserMechBoxes[5]);
+//    }
+//    if (m_Phase == Phase::Phase12) {
+//        ShootLaserB(m_LaserMechBoxes[0]);
+//        ShootLaserB(m_LaserMechBoxes[1]);
+//        ShootLaserB(m_LaserMechBoxes[2]);
+//        ShootLaserB(m_LaserMechBoxes[3]);
+//    }
+//    if (m_Phase == Phase::Phase13) {
+//        ShootLaserL(m_LaserMechBoxes[0]);
+//        ShootLaserL(m_LaserMechBoxes[1]);
+//        ShootReverse(m_LaserMechBoxes[1], 'L');
+//        ShootLaserR(m_LaserMechBoxes[2]);
+//        ShootReverse(m_LaserMechBoxes[2], 'R');
+//        ShootLaserR(m_LaserMechBoxes[3]);
+//        ShootLaserB(m_LaserMechBoxes[4]);
+//        ShootLaserB(m_LaserMechBoxes[5]);
+//        ShootReverse(m_LaserMechBoxes[5], 'B');
+//        ShootLaserT(m_LaserMechBoxes[6]);
+//        ShootReverse(m_LaserMechBoxes[6], 'T');
+//        ShootLaserR(m_LaserMechBoxes[7]);
+//        ShootLaserR(m_LaserMechBoxes[8]);
+//        ShootReverse(m_LaserMechBoxes[8], 'R');
+//    }
+//    if (m_Phase == Phase::Phase14) {
+//        ShootLaserB(m_LaserMechBoxes[0]);
+//        ShootLaserB(m_LaserMechBoxes[1]);
+//        ShootLaserR(m_LaserMechBoxes[2]);
+//        ShootLaserB(m_LaserMechBoxes[3]);
+//    }
+//    if (m_Phase == Phase::Phase15) {
+//        ShootLaserL(m_LaserMechBoxes[0]);
+//        ShootLaserL(m_LaserMechBoxes[1]);
+//        ShootReverse(m_LaserMechBoxes[1], 'L');
+//        ShootLaserB(m_LaserMechBoxes[2]);
+//        ShootLaserL(m_LaserMechBoxes[3]);
+//        ShootLaserB(m_LaserMechBoxes[4]);
+//        ShootLaserT(m_LaserMechBoxes[5]);
+//        ShootReverse(m_LaserMechBoxes[5], 'T');
+//        ShootLaserT(m_LaserMechBoxes[6]);
+//        ShootLaserT(m_LaserMechBoxes[7]);
+//        ShootLaserR(m_LaserMechBoxes[8]);
+//        ShootReverse(m_LaserMechBoxes[8], 'R');
+//        ShootLaserR(m_LaserMechBoxes[9]);
+//        ShootReverse(m_LaserMechBoxes[9], 'R');
 //    }
 }
 
