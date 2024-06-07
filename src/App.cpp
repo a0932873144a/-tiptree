@@ -31,7 +31,7 @@ App::App(){
     }
 
     //Machines
-    for (int i = 0; i < 2; i++) {
+    for (int i = 0; i < 4; i++) {
         m_Machines.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/BEEMO.png"));
         m_Machines[i]->SetZIndex(50);
         m_Machines[i]->SetTag(Character::Tag::Machine);
@@ -58,7 +58,7 @@ App::App(){
     }
 
     //spikeTraps
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 15; i++) {
         m_SpikeTraps.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/spikeTrap.png"));
         m_SpikeTraps[i]->SetZIndex(45);
         m_SpikeTraps[i]->SetTag(Character::Tag::SpikeTrap);
@@ -132,7 +132,7 @@ App::App(){
     }
 
     //boundaries_precise
-    for (int i = 0; i < 10; ++i) {
+    for (int i = 0; i < 12; ++i) {
         m_BoundaryTs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Background/Boundary/newRock.png"));
         m_BoundaryTs[i]->SetZIndex(5);
         m_BoundaryTs[i]->SetVisible(false);
@@ -164,13 +164,37 @@ App::App(){
         m_Root.AddChild(m_BoundaryIBs[i]);
         m_CollideObjects.push_back(m_BoundaryIBs[i]);
     }
-    for (int i = 0; i < 10; ++i) {
+    for (int i = 0; i < 11; ++i) {
         m_BoundaryBs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Background/Boundary/newRock.png"));
         m_BoundaryBs[i]->SetZIndex(5);
         m_BoundaryBs[i]->SetVisible(false);
         m_BoundaryBs[i]->SetTag(Character::Tag::Boundary);
         m_Root.AddChild(m_BoundaryBs[i]);
         m_CollideObjects.push_back(m_BoundaryBs[i]);
+    }
+
+    //chains
+    for (int i = 0; i < 7; ++i) {
+        m_ChainVerticals.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/chainAttackVertical.png"));
+        m_ChainVerticals[i]->SetZIndex(80);
+        m_ChainVerticals[i]->SetVisible(false);
+        m_ChainVerticals[i]->SetTag(Character::Tag::Chain);
+        m_Root.AddChild(m_ChainVerticals[i]);
+    }
+    for (int i = 0; i < 5; ++i) {
+        m_ChainHorizontals.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/chainAttackHorizontal.png"));
+        m_ChainHorizontals[i]->SetZIndex(80);
+        m_ChainHorizontals[i]->SetVisible(false);
+        m_ChainHorizontals[i]->SetTag(Character::Tag::Chain);
+        m_Root.AddChild(m_ChainHorizontals[i]);
+    }
+
+    for (int i = 0; i < 4; ++i) {
+        m_Crosses.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/cross.png"));
+        m_Crosses[i]->SetZIndex(80);
+        m_Crosses[i]->SetVisible(false);
+        m_Crosses[i]->SetTag(Character::Tag::Null);
+        m_Root.AddChild(m_Crosses[i]);
     }
 
     //StepText

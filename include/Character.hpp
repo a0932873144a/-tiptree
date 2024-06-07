@@ -27,6 +27,7 @@ public:
         LaserMech,
         Laser,
         Machine,
+        Chain,
     };
 
     explicit Character(const std::string& ImagePath);

@@ -343,6 +343,12 @@ private:
     std::vector<std::shared_ptr<Character>> m_BoundaryIBs;
     std::vector<std::shared_ptr<Character>> m_BoundaryBs;
 
+    //chains
+    std::vector<std::shared_ptr<Character>> m_ChainVerticals;
+    std::vector<std::shared_ptr<Character>> m_ChainHorizontals;
+
+    std::vector<std::shared_ptr<Character>> m_Crosses;
+
     std::shared_ptr<StepText> m_StepText;
 
     std::shared_ptr<PhaseResourceManger> m_PRM;
