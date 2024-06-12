@@ -17,6 +17,7 @@ public:
                                          Util::Color::FromName(Util::Colors::WHITE)),
                                          100) {
             m_Transform.translation = {0.0F, -300.F};
+            m_Visible = false;
     }
 
     void NextPhase(const int phase) {

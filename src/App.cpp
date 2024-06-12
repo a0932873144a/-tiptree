@@ -180,6 +180,7 @@ App::App(){
         m_ChainVerticals[i]->SetVisible(false);
         m_ChainVerticals[i]->SetTag(Character::Tag::Chain);
         m_Root.AddChild(m_ChainVerticals[i]);
+        m_CollideObjects.push_back(m_ChainVerticals[i]);
     }
     for (int i = 0; i < 5; ++i) {
         m_ChainHorizontals.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/chainAttackHorizontal.png"));
@@ -187,6 +188,7 @@ App::App(){
         m_ChainHorizontals[i]->SetVisible(false);
         m_ChainHorizontals[i]->SetTag(Character::Tag::Chain);
         m_Root.AddChild(m_ChainHorizontals[i]);
+        m_CollideObjects.push_back(m_ChainHorizontals[i]);
     }
 
     for (int i = 0; i < 4; ++i) {
@@ -208,18 +210,32 @@ App::App(){
 
 void App::Start() {
     LOG_TRACE("Start");
-    ValidTask();
 
     m_Player->SetLastTouched(Character::Tag::Null);
     timer = 0;
+    invincibleTime = 0;
     switchImage = false;
     switchCount = 0;
+    FM.ResetCycle();
+    FM.ResetState();
+
+    ValidTask();
+    if (m_PRM->IfStartScene()) {
+        m_StepText->SetVisible(false);
+    }
     m_CurrentState = State::UPDATE;
 }
 
 void App::Update() {
     //update the root
     m_Root.Update();
+
+    if (m_PRM->IfStartScene()) {
+        if (Util::Input::IsKeyDown(Util::Keycode::SPACE)) {
+            m_PRM->GameStart();
+            m_StepText->SetVisible(true);
+        }
+    }
 
     //temporary pass phase
     if (Util::Input::IsKeyDown(Util::Keycode::NUM_1)) {
@@ -288,6 +304,13 @@ void App::Update() {
     else if (Util::Input::IsKeyDown(Util::Keycode::NUM_0)) {
         m_Phase = Phase::Phase10;
         m_PRM->SetPhase(9);
+        m_PRM->NextPhase();
+        m_CurrentState = State::START;
+        return;
+    }
+    else if (Util::Input::IsKeyDown(Util::Keycode::F)) {
+        m_Phase = Phase::PhaseFindal;
+        m_PRM->SetPhase(15);
         m_PRM->NextPhase();
         m_CurrentState = State::START;
         return;
@@ -521,7 +544,7 @@ void App::Update() {
             MoveEx(m_Player);
         }
 
-        //check if phase10 is passed
+        //check if phase12 is passed
         if (IsPhaseExPassed()) {
             m_Phase = Phase::Phase13;
             m_PRM->NextPhase();
@@ -531,12 +554,20 @@ void App::Update() {
     }
 
     if (m_Phase == Phase::Phase13) {
+        timer += Util::Time::GetDeltaTime();
+
+        //make lasers blink
+        BlinkLaser();
+
         //make player move
         if (m_Player->GetVisibility()) {
             MoveEx(m_Player);
         }
 
-        //check if phase10 is passed
+        //Check if player touched the layer
+        IfPlayerTouchLaser();
+
+        //check if phase13 is passed
         if (IsPhaseExPassed()) {
             m_Phase = Phase::Phase14;
             m_PRM->NextPhase();
@@ -551,7 +582,7 @@ void App::Update() {
             MoveEx(m_Player);
         }
 
-        //check if phase10 is passed
+        //check if phase14 is passed
         if (IsPhaseExPassed()) {
             m_Phase = Phase::Phase15;
             m_PRM->NextPhase();
@@ -561,12 +592,20 @@ void App::Update() {
     }
 
     if (m_Phase == Phase::Phase15) {
+        timer += Util::Time::GetDeltaTime();
+
+        //make lasers blink
+        BlinkLaser();
+
         //make player move
         if (m_Player->GetVisibility()) {
             MoveEx(m_Player);
         }
 
-        //check if phase10 is passed
+        //Check if player touched the layer
+        IfPlayerTouchLaser();
+
+        //check if phase15 is passed
         if (IsPhaseExPassed()) {
             m_Phase = Phase::PhaseFindal;
             m_PRM->NextPhase();
@@ -576,10 +615,32 @@ void App::Update() {
     }
 
     if (m_Phase == Phase::PhaseFindal) {
+        timer += Util::Time::GetDeltaTime();
+        invincibleTime += Util::Time::GetDeltaTime();
+
+        //make chains blink
+        BlinkChain();
+
+        if (!FM.IsCycleDone()) {
+            UpGoingPlayer();
+        }
+        else {
+            ValidState();
+        }
+
         //make player move
         if (m_Player->GetVisibility()) {
-            MoveEx(m_Player);
+            MoveFinal(m_Player);
         }
+
+        //Check if player touched the chain and spike
+        if (invincibleTime > 1) {
+            IfPlayerTouchChain();
+            IfPlayerTouchSpike();
+        }
+
+        //check if phaseFinal is passed
+
     }
 
     //If the step become zero, restart the game

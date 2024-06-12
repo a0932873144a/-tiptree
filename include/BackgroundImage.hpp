@@ -12,8 +12,8 @@ class BackgroundImage : public Util::GameObject {
 
 public:
     BackgroundImage() : GameObject(
-            std::make_unique<Util::Image>(RESOURCE_DIR"/Image/Background/Map/map0.png"), -10) {
-        m_ImagePath = RESOURCE_DIR"/Image/Background/Map/map0.png";
+            std::make_unique<Util::Image>(RESOURCE_DIR"/Image/Background/Map/StartScene.png"), 90) {
+        m_ImagePath = RESOURCE_DIR"/Image/Background/Map/StartScene.png";
     }
 
     void NextPhase(const int phase) {

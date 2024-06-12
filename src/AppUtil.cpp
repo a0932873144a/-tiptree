@@ -1498,6 +1498,10 @@ void App::ValidTask() {
             m_Player->SetPosition({0, 0});
             m_Player->SetVisible(true);
 
+            //StepText
+            m_StepText->UpdatePhaseStep(static_cast<int>(m_Phase));
+            m_StepText->ShowLeftStep();
+
             //SpikeTrap
             m_SpikeTraps[0]->SetPosition({210, 140});
             m_SpikeTraps[0]->SetVisible(true);
@@ -1587,6 +1591,8 @@ void App::ValidTask() {
             m_Crosses[1]->SetPosition({190, -340});
             m_Crosses[2]->SetPosition({-190, -340});
             m_Crosses[3]->SetPosition({-340, -340});
+
+            InitiateBlinkChain();
 
         default:
             break;
@@ -1698,11 +1704,20 @@ void App::Origin() {
     }
 
     for (const auto &m_ChainVertical: m_ChainVerticals) {
+        m_ChainVertical->SetImage(RESOURCE_DIR"/Image/Object/chainAttackVertical.png");
         m_ChainVertical->SetPosition({-1000, -1000});
         m_ChainVertical->SetVisible(false);
+        m_ChainVertical->SetUsed(false);
     }
     for (const auto &m_ChainHorizontal: m_ChainHorizontals) {
+        m_ChainHorizontal->SetImage(RESOURCE_DIR"/Image/Object/chainAttackHorizontal.png");
         m_ChainHorizontal->SetPosition({-1000, -1000});
         m_ChainHorizontal->SetVisible(false);
+        m_ChainHorizontal->SetUsed(false);
+    }
+
+    for (const auto &m_Cross: m_Crosses) {
+        m_Cross->SetPosition({-1000, -1000});
+        m_Cross->SetVisible(false);
     }
 }

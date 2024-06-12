@@ -9,6 +9,7 @@
 #include "PhaseResourceManger.hpp"
 #include "AnimatedCharacter.hpp"
 #include "Util/GameObject.hpp"
+#include "FinalMechanics.hpp"
 
 class App {
 public:
@@ -246,6 +247,30 @@ public:
 
     double timer = 0;
 
+    double invincibleTime;
+
+    FinalMechanics FM;
+
+    void ChangeChainPattern();
+
+    void ShootChain(const std::shared_ptr<Character>& chain);
+
+    void InitiateBlinkChain();
+
+    void BlinkChain();
+
+    void IfPlayerTouchChain();
+
+    void IfPlayerTouchSpike();
+
+    void UpGoingPlayer();
+
+    void DamagePlayer();
+
+    void Healing();
+
+    void ValidState();
+
 private:
     void ValidTask();
 
@@ -254,6 +279,8 @@ private:
     void Move(const std::shared_ptr<Character> &player) const;
 
     void MoveEx(const std::shared_ptr<Character> &player);
+
+    void MoveFinal(const std::shared_ptr<Character> &player);
 
     void Push(const std::shared_ptr<Character> &other, char direction) const;
 

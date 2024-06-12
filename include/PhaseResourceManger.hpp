@@ -37,6 +37,10 @@ public:
         m_Phase = i;
     }
 
+    void GameStart();
+
+    bool IfStartScene();
+
 private:
     std::shared_ptr<TaskText> m_TaskText;
     std::shared_ptr<BackgroundImage> m_Background;

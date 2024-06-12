@@ -10,7 +10,16 @@ PhaseResourceManger::PhaseResourceManger() {
 }
 
 void PhaseResourceManger::NextPhase() {
-    if (m_Phase == 16) return;
     m_Background->NextPhase(m_Phase);
     m_TaskText->NextPhase(m_Phase++);
+}
+
+void PhaseResourceManger::GameStart() {
+    m_Background->SetImage(RESOURCE_DIR"/Image/Background/Map/map0.png");
+    m_Background->SetZIndex(-10);
+    m_TaskText->SetVisible(true);
+}
+
+bool PhaseResourceManger::IfStartScene() {
+    return m_Background->GetImagePath() == RESOURCE_DIR"/Image/Background/Map/StartScene.png";
 }
