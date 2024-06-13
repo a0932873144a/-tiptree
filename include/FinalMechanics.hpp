@@ -18,8 +18,8 @@ public:
         return state;
     }
 
-    void SetState(int num) {
-        state = num;
+    void AddState() {
+        state++;
     }
 
     void ResetState() {
@@ -35,7 +35,7 @@ public:
     }
 
     bool IsCycleDone() {
-        if (cycle > 15) {
+        if (cycle > 5) {
             return true;
         }
         else {
@@ -47,10 +47,20 @@ public:
         cycle = 0;
     }
 
+    void SetBeemo(bool flag) {
+        ifBeemoSetUp = flag;
+    }
+
+    bool GetIfSetUP() {
+        return ifBeemoSetUp;
+    }
+
 private:
     int state = 1;
 
     int cycle = 0;
+
+    bool ifBeemoSetUp = false;
 };
 
 

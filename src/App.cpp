@@ -193,11 +193,16 @@ App::App(){
 
     for (int i = 0; i < 4; ++i) {
         m_Crosses.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/cross.png"));
-        m_Crosses[i]->SetZIndex(80);
+        m_Crosses[i]->SetZIndex(10);
         m_Crosses[i]->SetVisible(false);
         m_Crosses[i]->SetTag(Character::Tag::Null);
         m_Root.AddChild(m_Crosses[i]);
     }
+
+    //StateImage
+    m_StateImage = std::make_shared<Character>(RESOURCE_DIR"/Image/Character/healthBar/state1_1.png");
+    m_StateImage->SetZIndex(50);
+    m_Root.AddChild(m_StateImage);
 
     //StepText
     m_StepText = std::make_shared<StepText>();
@@ -218,6 +223,7 @@ void App::Start() {
     switchCount = 0;
     FM.ResetCycle();
     FM.ResetState();
+    FM.SetBeemo(false);
 
     ValidTask();
     if (m_PRM->IfStartScene()) {
@@ -236,417 +242,423 @@ void App::Update() {
             m_StepText->SetVisible(true);
         }
     }
-
-    //temporary pass phase
-    if (Util::Input::IsKeyDown(Util::Keycode::NUM_1)) {
-        m_Phase = Phase::Phase1;
-        m_PRM->SetPhase(0);
-        m_PRM->NextPhase();
-        m_CurrentState = State::START;
-        return;
-    }
-    else if (Util::Input::IsKeyDown(Util::Keycode::NUM_2)) {
-        m_Phase = Phase::Phase2;
-        m_PRM->SetPhase(1);
-        m_PRM->NextPhase();
-        m_CurrentState = State::START;
-        return;
-    }
-    else if (Util::Input::IsKeyDown(Util::Keycode::NUM_3)) {
-        m_Phase = Phase::Phase3;
-        m_PRM->SetPhase(2);
-        m_PRM->NextPhase();
-        m_CurrentState = State::START;
-        return;
-    }
-    else if (Util::Input::IsKeyDown(Util::Keycode::NUM_4)) {
-        m_Phase = Phase::Phase4;
-        m_PRM->SetPhase(3);
-        m_PRM->NextPhase();
-        m_CurrentState = State::START;
-        return;
-    }
-    else if (Util::Input::IsKeyDown(Util::Keycode::NUM_5)) {
-        m_Phase = Phase::Phase5;
-        m_PRM->SetPhase(4);
-        m_PRM->NextPhase();
-        m_CurrentState = State::START;
-        return;
-    }
-    else if (Util::Input::IsKeyDown(Util::Keycode::NUM_6)) {
-        m_Phase = Phase::Phase6;
-        m_PRM->SetPhase(5);
-        m_PRM->NextPhase();
-        m_CurrentState = State::START;
-        return;
-    }
-    else if (Util::Input::IsKeyDown(Util::Keycode::NUM_7)) {
-        m_Phase = Phase::Phase7;
-        m_PRM->SetPhase(6);
-        m_PRM->NextPhase();
-        m_CurrentState = State::START;
-        return;
-    }
-    else if (Util::Input::IsKeyDown(Util::Keycode::NUM_8)) {
-        m_Phase = Phase::Phase8;
-        m_PRM->SetPhase(7);
-        m_PRM->NextPhase();
-        m_CurrentState = State::START;
-        return;
-    }
-    else if (Util::Input::IsKeyDown(Util::Keycode::NUM_9)) {
-        m_Phase = Phase::Phase9;
-        m_PRM->SetPhase(8);
-        m_PRM->NextPhase();
-        m_CurrentState = State::START;
-        return;
-    }
-    else if (Util::Input::IsKeyDown(Util::Keycode::NUM_0)) {
-        m_Phase = Phase::Phase10;
-        m_PRM->SetPhase(9);
-        m_PRM->NextPhase();
-        m_CurrentState = State::START;
-        return;
-    }
-    else if (Util::Input::IsKeyDown(Util::Keycode::F)) {
-        m_Phase = Phase::PhaseFindal;
-        m_PRM->SetPhase(15);
-        m_PRM->NextPhase();
-        m_CurrentState = State::START;
-        return;
-    }
-
-    //Skip the puzzle
-    if (Util::Input::IsKeyUp(Util::Keycode::N)) {
-        m_Phase = nextPhase(m_Phase);
-        m_PRM->NextPhase();
-        m_CurrentState = State::START;
-        return;
-    }
-
-    //Restart the game
-    if (Util::Input::IsKeyUp(Util::Keycode::R)) {
-        if (m_Phase == Phase::Phase8_2) {
-            m_Phase = Phase::Phase8;
-            m_PRM->SwitchTo8();
+    else {
+        //temporary pass phase
+        if (Util::Input::IsKeyDown(Util::Keycode::NUM_1)) {
+            m_Phase = Phase::Phase1;
+            m_PRM->SetPhase(0);
+            m_PRM->NextPhase();
+            m_CurrentState = State::START;
+            return;
         }
-        m_CurrentState = State::START;
-        return;
-    }
-
-    //closing the window
-    if (Util::Input::IsKeyUp(Util::Keycode::ESCAPE) ||
-        Util::Input::IfExit()) {
-        m_CurrentState = State::END;
-        return;
-    }
-
-    //Phase1 setting
-    if (m_Phase == Phase::Phase1) {
-        //make player move
-        if (m_Player->GetVisibility()) {
-            Move(m_Player);
-        }
-
-        //check if phase1 is passed
-        if (IsPhasePassed()) {
+        else if (Util::Input::IsKeyDown(Util::Keycode::NUM_2)) {
             m_Phase = Phase::Phase2;
+            m_PRM->SetPhase(1);
             m_PRM->NextPhase();
             m_CurrentState = State::START;
             return;
         }
-    }
-
-    if (m_Phase == Phase::Phase2) {
-        //make player move
-        if (m_Player->GetVisibility()) {
-            Move(m_Player);
-        }
-
-        //check if phase2 is passed
-        if (IsPhasePassed()) {
+        else if (Util::Input::IsKeyDown(Util::Keycode::NUM_3)) {
             m_Phase = Phase::Phase3;
+            m_PRM->SetPhase(2);
             m_PRM->NextPhase();
             m_CurrentState = State::START;
             return;
         }
-    }
-
-    if (m_Phase == Phase::Phase3) {
-        //make player move
-        if (m_Player->GetVisibility()) {
-            Move(m_Player);
-        }
-
-        //check if phase3 is passed
-        if (IsPhase3Passed()) {
+        else if (Util::Input::IsKeyDown(Util::Keycode::NUM_4)) {
             m_Phase = Phase::Phase4;
+            m_PRM->SetPhase(3);
             m_PRM->NextPhase();
             m_CurrentState = State::START;
             return;
         }
-    }
-
-    if (m_Phase == Phase::Phase4) {
-        //make player move
-        if (m_Player->GetVisibility()) {
-            Move(m_Player);
-        }
-
-        //check if phase4 is passed
-        if (IsPhasePassed()) {
+        else if (Util::Input::IsKeyDown(Util::Keycode::NUM_5)) {
             m_Phase = Phase::Phase5;
+            m_PRM->SetPhase(4);
             m_PRM->NextPhase();
             m_CurrentState = State::START;
             return;
         }
-    }
-
-    if (m_Phase == Phase::Phase5) {
-        //make player move
-        if (m_Player->GetVisibility()) {
-            Move(m_Player);
-        }
-
-        //check if phase5 is passed
-        if (IsPhasePassed()) {
+        else if (Util::Input::IsKeyDown(Util::Keycode::NUM_6)) {
             m_Phase = Phase::Phase6;
+            m_PRM->SetPhase(5);
             m_PRM->NextPhase();
             m_CurrentState = State::START;
             return;
         }
-    }
-
-    if (m_Phase == Phase::Phase6) {
-        //make player move
-        if (m_Player->GetVisibility()) {
-            Move(m_Player);
-        }
-
-        //check if phase6 is passed
-        if (IsPhasePassed()) {
+        else if (Util::Input::IsKeyDown(Util::Keycode::NUM_7)) {
             m_Phase = Phase::Phase7;
+            m_PRM->SetPhase(6);
             m_PRM->NextPhase();
             m_CurrentState = State::START;
             return;
         }
-    }
-
-    if (m_Phase == Phase::Phase7) {
-        //make player move
-        if (m_Player->GetVisibility()) {
-            Move(m_Player);
-        }
-
-        //check if phase7 is passed
-        if (IsPhasePassed()) {
+        else if (Util::Input::IsKeyDown(Util::Keycode::NUM_8)) {
             m_Phase = Phase::Phase8;
+            m_PRM->SetPhase(7);
             m_PRM->NextPhase();
             m_CurrentState = State::START;
             return;
         }
-    }
-
-    if (m_Phase == Phase::Phase8 || m_Phase == Phase::Phase8_2) {
-        //make player move
-        if (m_Player->GetVisibility()) {
-            Move(m_Player);
-        }
-
-        //check if phase8 is passed
-        if (IsPhasePassed()) {
+        else if (Util::Input::IsKeyDown(Util::Keycode::NUM_9)) {
             m_Phase = Phase::Phase9;
+            m_PRM->SetPhase(8);
+            m_PRM->NextPhase();
+            m_CurrentState = State::START;
+            return;
+        }
+        else if (Util::Input::IsKeyDown(Util::Keycode::NUM_0)) {
+            m_Phase = Phase::Phase10;
+            m_PRM->SetPhase(9);
+            m_PRM->NextPhase();
+            m_CurrentState = State::START;
+            return;
+        }
+        else if (Util::Input::IsKeyDown(Util::Keycode::F)) {
+            m_Phase = Phase::PhaseFindal;
+            m_PRM->SetPhase(15);
             m_PRM->NextPhase();
             m_CurrentState = State::START;
             return;
         }
 
-        //check if switch background
-        if (m_Player->GetPosition().y > 280) {
-            m_Phase = Phase::Phase8_2;
-            m_PRM->SwitchTo8_2();
-            m_CurrentState = State::START;
-            return;
-        }
-        else if (m_Player->GetPosition().y < -280) {
-            m_Phase = Phase::Phase8;
-            m_PRM->SwitchTo8();
+        //Skip the puzzle
+        if (Util::Input::IsKeyUp(Util::Keycode::N)) {
+            m_Phase = nextPhase(m_Phase);
+            m_PRM->NextPhase();
             m_CurrentState = State::START;
             return;
         }
 
-        if (m_Phase == Phase::Phase8_2) {
-            if (m_StepText->IsStepZero()) {
+        //Restart the game
+        if (Util::Input::IsKeyUp(Util::Keycode::R)) {
+            if (m_Phase == Phase::Phase8_2) {
+                m_Phase = Phase::Phase8;
+                m_PRM->SwitchTo8();
+            }
+            m_CurrentState = State::START;
+            return;
+        }
+
+        //closing the window
+        if (Util::Input::IsKeyUp(Util::Keycode::ESCAPE) ||
+            Util::Input::IfExit()) {
+            m_CurrentState = State::END;
+            return;
+        }
+
+        //Phase1 setting
+        if (m_Phase == Phase::Phase1) {
+            //make player move
+            if (m_Player->GetVisibility()) {
+                Move(m_Player);
+            }
+
+            //check if phase1 is passed
+            if (IsPhasePassed()) {
+                m_Phase = Phase::Phase2;
+                m_PRM->NextPhase();
+                m_CurrentState = State::START;
+                return;
+            }
+        }
+
+        if (m_Phase == Phase::Phase2) {
+            //make player move
+            if (m_Player->GetVisibility()) {
+                Move(m_Player);
+            }
+
+            //check if phase2 is passed
+            if (IsPhasePassed()) {
+                m_Phase = Phase::Phase3;
+                m_PRM->NextPhase();
+                m_CurrentState = State::START;
+                return;
+            }
+        }
+
+        if (m_Phase == Phase::Phase3) {
+            //make player move
+            if (m_Player->GetVisibility()) {
+                Move(m_Player);
+            }
+
+            //check if phase3 is passed
+            if (IsPhase3Passed()) {
+                m_Phase = Phase::Phase4;
+                m_PRM->NextPhase();
+                m_CurrentState = State::START;
+                return;
+            }
+        }
+
+        if (m_Phase == Phase::Phase4) {
+            //make player move
+            if (m_Player->GetVisibility()) {
+                Move(m_Player);
+            }
+
+            //check if phase4 is passed
+            if (IsPhasePassed()) {
+                m_Phase = Phase::Phase5;
+                m_PRM->NextPhase();
+                m_CurrentState = State::START;
+                return;
+            }
+        }
+
+        if (m_Phase == Phase::Phase5) {
+            //make player move
+            if (m_Player->GetVisibility()) {
+                Move(m_Player);
+            }
+
+            //check if phase5 is passed
+            if (IsPhasePassed()) {
+                m_Phase = Phase::Phase6;
+                m_PRM->NextPhase();
+                m_CurrentState = State::START;
+                return;
+            }
+        }
+
+        if (m_Phase == Phase::Phase6) {
+            //make player move
+            if (m_Player->GetVisibility()) {
+                Move(m_Player);
+            }
+
+            //check if phase6 is passed
+            if (IsPhasePassed()) {
+                m_Phase = Phase::Phase7;
+                m_PRM->NextPhase();
+                m_CurrentState = State::START;
+                return;
+            }
+        }
+
+        if (m_Phase == Phase::Phase7) {
+            //make player move
+            if (m_Player->GetVisibility()) {
+                Move(m_Player);
+            }
+
+            //check if phase7 is passed
+            if (IsPhasePassed()) {
+                m_Phase = Phase::Phase8;
+                m_PRM->NextPhase();
+                m_CurrentState = State::START;
+                return;
+            }
+        }
+
+        if (m_Phase == Phase::Phase8 || m_Phase == Phase::Phase8_2) {
+            //make player move
+            if (m_Player->GetVisibility()) {
+                Move(m_Player);
+            }
+
+            //check if phase8 is passed
+            if (IsPhasePassed()) {
+                m_Phase = Phase::Phase9;
+                m_PRM->NextPhase();
+                m_CurrentState = State::START;
+                return;
+            }
+
+            //check if switch background
+            if (m_Player->GetPosition().y > 280) {
+                m_Phase = Phase::Phase8_2;
+                m_PRM->SwitchTo8_2();
+                m_CurrentState = State::START;
+                return;
+            }
+            else if (m_Player->GetPosition().y < -280) {
                 m_Phase = Phase::Phase8;
                 m_PRM->SwitchTo8();
                 m_CurrentState = State::START;
                 return;
             }
-        }
-    }
 
-    if (m_Phase == Phase::Phase9) {
-        //make player move
-        if (m_Player->GetVisibility()) {
-            Move(m_Player);
+            if (m_Phase == Phase::Phase8_2) {
+                if (m_StepText->IsStepZero()) {
+                    m_Phase = Phase::Phase8;
+                    m_PRM->SwitchTo8();
+                    m_CurrentState = State::START;
+                    return;
+                }
+            }
         }
 
-        //check if phase9 is passed
-        if (IsPhasePassed()) {
-            m_Phase = Phase::Phase10;
-            m_PRM->NextPhase();
+        if (m_Phase == Phase::Phase9) {
+            //make player move
+            if (m_Player->GetVisibility()) {
+                Move(m_Player);
+            }
+
+            //check if phase9 is passed
+            if (IsPhasePassed()) {
+                m_Phase = Phase::Phase10;
+                m_PRM->NextPhase();
+                m_CurrentState = State::START;
+                return;
+            }
+        }
+
+        if (m_Phase == Phase::Phase10) {
+            //make player move
+            if (m_Player->GetVisibility()) {
+                MoveEx(m_Player);
+            }
+
+            //check if phase10 is passed
+            if (IsPhaseExPassed()) {
+                m_Phase = Phase::Phase11;
+                m_PRM->NextPhase();
+                m_CurrentState = State::START;
+                return;
+            }
+        }
+
+        if (m_Phase == Phase::Phase11) {
+            timer += Util::Time::GetDeltaTime();
+
+            //make lasers blink
+            BlinkLaser();
+
+            //make player move
+            if (m_Player->GetVisibility()) {
+                MoveEx(m_Player);
+            }
+
+            //Check if player touched the layer
+            IfPlayerTouchLaser();
+
+            //check if phase11 is passed
+            if (IsPhaseExPassed()) {
+                m_Phase = Phase::Phase12;
+                m_PRM->NextPhase();
+                m_CurrentState = State::START;
+                return;
+            }
+        }
+
+        if (m_Phase == Phase::Phase12) {
+            //make player move
+            if (m_Player->GetVisibility()) {
+                MoveEx(m_Player);
+            }
+
+            //check if phase12 is passed
+            if (IsPhaseExPassed()) {
+                m_Phase = Phase::Phase13;
+                m_PRM->NextPhase();
+                m_CurrentState = State::START;
+                return;
+            }
+        }
+
+        if (m_Phase == Phase::Phase13) {
+            timer += Util::Time::GetDeltaTime();
+
+            //make lasers blink
+            BlinkLaser();
+
+            //make player move
+            if (m_Player->GetVisibility()) {
+                MoveEx(m_Player);
+            }
+
+            //Check if player touched the layer
+            IfPlayerTouchLaser();
+
+            //check if phase13 is passed
+            if (IsPhaseExPassed()) {
+                m_Phase = Phase::Phase14;
+                m_PRM->NextPhase();
+                m_CurrentState = State::START;
+                return;
+            }
+        }
+
+        if (m_Phase == Phase::Phase14) {
+            //make player move
+            if (m_Player->GetVisibility()) {
+                MoveEx(m_Player);
+            }
+
+            //check if phase14 is passed
+            if (IsPhaseExPassed()) {
+                m_Phase = Phase::Phase15;
+                m_PRM->NextPhase();
+                m_CurrentState = State::START;
+                return;
+            }
+        }
+
+        if (m_Phase == Phase::Phase15) {
+            timer += Util::Time::GetDeltaTime();
+
+            //make lasers blink
+            BlinkLaser();
+
+            //make player move
+            if (m_Player->GetVisibility()) {
+                MoveEx(m_Player);
+            }
+
+            //Check if player touched the layer
+            IfPlayerTouchLaser();
+
+            //check if phase15 is passed
+            if (IsPhaseExPassed()) {
+                m_Phase = Phase::PhaseFindal;
+                m_PRM->NextPhase();
+                m_CurrentState = State::START;
+                return;
+            }
+        }
+
+        if (m_Phase == Phase::PhaseFindal) {
+            if (!(m_StateImage->GetImagePath() == RESOURCE_DIR"/Image/Character/healthBar/state4_5.png")) {
+                timer += Util::Time::GetDeltaTime();
+                invincibleTime += Util::Time::GetDeltaTime();
+
+                //make chains blink
+                BlinkChain();
+
+                if (!FM.IsCycleDone()) {
+                    UpGoingPlayer();
+                }
+                else {
+                    m_StateImage->SetVisible(true);
+                    m_StateImage->SetPosition({0, 250});
+                    ValidState();
+                }
+
+                //make player move
+                if (m_Player->GetVisibility()) {
+                    MoveFinal(m_Player);
+                }
+
+                //Check if player touched the chain and spike
+                if (invincibleTime > 1) {
+                    IfPlayerTouchChain();
+                    IfPlayerTouchSpike();
+                }
+            }
+            else {
+                Origin();
+                m_PRM->GameEnd();
+            }
+        }
+
+        //If the step become zero, restart the game
+        if (m_StepText->IsStepZero()) {
             m_CurrentState = State::START;
             return;
         }
-    }
-
-    if (m_Phase == Phase::Phase10) {
-        //make player move
-        if (m_Player->GetVisibility()) {
-            MoveEx(m_Player);
-        }
-
-        //check if phase10 is passed
-        if (IsPhaseExPassed()) {
-            m_Phase = Phase::Phase11;
-            m_PRM->NextPhase();
-            m_CurrentState = State::START;
-            return;
-        }
-    }
-
-    if (m_Phase == Phase::Phase11) {
-        timer += Util::Time::GetDeltaTime();
-
-        //make lasers blink
-        BlinkLaser();
-
-        //make player move
-        if (m_Player->GetVisibility()) {
-            MoveEx(m_Player);
-        }
-
-        //Check if player touched the layer
-        IfPlayerTouchLaser();
-
-        //check if phase11 is passed
-        if (IsPhaseExPassed()) {
-            m_Phase = Phase::Phase12;
-            m_PRM->NextPhase();
-            m_CurrentState = State::START;
-            return;
-        }
-    }
-
-    if (m_Phase == Phase::Phase12) {
-        //make player move
-        if (m_Player->GetVisibility()) {
-            MoveEx(m_Player);
-        }
-
-        //check if phase12 is passed
-        if (IsPhaseExPassed()) {
-            m_Phase = Phase::Phase13;
-            m_PRM->NextPhase();
-            m_CurrentState = State::START;
-            return;
-        }
-    }
-
-    if (m_Phase == Phase::Phase13) {
-        timer += Util::Time::GetDeltaTime();
-
-        //make lasers blink
-        BlinkLaser();
-
-        //make player move
-        if (m_Player->GetVisibility()) {
-            MoveEx(m_Player);
-        }
-
-        //Check if player touched the layer
-        IfPlayerTouchLaser();
-
-        //check if phase13 is passed
-        if (IsPhaseExPassed()) {
-            m_Phase = Phase::Phase14;
-            m_PRM->NextPhase();
-            m_CurrentState = State::START;
-            return;
-        }
-    }
-
-    if (m_Phase == Phase::Phase14) {
-        //make player move
-        if (m_Player->GetVisibility()) {
-            MoveEx(m_Player);
-        }
-
-        //check if phase14 is passed
-        if (IsPhaseExPassed()) {
-            m_Phase = Phase::Phase15;
-            m_PRM->NextPhase();
-            m_CurrentState = State::START;
-            return;
-        }
-    }
-
-    if (m_Phase == Phase::Phase15) {
-        timer += Util::Time::GetDeltaTime();
-
-        //make lasers blink
-        BlinkLaser();
-
-        //make player move
-        if (m_Player->GetVisibility()) {
-            MoveEx(m_Player);
-        }
-
-        //Check if player touched the layer
-        IfPlayerTouchLaser();
-
-        //check if phase15 is passed
-        if (IsPhaseExPassed()) {
-            m_Phase = Phase::PhaseFindal;
-            m_PRM->NextPhase();
-            m_CurrentState = State::START;
-            return;
-        }
-    }
-
-    if (m_Phase == Phase::PhaseFindal) {
-        timer += Util::Time::GetDeltaTime();
-        invincibleTime += Util::Time::GetDeltaTime();
-
-        //make chains blink
-        BlinkChain();
-
-        if (!FM.IsCycleDone()) {
-            UpGoingPlayer();
-        }
-        else {
-            ValidState();
-        }
-
-        //make player move
-        if (m_Player->GetVisibility()) {
-            MoveFinal(m_Player);
-        }
-
-        //Check if player touched the chain and spike
-        if (invincibleTime > 1) {
-            IfPlayerTouchChain();
-            IfPlayerTouchSpike();
-        }
-
-        //check if phaseFinal is passed
-
-    }
-
-    //If the step become zero, restart the game
-    if (m_StepText->IsStepZero()) {
-        m_CurrentState = State::START;
-        return;
     }
 }
 

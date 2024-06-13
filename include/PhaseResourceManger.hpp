@@ -41,6 +41,8 @@ public:
 
     bool IfStartScene();
 
+    void GameEnd();
+
 private:
     std::shared_ptr<TaskText> m_TaskText;
     std::shared_ptr<BackgroundImage> m_Background;

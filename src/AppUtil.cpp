@@ -1587,10 +1587,10 @@ void App::ValidTask() {
             m_BoundaryBs[9]->SetPosition({-320, -350});
             m_BoundaryBs[10]->SetPosition({-390, -350});
 
-            m_Crosses[0]->SetPosition({340, -340});
-            m_Crosses[1]->SetPosition({190, -340});
-            m_Crosses[2]->SetPosition({-190, -340});
-            m_Crosses[3]->SetPosition({-340, -340});
+            m_Crosses[3]->SetPosition({340, -340});
+            m_Crosses[2]->SetPosition({190, -340});
+            m_Crosses[1]->SetPosition({-190, -340});
+            m_Crosses[0]->SetPosition({-340, -340});
 
             InitiateBlinkChain();
 
@@ -1615,6 +1615,7 @@ void App::Origin() {
         m_Machine->SetImage(RESOURCE_DIR"/Image/Object/BEEMO.png");
         m_Machine->SetPosition({-1000, -1000});
         m_Machine->SetVisible(false);
+        m_Machine->ReSetHitCount();
     }
 
     for (const auto &m_Rock: m_Rocks) {
@@ -1720,4 +1721,8 @@ void App::Origin() {
         m_Cross->SetPosition({-1000, -1000});
         m_Cross->SetVisible(false);
     }
+
+    m_StateImage->SetPosition({-1000, -1000});
+    m_StateImage->SetVisible(false);
+    m_StateImage->SetImage(RESOURCE_DIR"/Image/Character/healthBar/state1_1.png");
 }

@@ -151,6 +151,18 @@ public:
         ifReverse = flag;
     }
 
+    void ReSetHitCount() {
+        hitCount = 0;
+    }
+
+    void BeingHitted() {
+        hitCount++;
+    }
+
+    bool IfBroken() {
+        return (hitCount == 4);
+    }
+
 private:
     void ResetPosition() { m_Transform.translation = {0, 0}; }
 
@@ -167,6 +179,8 @@ private:
     bool ifHurt = false;
 
     bool ifReverse = false;
+
+    int hitCount = 0;
 };
 
 #endif //CHARACTER_HPP

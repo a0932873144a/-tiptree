@@ -271,6 +271,10 @@ public:
 
     void ValidState();
 
+    void ResetBeemo();
+
+    void ChangeStateImage();
+
 private:
     void ValidTask();
 
@@ -375,6 +379,8 @@ private:
     std::vector<std::shared_ptr<Character>> m_ChainHorizontals;
 
     std::vector<std::shared_ptr<Character>> m_Crosses;
+
+    std::shared_ptr<Character> m_StateImage;
 
     std::shared_ptr<StepText> m_StepText;
 

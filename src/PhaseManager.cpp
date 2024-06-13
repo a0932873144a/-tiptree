@@ -23,3 +23,9 @@ void PhaseResourceManger::GameStart() {
 bool PhaseResourceManger::IfStartScene() {
     return m_Background->GetImagePath() == RESOURCE_DIR"/Image/Background/Map/StartScene.png";
 }
+
+void PhaseResourceManger::GameEnd() {
+    m_Background->SetImage(RESOURCE_DIR"/Image/Background/Map/EndScene.png");
+    m_Background->SetZIndex(70);
+    m_TaskText->SetVisible(false);
+}

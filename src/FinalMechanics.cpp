@@ -2,8 +2,8 @@
 // Created by 翁廷豪 on 2024/6/11.
 //
 
-#include <stdlib.h>
-#include <time.h>
+#include <cstdlib>
+#include <ctime>
 #include "FinalMechanics.hpp"
 #include "Util/Input.hpp"
 #include "App.hpp"
@@ -28,7 +28,11 @@ void App::MoveFinal(const std::shared_ptr<Character>& player) {
             return;
         }
         else if (collidtion->GetTag() == Character::Tag::Machine) {
-            collidtion->SetImage(RESOURCE_DIR"/Image/Object/BEEMOdead.png");
+            collidtion->BeingHitted();
+            if (collidtion->IfBroken()) {
+                collidtion->SetImage(RESOURCE_DIR"/Image/Object/BEEMOdead.png");
+                ChangeStateImage();
+            }
             player->SetLastTouched(collidtion->GetTag());
             tempPtr.reset();
             collidtion.reset();
@@ -59,7 +63,11 @@ void App::MoveFinal(const std::shared_ptr<Character>& player) {
             return;
         }
         else if (collidtion->GetTag() == Character::Tag::Machine) {
-            collidtion->SetImage(RESOURCE_DIR"/Image/Object/BEEMOdead.png");
+            collidtion->BeingHitted();
+            if (collidtion->IfBroken()) {
+                collidtion->SetImage(RESOURCE_DIR"/Image/Object/BEEMOdead.png");
+                ChangeStateImage();
+            }
             player->SetLastTouched(collidtion->GetTag());
             tempPtr.reset();
             collidtion.reset();
@@ -90,7 +98,11 @@ void App::MoveFinal(const std::shared_ptr<Character>& player) {
             return;
         }
         else if (collidtion->GetTag() == Character::Tag::Machine) {
-            collidtion->SetImage(RESOURCE_DIR"/Image/Object/BEEMOdead.png");
+            collidtion->BeingHitted();
+            if (collidtion->IfBroken()) {
+                collidtion->SetImage(RESOURCE_DIR"/Image/Object/BEEMOdead.png");
+                ChangeStateImage();
+            }
             player->SetLastTouched(collidtion->GetTag());
             tempPtr.reset();
             collidtion.reset();
@@ -121,7 +133,11 @@ void App::MoveFinal(const std::shared_ptr<Character>& player) {
             return;
         }
         else if (collidtion->GetTag() == Character::Tag::Machine) {
-            collidtion->SetImage(RESOURCE_DIR"/Image/Object/BEEMOdead.png");
+            collidtion->BeingHitted();
+            if (collidtion->IfBroken()) {
+                collidtion->SetImage(RESOURCE_DIR"/Image/Object/BEEMOdead.png");
+                ChangeStateImage();
+            }
             player->SetLastTouched(collidtion->GetTag());
             tempPtr.reset();
             collidtion.reset();
@@ -268,7 +284,7 @@ void App::UpGoingPlayer() {
     float old_x = m_Player->GetPosition().x;
     float old_y = m_Player->GetPosition().y;
 
-    m_Player->SetPosition({old_x, old_y - (grid_size * Util::Time::GetDeltaTime())});
+    m_Player->SetPosition({old_x, old_y - (1.5 * grid_size * Util::Time::GetDeltaTime())});
 }
 
 void App::DamagePlayer() {
@@ -295,7 +311,127 @@ void App::Healing() {
 }
 
 void App::ValidState() {
-    switch (FM.GetState()) {
-        
+    if (!FM.GetIfSetUP()) {
+        ResetBeemo();
+        FM.SetBeemo(true);
+
+        switch (FM.GetState()) {
+            case 1:
+                m_Machines[0]->SetPosition({-280, 0});
+                m_Machines[0]->SetVisible(true);
+                m_Machines[1]->SetPosition({-280, -140});
+                m_Machines[1]->SetVisible(true);
+                m_Machines[2]->SetPosition({280, 70});
+                m_Machines[2]->SetVisible(true);
+                m_Machines[3]->SetPosition({280, -210});
+                m_Machines[3]->SetVisible(true);
+                break;
+            case 2:
+                m_Machines[0]->SetPosition({-280, 70});
+                m_Machines[0]->SetVisible(true);
+                m_Machines[1]->SetPosition({280, -210});
+                m_Machines[1]->SetVisible(true);
+                m_Machines[2]->SetPosition({280, 0});
+                m_Machines[2]->SetVisible(true);
+                m_Machines[3]->SetPosition({280, -70});
+                m_Machines[3]->SetVisible(true);
+                break;
+            case 3:
+                m_Machines[0]->SetPosition({-280, -70});
+                m_Machines[0]->SetVisible(true);
+                m_Machines[1]->SetPosition({-280, 70});
+                m_Machines[1]->SetVisible(true);
+                m_Machines[2]->SetPosition({280, -140});
+                m_Machines[2]->SetVisible(true);
+                m_Machines[3]->SetPosition({280, -210});
+                m_Machines[3]->SetVisible(true);
+                break;
+            case 4:
+                m_Machines[0]->SetPosition({-280, 0});
+                m_Machines[0]->SetVisible(true);
+                m_Machines[1]->SetPosition({-280, -140});
+                m_Machines[1]->SetVisible(true);
+                m_Machines[2]->SetPosition({280, 70});
+                m_Machines[2]->SetVisible(true);
+                m_Machines[3]->SetPosition({280, -140});
+                m_Machines[3]->SetVisible(true);
+                break;
+            default:
+                break;
+        }
     }
+    else {
+        bool flag = false;
+        for (const auto &m_Machine: m_Machines) {
+            if (m_Machine->GetVisibility()) {
+                if (m_Machine->GetImagePath() == RESOURCE_DIR"/Image/Object/BEEMOdead.png") {
+                    flag = true;
+                }
+                else {
+                    flag = false;
+                    break;
+                }
+            }
+        }
+
+        if (flag) {
+            ChangeStateImage();
+            FM.AddState();
+            FM.ResetCycle();
+            ResetBeemo();
+            FM.SetBeemo(false);
+            Healing();
+            m_StateImage->SetVisible(false);
+        }
+    }
+}
+
+void App::ResetBeemo() {
+    for (const auto &m_Machine: m_Machines) {
+        m_Machine->SetImage(RESOURCE_DIR"/Image/Object/BEEMO.png");
+        m_Machine->SetPosition({-1000, -1000});
+        m_Machine->SetVisible(false);
+        m_Machine->ReSetHitCount();
+    }
+}
+
+void App::ChangeStateImage() {
+    if (m_StateImage->GetImagePath() == RESOURCE_DIR"/Image/Character/healthBar/state1_1.png")
+        m_StateImage->SetImage(RESOURCE_DIR"/Image/Character/healthBar/state1_2.png");
+    else if (m_StateImage->GetImagePath() == RESOURCE_DIR"/Image/Character/healthBar/state1_2.png")
+        m_StateImage->SetImage(RESOURCE_DIR"/Image/Character/healthBar/state1_3.png");
+    else if (m_StateImage->GetImagePath() == RESOURCE_DIR"/Image/Character/healthBar/state1_3.png")
+        m_StateImage->SetImage(RESOURCE_DIR"/Image/Character/healthBar/state1_4.png");
+    else if (m_StateImage->GetImagePath() == RESOURCE_DIR"/Image/Character/healthBar/state1_4.png")
+        m_StateImage->SetImage(RESOURCE_DIR"/Image/Character/healthBar/state1_5.png");
+    else if (m_StateImage->GetImagePath() == RESOURCE_DIR"/Image/Character/healthBar/state1_5.png")
+        m_StateImage->SetImage(RESOURCE_DIR"/Image/Character/healthBar/state2_1.png");
+    else if (m_StateImage->GetImagePath() == RESOURCE_DIR"/Image/Character/healthBar/state2_1.png")
+        m_StateImage->SetImage(RESOURCE_DIR"/Image/Character/healthBar/state2_2.png");
+    else if (m_StateImage->GetImagePath() == RESOURCE_DIR"/Image/Character/healthBar/state2_2.png")
+        m_StateImage->SetImage(RESOURCE_DIR"/Image/Character/healthBar/state2_3.png");
+    else if (m_StateImage->GetImagePath() == RESOURCE_DIR"/Image/Character/healthBar/state2_3.png")
+        m_StateImage->SetImage(RESOURCE_DIR"/Image/Character/healthBar/state2_4.png");
+    else if (m_StateImage->GetImagePath() == RESOURCE_DIR"/Image/Character/healthBar/state2_4.png")
+        m_StateImage->SetImage(RESOURCE_DIR"/Image/Character/healthBar/state2_5.png");
+    else if (m_StateImage->GetImagePath() == RESOURCE_DIR"/Image/Character/healthBar/state2_5.png")
+        m_StateImage->SetImage(RESOURCE_DIR"/Image/Character/healthBar/state3_1.png");
+    else if (m_StateImage->GetImagePath() == RESOURCE_DIR"/Image/Character/healthBar/state3_1.png")
+        m_StateImage->SetImage(RESOURCE_DIR"/Image/Character/healthBar/state3_2.png");
+    else if (m_StateImage->GetImagePath() == RESOURCE_DIR"/Image/Character/healthBar/state3_2.png")
+        m_StateImage->SetImage(RESOURCE_DIR"/Image/Character/healthBar/state3_3.png");
+    else if (m_StateImage->GetImagePath() == RESOURCE_DIR"/Image/Character/healthBar/state3_3.png")
+        m_StateImage->SetImage(RESOURCE_DIR"/Image/Character/healthBar/state3_4.png");
+    else if (m_StateImage->GetImagePath() == RESOURCE_DIR"/Image/Character/healthBar/state3_4.png")
+        m_StateImage->SetImage(RESOURCE_DIR"/Image/Character/healthBar/state3_5.png");
+    else if (m_StateImage->GetImagePath() == RESOURCE_DIR"/Image/Character/healthBar/state3_5.png")
+        m_StateImage->SetImage(RESOURCE_DIR"/Image/Character/healthBar/state4_1.png");
+    else if (m_StateImage->GetImagePath() == RESOURCE_DIR"/Image/Character/healthBar/state4_1.png")
+        m_StateImage->SetImage(RESOURCE_DIR"/Image/Character/healthBar/state4_2.png");
+    else if (m_StateImage->GetImagePath() == RESOURCE_DIR"/Image/Character/healthBar/state4_2.png")
+        m_StateImage->SetImage(RESOURCE_DIR"/Image/Character/healthBar/state4_3.png");
+    else if (m_StateImage->GetImagePath() == RESOURCE_DIR"/Image/Character/healthBar/state4_3.png")
+        m_StateImage->SetImage(RESOURCE_DIR"/Image/Character/healthBar/state4_4.png");
+    else if (m_StateImage->GetImagePath() == RESOURCE_DIR"/Image/Character/healthBar/state4_4.png")
+        m_StateImage->SetImage(RESOURCE_DIR"/Image/Character/healthBar/state4_5.png");
 }
