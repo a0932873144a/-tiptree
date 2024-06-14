@@ -329,6 +329,7 @@ private:
         Phase14,
         Phase15,
         PhaseFindal,
+        PhaseEnd,
     };
 
     Phase nextPhase(Phase currentPhase) {

@@ -616,6 +616,9 @@ void App::ShootLaserR(const std::shared_ptr<Character>& laserMech) {
             auto tempPtr = std::make_shared<Character>(RESOURCE_DIR"/Image/Object/laserBeamL.png");
             tempPtr->SetPosition({laserMech->GetPosition().x + (grid_size * float(laserCount + 1)), laserMech->GetPosition().y});
             auto collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
+            if (tempPtr->GetPosition().x > 600) {
+                return;
+            }
             if (collidtion == nullptr) {
                 for (int i = 0; i < int(m_LaserLs.size()); ++i) {
                     if (!m_LaserRs[i]->IfUsed()) {
@@ -630,6 +633,18 @@ void App::ShootLaserR(const std::shared_ptr<Character>& laserMech) {
             }
             else if (collidtion->GetTag() == Character::Tag::Boundary || collidtion->GetTag() == Character::Tag::Rock) {
                 collisionDetected = true;
+            }
+            else {
+                for (int i = 0; i < int(m_LaserLs.size()); ++i) {
+                    if (!m_LaserRs[i]->IfUsed()) {
+                        m_LaserRs[i]->SetUsed(true);
+                        m_LaserRs[i]->SetVisible(true);
+                        m_LaserRs[i]->SetPosition({tempPtr->GetPosition().x, tempPtr->GetPosition().y});
+                        laserMech->SetUsedLaserIndex(i);
+                        laserCount++;
+                        break;
+                    }
+                }
             }
         }
         indexPost = laserMech->GetUsedLaserIndex();
@@ -666,6 +681,9 @@ void App::ShootLaserL(const std::shared_ptr<Character> &laserMech) {
             auto tempPtr = std::make_shared<Character>(RESOURCE_DIR"/Image/Object/laserBeamL.png");
             tempPtr->SetPosition({laserMech->GetPosition().x - (grid_size * float(laserCount + 1)), laserMech->GetPosition().y});
             auto collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
+            if (tempPtr->GetPosition().x < -600) {
+                return;
+            }
             if (collidtion == nullptr) {
                 for (int i = 0; i < int(m_LaserLs.size()); ++i) {
                     if (!m_LaserLs[i]->IfUsed()) {
@@ -680,6 +698,18 @@ void App::ShootLaserL(const std::shared_ptr<Character> &laserMech) {
             }
             else if (collidtion->GetTag() == Character::Tag::Boundary || collidtion->GetTag() == Character::Tag::Rock) {
                 collisionDetected = true;
+            }
+            else {
+                for (int i = 0; i < int(m_LaserLs.size()); ++i) {
+                    if (!m_LaserLs[i]->IfUsed()) {
+                        m_LaserLs[i]->SetUsed(true);
+                        m_LaserLs[i]->SetVisible(true);
+                        m_LaserLs[i]->SetPosition({tempPtr->GetPosition().x, tempPtr->GetPosition().y});
+                        laserMech->SetUsedLaserIndex(i);
+                        laserCount++;
+                        break;
+                    }
+                }
             }
         }
         indexPost = laserMech->GetUsedLaserIndex();
@@ -716,6 +746,9 @@ void App::ShootLaserT(const std::shared_ptr<Character>& laserMech) {
             auto tempPtr = std::make_shared<Character>(RESOURCE_DIR"/Image/Object/laserBeamL.png");
             tempPtr->SetPosition({laserMech->GetPosition().x, laserMech->GetPosition().y + (grid_size * float(laserCount + 1))});
             auto collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
+            if (tempPtr->GetPosition().y > 600) {
+                return;
+            }
             if (collidtion == nullptr) {
                 for (int i = 0; i < int(m_LaserTs.size()); ++i) {
                     if (!m_LaserTs[i]->IfUsed()) {
@@ -730,6 +763,18 @@ void App::ShootLaserT(const std::shared_ptr<Character>& laserMech) {
             }
             else if (collidtion->GetTag() == Character::Tag::Boundary || collidtion->GetTag() == Character::Tag::Rock) {
                 collisionDetected = true;
+            }
+            else {
+                for (int i = 0; i < int(m_LaserTs.size()); ++i) {
+                    if (!m_LaserTs[i]->IfUsed()) {
+                        m_LaserTs[i]->SetUsed(true);
+                        m_LaserTs[i]->SetVisible(true);
+                        m_LaserTs[i]->SetPosition({tempPtr->GetPosition().x, tempPtr->GetPosition().y});
+                        laserMech->SetUsedLaserIndex(i);
+                        laserCount++;
+                        break;
+                    }
+                }
             }
         }
         indexPost = laserMech->GetUsedLaserIndex();
@@ -766,6 +811,9 @@ void App::ShootLaserB(const std::shared_ptr<Character>& laserMech) {
             auto tempPtr = std::make_shared<Character>(RESOURCE_DIR"/Image/Object/laserBeamL.png");
             tempPtr->SetPosition({laserMech->GetPosition().x, laserMech->GetPosition().y - (grid_size * float(laserCount + 1))});
             auto collidtion = tempPtr->IfCollideSomething(m_CollideObjects);
+            if (tempPtr->GetPosition().y < -600) {
+                return;
+            }
             if (collidtion == nullptr) {
                 for (int i = 0; i < int(m_LaserBs.size()); ++i) {
                     if (!m_LaserBs[i]->IfUsed()) {
@@ -780,6 +828,18 @@ void App::ShootLaserB(const std::shared_ptr<Character>& laserMech) {
             }
             else if (collidtion->GetTag() == Character::Tag::Boundary || collidtion->GetTag() == Character::Tag::Rock) {
                 collisionDetected = true;
+            }
+            else {
+                for (int i = 0; i < int(m_LaserBs.size()); ++i) {
+                    if (!m_LaserBs[i]->IfUsed()) {
+                        m_LaserBs[i]->SetUsed(true);
+                        m_LaserBs[i]->SetVisible(true);
+                        m_LaserBs[i]->SetPosition({tempPtr->GetPosition().x, tempPtr->GetPosition().y});
+                        laserMech->SetUsedLaserIndex(i);
+                        laserCount++;
+                        break;
+                    }
+                }
             }
         }
         indexPost = laserMech->GetUsedLaserIndex();
@@ -915,7 +975,7 @@ void App::MoveEx(const std::shared_ptr<Character>& player) {
                 else {
                     player->SetLastTouched(Character::Tag::Null);
                     player->SetPosition({player->GetPosition().x + grid_size, player->GetPosition().y});
-                    if (m_Phase == Phase::Phase10 || m_Phase == Phase::Phase12 || m_Phase == Phase::Phase14) {
+                    if (m_Phase == Phase::Phase10 || m_Phase == Phase::Phase12 || m_Phase == Phase::Phase14 || m_Phase == Phase::Phase15) {
                         m_StepText->ShowLeftStep();
                     }
                 }
@@ -1086,66 +1146,66 @@ void App::MoveEx(const std::shared_ptr<Character>& player) {
 }
 
 void App::ControlShootLaser() {
-//    if (m_Phase == Phase::Phase10) {
-//        ShootLaserL(m_LaserMechBoxes[0]);
-//        ShootLaserL(m_LaserMechBoxes[1]);
-//        ShootLaserL(m_LaserMechBoxes[2]);
-//    }
-//    if (m_Phase == Phase::Phase11) {
-//        ShootLaserL(m_LaserMechBoxes[0]);
-//        ShootReverse(m_LaserMechBoxes[0], 'L');
-//        ShootLaserL(m_LaserMechBoxes[1]);
-//        ShootReverse(m_LaserMechBoxes[1], 'L');
-//        ShootLaserB(m_LaserMechBoxes[2]);
-//        ShootLaserB(m_LaserMechBoxes[3]);
-//        ShootReverse(m_LaserMechBoxes[3], 'B');
-//        ShootLaserB(m_LaserMechBoxes[4]);
-//        ShootLaserR(m_LaserMechBoxes[5]);
-//    }
-//    if (m_Phase == Phase::Phase12) {
-//        ShootLaserB(m_LaserMechBoxes[0]);
-//        ShootLaserB(m_LaserMechBoxes[1]);
-//        ShootLaserB(m_LaserMechBoxes[2]);
-//        ShootLaserB(m_LaserMechBoxes[3]);
-//    }
-//    if (m_Phase == Phase::Phase13) {
-//        ShootLaserL(m_LaserMechBoxes[0]);
-//        ShootLaserL(m_LaserMechBoxes[1]);
-//        ShootReverse(m_LaserMechBoxes[1], 'L');
-//        ShootLaserR(m_LaserMechBoxes[2]);
-//        ShootReverse(m_LaserMechBoxes[2], 'R');
-//        ShootLaserR(m_LaserMechBoxes[3]);
-//        ShootLaserB(m_LaserMechBoxes[4]);
-//        ShootLaserB(m_LaserMechBoxes[5]);
-//        ShootReverse(m_LaserMechBoxes[5], 'B');
-//        ShootLaserT(m_LaserMechBoxes[6]);
-//        ShootReverse(m_LaserMechBoxes[6], 'T');
-//        ShootLaserR(m_LaserMechBoxes[7]);
-//        ShootLaserR(m_LaserMechBoxes[8]);
-//        ShootReverse(m_LaserMechBoxes[8], 'R');
-//    }
-//    if (m_Phase == Phase::Phase14) {
-//        ShootLaserB(m_LaserMechBoxes[0]);
-//        ShootLaserB(m_LaserMechBoxes[1]);
-//        ShootLaserR(m_LaserMechBoxes[2]);
-//        ShootLaserB(m_LaserMechBoxes[3]);
-//    }
-//    if (m_Phase == Phase::Phase15) {
-//        ShootLaserL(m_LaserMechBoxes[0]);
-//        ShootLaserL(m_LaserMechBoxes[1]);
-//        ShootReverse(m_LaserMechBoxes[1], 'L');
-//        ShootLaserB(m_LaserMechBoxes[2]);
-//        ShootLaserL(m_LaserMechBoxes[3]);
-//        ShootLaserB(m_LaserMechBoxes[4]);
-//        ShootLaserT(m_LaserMechBoxes[5]);
-//        ShootReverse(m_LaserMechBoxes[5], 'T');
-//        ShootLaserT(m_LaserMechBoxes[6]);
-//        ShootLaserT(m_LaserMechBoxes[7]);
-//        ShootLaserR(m_LaserMechBoxes[8]);
-//        ShootReverse(m_LaserMechBoxes[8], 'R');
-//        ShootLaserR(m_LaserMechBoxes[9]);
-//        ShootReverse(m_LaserMechBoxes[9], 'R');
-//    }
+    if (m_Phase == Phase::Phase10) {
+        ShootLaserL(m_LaserMechBoxes[0]);
+        ShootLaserL(m_LaserMechBoxes[1]);
+        ShootLaserL(m_LaserMechBoxes[2]);
+    }
+    if (m_Phase == Phase::Phase11) {
+        ShootLaserL(m_LaserMechBoxes[0]);
+        ShootReverse(m_LaserMechBoxes[0], 'L');
+        ShootLaserL(m_LaserMechBoxes[1]);
+        ShootReverse(m_LaserMechBoxes[1], 'L');
+        ShootLaserB(m_LaserMechBoxes[2]);
+        ShootLaserB(m_LaserMechBoxes[3]);
+        ShootReverse(m_LaserMechBoxes[3], 'B');
+        ShootLaserB(m_LaserMechBoxes[4]);
+        ShootLaserR(m_LaserMechBoxes[5]);
+    }
+    if (m_Phase == Phase::Phase12) {
+        ShootLaserB(m_LaserMechBoxes[0]);
+        ShootLaserB(m_LaserMechBoxes[1]);
+        ShootLaserB(m_LaserMechBoxes[2]);
+        ShootLaserB(m_LaserMechBoxes[3]);
+    }
+    if (m_Phase == Phase::Phase13) {
+        ShootLaserL(m_LaserMechBoxes[0]);
+        ShootLaserL(m_LaserMechBoxes[1]);
+        ShootReverse(m_LaserMechBoxes[1], 'L');
+        ShootLaserR(m_LaserMechBoxes[2]);
+        ShootReverse(m_LaserMechBoxes[2], 'R');
+        ShootLaserR(m_LaserMechBoxes[3]);
+        ShootLaserB(m_LaserMechBoxes[4]);
+        ShootLaserB(m_LaserMechBoxes[5]);
+        ShootReverse(m_LaserMechBoxes[5], 'B');
+        ShootLaserT(m_LaserMechBoxes[6]);
+        ShootReverse(m_LaserMechBoxes[6], 'T');
+        ShootLaserR(m_LaserMechBoxes[7]);
+        ShootLaserR(m_LaserMechBoxes[8]);
+        ShootReverse(m_LaserMechBoxes[8], 'R');
+    }
+    if (m_Phase == Phase::Phase14) {
+        ShootLaserB(m_LaserMechBoxes[0]);
+        ShootLaserB(m_LaserMechBoxes[1]);
+        ShootLaserR(m_LaserMechBoxes[2]);
+        ShootLaserB(m_LaserMechBoxes[3]);
+    }
+    if (m_Phase == Phase::Phase15) {
+        ShootLaserL(m_LaserMechBoxes[0]);
+        ShootLaserL(m_LaserMechBoxes[1]);
+        ShootReverse(m_LaserMechBoxes[1], 'L');
+        ShootLaserB(m_LaserMechBoxes[2]);
+        ShootLaserL(m_LaserMechBoxes[3]);
+        ShootLaserB(m_LaserMechBoxes[4]);
+        ShootLaserT(m_LaserMechBoxes[5]);
+        ShootReverse(m_LaserMechBoxes[5], 'T');
+        ShootLaserT(m_LaserMechBoxes[6]);
+        ShootLaserT(m_LaserMechBoxes[7]);
+        ShootLaserR(m_LaserMechBoxes[8]);
+        ShootReverse(m_LaserMechBoxes[8], 'R');
+        ShootLaserR(m_LaserMechBoxes[9]);
+        ShootReverse(m_LaserMechBoxes[9], 'R');
+    }
 }
 
 void App::ShootReverse(const std::shared_ptr<Character>& laserMech, char direction) {

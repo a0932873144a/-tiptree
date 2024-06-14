@@ -42,6 +42,14 @@ public:
             SetVisible(true);
             SetPosition({40, 215});
         }
+        else if (phase == 11) {
+            SetVisible(true);
+            SetPosition({10, 225});
+        }
+        else if (phase == 13) {
+            SetVisible(true);
+            SetPosition({40, 230});
+        }
         else {
             SetVisible(true);
             SetPosition({-530.0F, -215.F});

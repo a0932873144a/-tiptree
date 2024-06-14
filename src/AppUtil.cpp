@@ -951,12 +951,16 @@ void App::ValidTask() {
             m_StepText->ShowLeftStep();
 
             //Machines
-            m_Machines[0]->SetPosition({30, 70});
+            m_Machines[0]->SetPosition({35, 70});
             m_Machines[0]->SetVisible(true);
 
             //rocks
             m_Rocks[0]->SetPosition({-40, -230});
             m_Rocks[0]->SetVisible(true);
+            m_Rocks[1]->SetPosition({30, -230});
+            m_Rocks[1]->SetVisible(true);
+            m_Rocks[2]->SetPosition({100, -230});
+            m_Rocks[2]->SetVisible(true);
 
             m_BoundaryLs[0]->SetPosition({-120, 130});
             m_BoundaryLs[1]->SetPosition({-120, 60});
@@ -984,9 +988,9 @@ void App::ValidTask() {
             m_BoundaryRs[1]->SetPosition({180, 60});
             m_BoundaryRs[2]->SetPosition({250, -20});
             m_BoundaryRs[3]->SetPosition({250, -100});
-            m_BoundaryRs[4]->SetPosition({250, -185});
-            m_BoundaryRs[5]->SetPosition({180, -260});
-            m_BoundaryRs[6]->SetPosition({180, -330});
+            m_BoundaryRs[4]->SetPosition({250, -180});
+            m_BoundaryRs[5]->SetPosition({180, -240});
+            m_BoundaryRs[6]->SetPosition({180, -320});
 //            m_BoundaryRs[0]->SetVisible(true);
 //            m_BoundaryRs[1]->SetVisible(true);
 //            m_BoundaryRs[2]->SetVisible(true);
@@ -996,8 +1000,12 @@ void App::ValidTask() {
 //            m_BoundaryRs[6]->SetVisible(true);
 
             //m_LaserMechBoxes
-            m_LaserMechBoxes[0]->SetPosition({170, -100});
+            m_LaserMechBoxes[0]->SetPosition({170, -10});
             m_LaserMechBoxes[0]->SetVisible(true);
+            m_LaserMechBoxes[1]->SetPosition({170, -80});
+            m_LaserMechBoxes[1]->SetVisible(true);
+            m_LaserMechBoxes[2]->SetPosition({170, -150});
+            m_LaserMechBoxes[2]->SetVisible(true);
 
             ControlShootLaser();
 
@@ -1008,7 +1016,7 @@ void App::ValidTask() {
             Origin();
 
             //player
-            m_Player->SetPosition({0, -240});
+            m_Player->SetPosition({-210, -95});
             m_Player->SetVisible(true);
 
             //StepText
@@ -1020,14 +1028,13 @@ void App::ValidTask() {
             m_Machines[0]->SetVisible(true);
 
 //            //rocks
-//            m_Rocks[0]->SetPosition({0, -100});
+//            m_Rocks[0]->SetPosition({70, -240});
 //            m_Rocks[0]->SetVisible(true);
 //            m_Rocks[1]->SetPosition({0, -170});
 //            m_Rocks[1]->SetVisible(true);
 
             m_BoundaryLs[0]->SetPosition({-290, -100});
             m_BoundaryLs[1]->SetPosition({-290, -170});
-            m_BoundaryLs[2]->SetPosition({-290, -240});
             m_BoundaryLs[3]->SetPosition({0, -310});
             m_BoundaryLs[4]->SetPosition({0, -100});
             m_BoundaryLs[5]->SetPosition({0, -170});
@@ -1035,7 +1042,6 @@ void App::ValidTask() {
             m_BoundaryLs[7]->SetPosition({-70, -170});
 //            m_BoundaryLs[0]->SetVisible(true);
 //            m_BoundaryLs[1]->SetVisible(true);
-//            m_BoundaryLs[2]->SetVisible(true);
 //            m_BoundaryLs[3]->SetVisible(true);
 //            m_BoundaryLs[4]->SetVisible(true);
 //            m_BoundaryLs[5]->SetVisible(true);
@@ -1045,9 +1051,10 @@ void App::ValidTask() {
             m_BoundaryTs[0]->SetPosition({280, 130});
             m_BoundaryTs[1]->SetPosition({210, 130});
             m_BoundaryTs[2]->SetPosition({140, 130});
-            m_BoundaryTs[3]->SetPosition({70, 50});
+            m_BoundaryTs[3]->SetPosition({70, 90});
             m_BoundaryTs[4]->SetPosition({-140, -30});
             m_BoundaryTs[5]->SetPosition({-210, -30});
+            m_BoundaryTs[6]->SetPosition({0, -30});
 //            m_BoundaryTs[0]->SetVisible(true);
 //            m_BoundaryTs[1]->SetVisible(true);
 //            m_BoundaryTs[2]->SetVisible(true);
@@ -1062,6 +1069,7 @@ void App::ValidTask() {
             m_BoundaryRs[4]->SetPosition({360, -170});
             m_BoundaryRs[5]->SetPosition({290, -240});
             m_BoundaryRs[6]->SetPosition({290, -310});
+            m_BoundaryRs[7]->SetPosition({290, -270});
 //            m_BoundaryRs[0]->SetVisible(true);
 //            m_BoundaryRs[1]->SetVisible(true);
 //            m_BoundaryRs[2]->SetVisible(true);
@@ -1073,9 +1081,17 @@ void App::ValidTask() {
             m_BoundaryBs[0]->SetPosition({210, -390});
             m_BoundaryBs[1]->SetPosition({140, -390});
             m_BoundaryBs[2]->SetPosition({70, -390});
+            m_BoundaryBs[3]->SetPosition({-70, -310});
+            m_BoundaryBs[4]->SetPosition({-140, -310});
+            m_BoundaryBs[5]->SetPosition({-210, -310});
+            m_BoundaryBs[6]->SetPosition({50, -390});
+            m_BoundaryBs[7]->SetPosition({90, -390});
 //            m_BoundaryBs[0]->SetVisible(true);
 //            m_BoundaryBs[1]->SetVisible(true);
 //            m_BoundaryBs[2]->SetVisible(true);
+//            m_BoundaryBs[3]->SetVisible(true);
+//            m_BoundaryBs[4]->SetVisible(true);
+//            m_BoundaryBs[5]->SetVisible(true);
 
 
             //m_LaserMechBoxes
@@ -1083,6 +1099,14 @@ void App::ValidTask() {
             m_LaserMechBoxes[0]->SetVisible(true);
             m_LaserMechBoxes[1]->SetPosition({280, -170});
             m_LaserMechBoxes[1]->SetVisible(true);
+            m_LaserMechBoxes[2]->SetPosition({210, 50});
+            m_LaserMechBoxes[2]->SetVisible(true);
+            m_LaserMechBoxes[3]->SetPosition({140, 50});
+            m_LaserMechBoxes[3]->SetVisible(true);
+            m_LaserMechBoxes[4]->SetPosition({70, -20});
+            m_LaserMechBoxes[4]->SetVisible(true);
+            m_LaserMechBoxes[5]->SetPosition({-270, -230});
+            m_LaserMechBoxes[5]->SetVisible(true);
 
             InitiateBlinkLaser();
             ControlShootLaser();
@@ -1094,7 +1118,7 @@ void App::ValidTask() {
             Origin();
 
             //player
-            m_Player->SetPosition({-30, -260});
+            m_Player->SetPosition({-40, -230});
             m_Player->SetVisible(true);
 
             //StepText
@@ -1102,75 +1126,89 @@ void App::ValidTask() {
             m_StepText->ShowLeftStep();
 
             //Machines
-            m_Machines[0]->SetPosition({-110, 60});
+            m_Machines[0]->SetPosition({255, -240});
             m_Machines[0]->SetVisible(true);
-            m_Machines[1]->SetPosition({-180, 60});
+            m_Machines[1]->SetPosition({-170, 60});
             m_Machines[1]->SetVisible(true);
 
             //rocks
             m_Rocks[0]->SetPosition({-180, -100});
             m_Rocks[0]->SetVisible(true);
-            m_Rocks[1]->SetPosition({-30, -180});
+            m_Rocks[1]->SetPosition({-40, -170});
             m_Rocks[1]->SetVisible(true);
             m_Rocks[2]->SetPosition({40, -100});
             m_Rocks[2]->SetVisible(true);
-            m_Rocks[3]->SetPosition({120, -180});
+            m_Rocks[3]->SetPosition({100, -170});
             m_Rocks[3]->SetVisible(true);
-            m_Rocks[4]->SetPosition({120, -260});
+            m_Rocks[4]->SetPosition({100, -240});
             m_Rocks[4]->SetVisible(true);
-            m_Rocks[5]->SetPosition({260, -340});
+            m_Rocks[5]->SetPosition({250, -310});
             m_Rocks[5]->SetVisible(true);
+            m_Rocks[6]->SetPosition({-30, 60});
+            m_Rocks[6]->SetVisible(true);
 
             m_BoundaryLs[0]->SetPosition({-260, 50});
             m_BoundaryLs[1]->SetPosition({-260, -20});
-            m_BoundaryLs[2]->SetPosition({-330, -100});
-            m_BoundaryLs[3]->SetPosition({-330, -180});
+            m_BoundaryLs[2]->SetPosition({-310, -100});
+            m_BoundaryLs[3]->SetPosition({-310, -180});
             m_BoundaryLs[4]->SetPosition({-260, -260});
-            m_BoundaryLs[0]->SetVisible(true);
-            m_BoundaryLs[1]->SetVisible(true);
-            m_BoundaryLs[2]->SetVisible(true);
-            m_BoundaryLs[3]->SetVisible(true);
-            m_BoundaryLs[4]->SetVisible(true);
+//            m_BoundaryLs[0]->SetVisible(true);
+//            m_BoundaryLs[1]->SetVisible(true);
+//            m_BoundaryLs[2]->SetVisible(true);
+//            m_BoundaryLs[3]->SetVisible(true);
+//            m_BoundaryLs[4]->SetVisible(true);
 
             m_BoundaryTs[0]->SetPosition({190, 130});
             m_BoundaryTs[1]->SetPosition({120, 130});
             m_BoundaryTs[2]->SetPosition({40, 130});
             m_BoundaryTs[3]->SetPosition({-30, 130});
             m_BoundaryTs[4]->SetPosition({-110, 130});
-            m_BoundaryTs[5]->SetPosition({-190, 130});
-            m_BoundaryTs[0]->SetVisible(true);
-            m_BoundaryTs[1]->SetVisible(true);
-            m_BoundaryTs[2]->SetVisible(true);
-            m_BoundaryTs[3]->SetVisible(true);
-            m_BoundaryTs[4]->SetVisible(true);
-            m_BoundaryTs[5]->SetVisible(true);
+            m_BoundaryTs[5]->SetPosition({-180, 130});
+//            m_BoundaryTs[0]->SetVisible(true);
+//            m_BoundaryTs[1]->SetVisible(true);
+//            m_BoundaryTs[2]->SetVisible(true);
+//            m_BoundaryTs[3]->SetVisible(true);
+//            m_BoundaryTs[4]->SetVisible(true);
+//            m_BoundaryTs[5]->SetVisible(true);
 
-            m_BoundaryRs[0]->SetPosition({260, 50});
-            m_BoundaryRs[1]->SetPosition({260, -20});
-            m_BoundaryRs[2]->SetPosition({330, -100});
-            m_BoundaryRs[3]->SetPosition({330, -180});
-            m_BoundaryRs[4]->SetPosition({330, -260});
-            m_BoundaryRs[5]->SetPosition({330, -340});
-            m_BoundaryRs[0]->SetVisible(true);
-            m_BoundaryRs[1]->SetVisible(true);
-            m_BoundaryRs[2]->SetVisible(true);
-            m_BoundaryRs[3]->SetVisible(true);
-            m_BoundaryRs[4]->SetVisible(true);
-            m_BoundaryRs[5]->SetVisible(true);
+            m_BoundaryRs[0]->SetPosition({250, 50});
+            m_BoundaryRs[1]->SetPosition({250, -20});
+            m_BoundaryRs[2]->SetPosition({250, -100});
+            m_BoundaryRs[3]->SetPosition({250, -180});
+            m_BoundaryRs[4]->SetPosition({320, -240});
+            m_BoundaryRs[5]->SetPosition({320, -320});
+//            m_BoundaryRs[0]->SetVisible(true);
+//            m_BoundaryRs[1]->SetVisible(true);
+//            m_BoundaryRs[2]->SetVisible(true);
+//            m_BoundaryRs[3]->SetVisible(true);
+//            m_BoundaryRs[4]->SetVisible(true);
+//            m_BoundaryRs[5]->SetVisible(true);
 
 
-            m_BoundaryBs[0]->SetPosition({260, -410});
-            m_BoundaryBs[1]->SetPosition({190, -410});
-            m_BoundaryBs[2]->SetPosition({120, -350});
-            m_BoundaryBs[3]->SetPosition({40, -350});
-            m_BoundaryBs[4]->SetPosition({-30, -350});
-            m_BoundaryBs[5]->SetPosition({-110, -350});
-            m_BoundaryBs[6]->SetPosition({-190, -350});
-            m_BoundaryBs[0]->SetVisible(true);
-            m_BoundaryBs[1]->SetVisible(true);
-            m_BoundaryBs[2]->SetVisible(true);
+            m_BoundaryBs[0]->SetPosition({260, -390});
+            m_BoundaryBs[1]->SetPosition({190, -390});
+            m_BoundaryBs[2]->SetPosition({100, -320});
+            m_BoundaryBs[3]->SetPosition({35, -320});
+            m_BoundaryBs[4]->SetPosition({-30, -320});
+            m_BoundaryBs[5]->SetPosition({-110, -320});
+            m_BoundaryBs[6]->SetPosition({-170, -320});
+//            m_BoundaryBs[0]->SetVisible(true);
+//            m_BoundaryBs[1]->SetVisible(true);
+//            m_BoundaryBs[2]->SetVisible(true);
+//            m_BoundaryBs[3]->SetVisible(true);
+//            m_BoundaryBs[4]->SetVisible(true);
+//            m_BoundaryBs[5]->SetVisible(true);
+//            m_BoundaryBs[6]->SetVisible(true);
 
-            InitiateBlinkLaser();
+            m_LaserMechBoxes[0]->SetPosition({180, 60});
+            m_LaserMechBoxes[0]->SetVisible(true);
+            m_LaserMechBoxes[1]->SetPosition({110, 60});
+            m_LaserMechBoxes[1]->SetVisible(true);
+            m_LaserMechBoxes[2]->SetPosition({35, 60});
+            m_LaserMechBoxes[2]->SetVisible(true);
+            m_LaserMechBoxes[3]->SetPosition({-100, 60});
+            m_LaserMechBoxes[3]->SetVisible(true);
+
             ControlShootLaser();
 
             break;
@@ -1180,7 +1218,7 @@ void App::ValidTask() {
             Origin();
 
             //player
-            m_Player->SetPosition({140, -340});
+            m_Player->SetPosition({140, -310});
             m_Player->SetVisible(true);
 
             //StepText
@@ -1188,28 +1226,33 @@ void App::ValidTask() {
             m_StepText->ShowLeftStep();
 
             //Machines
-            m_Machines[0]->SetPosition({-100, 70});
+            m_Machines[0]->SetPosition({140, 50});
             m_Machines[0]->SetVisible(true);
-            m_Machines[1]->SetPosition({-200, 70});
+            m_Machines[1]->SetPosition({-280, -170});
             m_Machines[1]->SetVisible(true);
 
             //rocks
-            m_Rocks[0]->SetPosition({0, -100});
+            m_Rocks[0]->SetPosition({210, -170});
             m_Rocks[0]->SetVisible(true);
-            m_Rocks[1]->SetPosition({0, -170});
+            m_Rocks[1]->SetPosition({140, -100});
             m_Rocks[1]->SetVisible(true);
+            m_Rocks[2]->SetPosition({0, -30});
+            m_Rocks[2]->SetVisible(true);
+            m_Rocks[3]->SetPosition({0, 40});
+            m_Rocks[3]->SetVisible(true);
+            m_Rocks[4]->SetPosition({-140, 40});
+            m_Rocks[4]->SetVisible(true);
 
 
             m_BoundaryLs[0]->SetPosition({-220, 50});
             m_BoundaryLs[1]->SetPosition({-220, -20});
             m_BoundaryLs[2]->SetPosition({-290, -90});
-            m_BoundaryLs[3]->SetPosition({-290, -170});
             m_BoundaryLs[4]->SetPosition({-360, -260});
-            m_BoundaryLs[0]->SetVisible(true);
-            m_BoundaryLs[1]->SetVisible(true);
-            m_BoundaryLs[2]->SetVisible(true);
-            m_BoundaryLs[3]->SetVisible(true);
-            m_BoundaryLs[4]->SetVisible(true);
+//            m_BoundaryLs[0]->SetVisible(true);
+//            m_BoundaryLs[1]->SetVisible(true);
+//            m_BoundaryLs[2]->SetVisible(true);
+//            m_BoundaryLs[3]->SetVisible(true);
+//            m_BoundaryLs[4]->SetVisible(true);
 
             m_BoundaryTs[0]->SetPosition({210, 130});
             m_BoundaryTs[1]->SetPosition({140, 130});
@@ -1217,12 +1260,12 @@ void App::ValidTask() {
             m_BoundaryTs[3]->SetPosition({-10, 130});
             m_BoundaryTs[4]->SetPosition({-80, 130});
             m_BoundaryTs[5]->SetPosition({-150, 130});
-            m_BoundaryTs[0]->SetVisible(true);
-            m_BoundaryTs[1]->SetVisible(true);
-            m_BoundaryTs[2]->SetVisible(true);
-            m_BoundaryTs[3]->SetVisible(true);
-            m_BoundaryTs[4]->SetVisible(true);
-            m_BoundaryTs[5]->SetVisible(true);
+//            m_BoundaryTs[0]->SetVisible(true);
+//            m_BoundaryTs[1]->SetVisible(true);
+//            m_BoundaryTs[2]->SetVisible(true);
+//            m_BoundaryTs[3]->SetVisible(true);
+//            m_BoundaryTs[4]->SetVisible(true);
+//            m_BoundaryTs[5]->SetVisible(true);
 
             m_BoundaryRs[0]->SetPosition({280, 50});
             m_BoundaryRs[1]->SetPosition({360, -20});
@@ -1230,12 +1273,12 @@ void App::ValidTask() {
             m_BoundaryRs[3]->SetPosition({280, -180});
             m_BoundaryRs[4]->SetPosition({280, -260});
             m_BoundaryRs[5]->SetPosition({280, -340});
-            m_BoundaryRs[0]->SetVisible(true);
-            m_BoundaryRs[1]->SetVisible(true);
-            m_BoundaryRs[2]->SetVisible(true);
-            m_BoundaryRs[3]->SetVisible(true);
-            m_BoundaryRs[4]->SetVisible(true);
-            m_BoundaryRs[5]->SetVisible(true);
+//            m_BoundaryRs[0]->SetVisible(true);
+//            m_BoundaryRs[1]->SetVisible(true);
+//            m_BoundaryRs[2]->SetVisible(true);
+//            m_BoundaryRs[3]->SetVisible(true);
+//            m_BoundaryRs[4]->SetVisible(true);
+//            m_BoundaryRs[5]->SetVisible(true);
 
 
             m_BoundaryBs[0]->SetPosition({210, -410});
@@ -1246,21 +1289,40 @@ void App::ValidTask() {
             m_BoundaryBs[5]->SetPosition({-150, -410});
             m_BoundaryBs[6]->SetPosition({-220, -340});
             m_BoundaryBs[7]->SetPosition({-290, -340});
-            m_BoundaryBs[0]->SetVisible(true);
-            m_BoundaryBs[1]->SetVisible(true);
-            m_BoundaryBs[2]->SetVisible(true);
-            m_BoundaryBs[3]->SetVisible(true);
-            m_BoundaryBs[4]->SetVisible(true);
-            m_BoundaryBs[5]->SetVisible(true);
-            m_BoundaryBs[6]->SetVisible(true);
-            m_BoundaryBs[7]->SetVisible(true);
+//            m_BoundaryBs[0]->SetVisible(true);
+//            m_BoundaryBs[1]->SetVisible(true);
+//            m_BoundaryBs[2]->SetVisible(true);
+//            m_BoundaryBs[3]->SetVisible(true);
+//            m_BoundaryBs[4]->SetVisible(true);
+//            m_BoundaryBs[5]->SetVisible(true);
+//            m_BoundaryBs[6]->SetVisible(true);
+//            m_BoundaryBs[7]->SetVisible(true);
 
             m_BoundaryIBs[0]->SetPosition({60, -260});
             m_BoundaryIBs[1]->SetPosition({60, -340});
             m_BoundaryIBs[2]->SetPosition({-80, -340});
-            m_BoundaryIBs[0]->SetVisible(true);
-            m_BoundaryIBs[1]->SetVisible(true);
-            m_BoundaryIBs[2]->SetVisible(true);
+//            m_BoundaryIBs[0]->SetVisible(true);
+//            m_BoundaryIBs[1]->SetVisible(true);
+//            m_BoundaryIBs[2]->SetVisible(true);
+
+            m_LaserMechBoxes[0]->SetPosition({280, -20});
+            m_LaserMechBoxes[0]->SetVisible(true);
+            m_LaserMechBoxes[1]->SetPosition({280, -90});
+            m_LaserMechBoxes[1]->SetVisible(true);
+            m_LaserMechBoxes[2]->SetPosition({140, -240});
+            m_LaserMechBoxes[2]->SetVisible(true);
+            m_LaserMechBoxes[3]->SetPosition({140, -170});
+            m_LaserMechBoxes[3]->SetVisible(true);
+            m_LaserMechBoxes[4]->SetPosition({70, 60});
+            m_LaserMechBoxes[4]->SetVisible(true);
+            m_LaserMechBoxes[5]->SetPosition({-70, 60});
+            m_LaserMechBoxes[5]->SetVisible(true);
+            m_LaserMechBoxes[6]->SetPosition({-140, -310});
+            m_LaserMechBoxes[6]->SetVisible(true);
+            m_LaserMechBoxes[7]->SetPosition({-200, -90});
+            m_LaserMechBoxes[7]->SetVisible(true);
+            m_LaserMechBoxes[8]->SetPosition({-200, -160});
+            m_LaserMechBoxes[8]->SetVisible(true);
 
             InitiateBlinkLaser();
             ControlShootLaser();
@@ -1272,7 +1334,7 @@ void App::ValidTask() {
             Origin();
 
             //player
-            m_Player->SetPosition({210, -330});
+            m_Player->SetPosition({210, -310});
             m_Player->SetVisible(true);
 
             //StepText
@@ -1280,16 +1342,11 @@ void App::ValidTask() {
             m_StepText->ShowLeftStep();
 
             //Machines
-//            m_Machines[0]->SetPosition({-100, 70});
-//            m_Machines[0]->SetVisible(true);
-//            m_Machines[1]->SetPosition({-200, 70});
-//            m_Machines[1]->SetVisible(true);
+            m_Machines[0]->SetPosition({70, 60});
+            m_Machines[0]->SetVisible(true);
+            m_Machines[1]->SetPosition({-210, -20});
+            m_Machines[1]->SetVisible(true);
 
-            //rocks
-            m_Rocks[0]->SetPosition({0, -100});
-            m_Rocks[0]->SetVisible(true);
-            m_Rocks[1]->SetPosition({0, -170});
-            m_Rocks[1]->SetVisible(true);
 
             m_BoundaryLs[0]->SetPosition({-220, 130});
             m_BoundaryLs[1]->SetPosition({-220, 60});
@@ -1298,13 +1355,13 @@ void App::ValidTask() {
             m_BoundaryLs[4]->SetPosition({-360, -170});
             m_BoundaryLs[5]->SetPosition({-290, -260});
             m_BoundaryLs[6]->SetPosition({-220, -260});
-            m_BoundaryLs[0]->SetVisible(true);
-            m_BoundaryLs[1]->SetVisible(true);
-            m_BoundaryLs[2]->SetVisible(true);
-            m_BoundaryLs[3]->SetVisible(true);
-            m_BoundaryLs[4]->SetVisible(true);
-            m_BoundaryLs[5]->SetVisible(true);
-            m_BoundaryLs[6]->SetVisible(true);
+//            m_BoundaryLs[0]->SetVisible(true);
+//            m_BoundaryLs[1]->SetVisible(true);
+//            m_BoundaryLs[2]->SetVisible(true);
+//            m_BoundaryLs[3]->SetVisible(true);
+//            m_BoundaryLs[4]->SetVisible(true);
+//            m_BoundaryLs[5]->SetVisible(true);
+//            m_BoundaryLs[6]->SetVisible(true);
 
             m_BoundaryTs[0]->SetPosition({210, 130});
             m_BoundaryTs[1]->SetPosition({140, 130});
@@ -1312,12 +1369,12 @@ void App::ValidTask() {
             m_BoundaryTs[3]->SetPosition({-10, 130});
             m_BoundaryTs[4]->SetPosition({-80, 130});
             m_BoundaryTs[5]->SetPosition({-150, 130});
-            m_BoundaryTs[0]->SetVisible(true);
-            m_BoundaryTs[1]->SetVisible(true);
-            m_BoundaryTs[2]->SetVisible(true);
-            m_BoundaryTs[3]->SetVisible(true);
-            m_BoundaryTs[4]->SetVisible(true);
-            m_BoundaryTs[5]->SetVisible(true);
+//            m_BoundaryTs[0]->SetVisible(true);
+//            m_BoundaryTs[1]->SetVisible(true);
+//            m_BoundaryTs[2]->SetVisible(true);
+//            m_BoundaryTs[3]->SetVisible(true);
+//            m_BoundaryTs[4]->SetVisible(true);
+//            m_BoundaryTs[5]->SetVisible(true);
 
             m_BoundaryRs[0]->SetPosition({290, 60});
             m_BoundaryRs[1]->SetPosition({290, -20});
@@ -1325,50 +1382,59 @@ void App::ValidTask() {
             m_BoundaryRs[3]->SetPosition({360, -180});
             m_BoundaryRs[4]->SetPosition({360, -260});
             m_BoundaryRs[5]->SetPosition({360, -340});
-            m_BoundaryRs[0]->SetVisible(true);
-            m_BoundaryRs[1]->SetVisible(true);
-            m_BoundaryRs[2]->SetVisible(true);
-            m_BoundaryRs[3]->SetVisible(true);
-            m_BoundaryRs[4]->SetVisible(true);
-            m_BoundaryRs[5]->SetVisible(true);
+            m_BoundaryRs[6]->SetPosition({325, -20});
+//            m_BoundaryRs[0]->SetVisible(true);
+//            m_BoundaryRs[1]->SetVisible(true);
+//            m_BoundaryRs[2]->SetVisible(true);
+//            m_BoundaryRs[3]->SetVisible(true);
+//            m_BoundaryRs[4]->SetVisible(true);
+//            m_BoundaryRs[5]->SetVisible(true);
 
 
             m_BoundaryBs[0]->SetPosition({290, -420});
             m_BoundaryBs[1]->SetPosition({210, -420});
             m_BoundaryBs[2]->SetPosition({140, -420});
-            m_BoundaryBs[3]->SetPosition({60, -340});
-            m_BoundaryBs[4]->SetPosition({-10, -340});
-            m_BoundaryBs[5]->SetPosition({-80, -340});
-            m_BoundaryBs[6]->SetPosition({-150, -340});
+            m_BoundaryBs[3]->SetPosition({60, -330});
+            m_BoundaryBs[4]->SetPosition({-10, -330});
+            m_BoundaryBs[5]->SetPosition({-80, -330});
+            m_BoundaryBs[6]->SetPosition({-150, -330});
             m_BoundaryBs[7]->SetPosition({-290, -260});
-            m_BoundaryBs[0]->SetVisible(true);
-            m_BoundaryBs[1]->SetVisible(true);
-            m_BoundaryBs[2]->SetVisible(true);
-            m_BoundaryBs[3]->SetVisible(true);
-            m_BoundaryBs[4]->SetVisible(true);
-            m_BoundaryBs[5]->SetVisible(true);
-            m_BoundaryBs[6]->SetVisible(true);
-            m_BoundaryBs[7]->SetVisible(true);
+//            m_BoundaryBs[0]->SetVisible(true);
+//            m_BoundaryBs[1]->SetVisible(true);
+//            m_BoundaryBs[2]->SetVisible(true);
+//            m_BoundaryBs[3]->SetVisible(true);
+//            m_BoundaryBs[4]->SetVisible(true);
+//            m_BoundaryBs[5]->SetVisible(true);
+//            m_BoundaryBs[6]->SetVisible(true);
+//            m_BoundaryBs[7]->SetVisible(true);
 
             //rocks
             m_Rocks[0]->SetPosition({210, 60});
             m_Rocks[0]->SetVisible(true);
             m_Rocks[1]->SetPosition({210, -20});
             m_Rocks[1]->SetVisible(true);
-            m_Rocks[2]->SetPosition({210, -100});
+            m_Rocks[2]->SetPosition({210, -90});
             m_Rocks[2]->SetVisible(true);
-            m_Rocks[3]->SetPosition({210, -180});
+            m_Rocks[3]->SetPosition({210, -170});
             m_Rocks[3]->SetVisible(true);
-            m_Rocks[4]->SetPosition({210, -260});
+            m_Rocks[4]->SetPosition({210, -250});
             m_Rocks[4]->SetVisible(true);
-            m_Rocks[5]->SetPosition({70, -180});
+            m_Rocks[5]->SetPosition({70, -170});
             m_Rocks[5]->SetVisible(true);
             m_Rocks[6]->SetPosition({-220, -100});
             m_Rocks[6]->SetVisible(true);
 
+            m_LaserMechBoxes[0]->SetPosition({140, 70});
+            m_LaserMechBoxes[0]->SetVisible(true);
+            m_LaserMechBoxes[1]->SetPosition({-70, 70});
+            m_LaserMechBoxes[1]->SetVisible(true);
+            m_LaserMechBoxes[2]->SetPosition({-78, -20});
+            m_LaserMechBoxes[2]->SetVisible(true);
+            m_LaserMechBoxes[3]->SetPosition({-140, 70});
+            m_LaserMechBoxes[3]->SetVisible(true);
 
 
-            InitiateBlinkLaser();
+
             ControlShootLaser();
 
             break;
@@ -1378,7 +1444,7 @@ void App::ValidTask() {
             Origin();
 
             //player
-            m_Player->SetPosition({390, -200});
+            m_Player->SetPosition({390, -180});
             m_Player->SetVisible(true);
 
             //StepText
@@ -1386,9 +1452,9 @@ void App::ValidTask() {
             m_StepText->ShowLeftStep();
 
             //Machines
-            m_Machines[0]->SetPosition({-100, 70});
+            m_Machines[0]->SetPosition({390, 30});
             m_Machines[0]->SetVisible(true);
-            m_Machines[1]->SetPosition({-200, 70});
+            m_Machines[1]->SetPosition({-320, 30});
             m_Machines[1]->SetVisible(true);
 
             m_BoundaryLs[0]->SetPosition({-480, 40});
@@ -1396,95 +1462,130 @@ void App::ValidTask() {
             m_BoundaryLs[2]->SetPosition({-550, -120});
             m_BoundaryLs[3]->SetPosition({-550, -200});
             m_BoundaryLs[4]->SetPosition({-480, -280});
-            m_BoundaryLs[0]->SetVisible(true);
-            m_BoundaryLs[1]->SetVisible(true);
-            m_BoundaryLs[2]->SetVisible(true);
-            m_BoundaryLs[3]->SetVisible(true);
-            m_BoundaryLs[4]->SetVisible(true);
+//            m_BoundaryLs[0]->SetVisible(true);
+//            m_BoundaryLs[1]->SetVisible(true);
+//            m_BoundaryLs[2]->SetVisible(true);
+//            m_BoundaryLs[3]->SetVisible(true);
+//            m_BoundaryLs[4]->SetVisible(true);
 
             m_BoundaryRs[0]->SetPosition({470, 120});
             m_BoundaryRs[1]->SetPosition({470, 40});
             m_BoundaryRs[2]->SetPosition({540, -40});
             m_BoundaryRs[3]->SetPosition({540, -120});
             m_BoundaryRs[4]->SetPosition({470, -200});
-            m_BoundaryRs[5]->SetPosition({400, -280});
-            m_BoundaryRs[6]->SetPosition({400, -360});
-            m_BoundaryRs[0]->SetVisible(true);
-            m_BoundaryRs[1]->SetVisible(true);
-            m_BoundaryRs[2]->SetVisible(true);
-            m_BoundaryRs[3]->SetVisible(true);
-            m_BoundaryRs[4]->SetVisible(true);
-            m_BoundaryRs[5]->SetVisible(true);
-            m_BoundaryRs[6]->SetVisible(true);
+            m_BoundaryRs[5]->SetPosition({400, -260});
+            m_BoundaryRs[6]->SetPosition({400, -340});
+//            m_BoundaryRs[0]->SetVisible(true);
+//            m_BoundaryRs[1]->SetVisible(true);
+//            m_BoundaryRs[2]->SetVisible(true);
+//            m_BoundaryRs[3]->SetVisible(true);
+//            m_BoundaryRs[4]->SetVisible(true);
+//            m_BoundaryRs[5]->SetVisible(true);
+//            m_BoundaryRs[6]->SetVisible(true);
 
             m_BoundaryTs[0]->SetPosition({390, 130});
             m_BoundaryTs[1]->SetPosition({320, 130});
             m_BoundaryTs[2]->SetPosition({250, 130});
-            m_BoundaryTs[3]->SetPosition({180, -200});
-            m_BoundaryTs[4]->SetPosition({110, -200});
+            m_BoundaryTs[3]->SetPosition({180, -180});
+            m_BoundaryTs[4]->SetPosition({110, -180});
             m_BoundaryTs[5]->SetPosition({40, -120});
-            m_BoundaryTs[6]->SetPosition({-30, -280});
-            m_BoundaryTs[7]->SetPosition({-100, -280});
+            m_BoundaryTs[6]->SetPosition({-30, -250});
+            m_BoundaryTs[7]->SetPosition({-100, -250});
             m_BoundaryTs[8]->SetPosition({-170, -40});
             m_BoundaryTs[9]->SetPosition({-240, 130});
             m_BoundaryTs[10]->SetPosition({-310, 130});
             m_BoundaryTs[11]->SetPosition({-380, 130});
-            m_BoundaryTs[0]->SetVisible(true);
-            m_BoundaryTs[1]->SetVisible(true);
-            m_BoundaryTs[2]->SetVisible(true);
-            m_BoundaryTs[3]->SetVisible(true);
-            m_BoundaryTs[4]->SetVisible(true);
-            m_BoundaryTs[5]->SetVisible(true);
-            m_BoundaryTs[6]->SetVisible(true);
-            m_BoundaryTs[7]->SetVisible(true);
-            m_BoundaryTs[8]->SetVisible(true);
-            m_BoundaryTs[9]->SetVisible(true);
-            m_BoundaryTs[10]->SetVisible(true);
-            m_BoundaryTs[11]->SetVisible(true);
+//            m_BoundaryTs[0]->SetVisible(true);
+//            m_BoundaryTs[1]->SetVisible(true);
+//            m_BoundaryTs[2]->SetVisible(true);
+//            m_BoundaryTs[3]->SetVisible(true);
+//            m_BoundaryTs[4]->SetVisible(true);
+//            m_BoundaryTs[5]->SetVisible(true);
+//            m_BoundaryTs[6]->SetVisible(true);
+//            m_BoundaryTs[7]->SetVisible(true);
+//            m_BoundaryTs[8]->SetVisible(true);
+//            m_BoundaryTs[9]->SetVisible(true);
+//            m_BoundaryTs[10]->SetVisible(true);
+//            m_BoundaryTs[11]->SetVisible(true);
 
-            m_BoundaryBs[0]->SetPosition({320, -440});
-            m_BoundaryBs[1]->SetPosition({250, -440});
-            m_BoundaryBs[2]->SetPosition({180, -440});
-            m_BoundaryBs[3]->SetPosition({110, -440});
-            m_BoundaryBs[4]->SetPosition({40, -440});
-            m_BoundaryBs[5]->SetPosition({-30, -440});
-            m_BoundaryBs[6]->SetPosition({-100, -440});
-            m_BoundaryBs[7]->SetPosition({-170, -440});
-            m_BoundaryBs[8]->SetPosition({-250, -360});
-            m_BoundaryBs[9]->SetPosition({-320, -360});
-            m_BoundaryBs[10]->SetPosition({-390, -360});
-            m_BoundaryBs[0]->SetVisible(true);
-            m_BoundaryBs[1]->SetVisible(true);
-            m_BoundaryBs[2]->SetVisible(true);
-            m_BoundaryBs[3]->SetVisible(true);
-            m_BoundaryBs[4]->SetVisible(true);
-            m_BoundaryBs[5]->SetVisible(true);
-            m_BoundaryBs[6]->SetVisible(true);
-            m_BoundaryBs[7]->SetVisible(true);
-            m_BoundaryBs[8]->SetVisible(true);
-            m_BoundaryBs[9]->SetVisible(true);
-            m_BoundaryBs[10]->SetVisible(true);
+            m_BoundaryBs[0]->SetPosition({320, -420});
+            m_BoundaryBs[1]->SetPosition({250, -420});
+            m_BoundaryBs[2]->SetPosition({180, -420});
+            m_BoundaryBs[3]->SetPosition({110, -420});
+            m_BoundaryBs[4]->SetPosition({40, -420});
+            m_BoundaryBs[5]->SetPosition({-30, -420});
+            m_BoundaryBs[6]->SetPosition({-100, -420});
+            m_BoundaryBs[7]->SetPosition({-170, -420});
+            m_BoundaryBs[8]->SetPosition({-250, -330});
+            m_BoundaryBs[9]->SetPosition({-320, -330});
+            m_BoundaryBs[10]->SetPosition({-390, -330});
+//            m_BoundaryBs[0]->SetVisible(true);
+//            m_BoundaryBs[1]->SetVisible(true);
+//            m_BoundaryBs[2]->SetVisible(true);
+//            m_BoundaryBs[3]->SetVisible(true);
+//            m_BoundaryBs[4]->SetVisible(true);
+//            m_BoundaryBs[5]->SetVisible(true);
+//            m_BoundaryBs[6]->SetVisible(true);
+//            m_BoundaryBs[7]->SetVisible(true);
+//            m_BoundaryBs[8]->SetVisible(true);
+//            m_BoundaryBs[9]->SetVisible(true);
+//            m_BoundaryBs[10]->SetVisible(true);
 
             m_BoundaryIBs[0]->SetPosition({180, 40});
             m_BoundaryIBs[1]->SetPosition({180, -40});
             m_BoundaryIBs[2]->SetPosition({180, -120});
-            m_BoundaryIBs[3]->SetPosition({-30, -200});
-            m_BoundaryIBs[4]->SetPosition({-100, -200});
+            m_BoundaryIBs[3]->SetPosition({-30, -180});
+            m_BoundaryIBs[4]->SetPosition({-100, -180});
             m_BoundaryIBs[5]->SetPosition({-170, 40});
             m_BoundaryIBs[6]->SetPosition({-100, -120});
-            m_BoundaryIBs[0]->SetVisible(true);
-            m_BoundaryIBs[1]->SetVisible(true);
-            m_BoundaryIBs[2]->SetVisible(true);
-            m_BoundaryIBs[3]->SetVisible(true);
-            m_BoundaryIBs[4]->SetVisible(true);
-            m_BoundaryIBs[5]->SetVisible(true);
-            m_BoundaryIBs[6]->SetVisible(true);
+            m_BoundaryIBs[7]->SetPosition({-30, -220});
+            m_BoundaryIBs[8]->SetPosition({-100, -220});
+//            m_BoundaryIBs[0]->SetVisible(true);
+//            m_BoundaryIBs[1]->SetVisible(true);
+//            m_BoundaryIBs[2]->SetVisible(true);
+//            m_BoundaryIBs[3]->SetVisible(true);
+//            m_BoundaryIBs[4]->SetVisible(true);
+//            m_BoundaryIBs[5]->SetVisible(true);
+//            m_BoundaryIBs[6]->SetVisible(true);
+//            m_BoundaryIBs[7]->SetVisible(true);
+//            m_BoundaryIBs[8]->SetVisible(true);
 
             //rocks
-            m_Rocks[0]->SetPosition({0, -100});
+            m_Rocks[0]->SetPosition({320, -40});
             m_Rocks[0]->SetVisible(true);
-            m_Rocks[1]->SetPosition({0, -170});
+            m_Rocks[1]->SetPosition({320, -250});
             m_Rocks[1]->SetVisible(true);
+            m_Rocks[2]->SetPosition({250, -180});
+            m_Rocks[2]->SetVisible(true);
+            m_Rocks[3]->SetPosition({-180, -260});
+            m_Rocks[3]->SetVisible(true);
+            m_Rocks[4]->SetPosition({-250, -40});
+            m_Rocks[4]->SetVisible(true);
+            m_Rocks[5]->SetPosition({-320, -40});
+            m_Rocks[5]->SetVisible(true);
+            m_Rocks[6]->SetPosition({-400, -40});
+            m_Rocks[6]->SetVisible(true);
+
+            m_LaserMechBoxes[0]->SetPosition({470, -30});
+            m_LaserMechBoxes[0]->SetVisible(true);
+            m_LaserMechBoxes[1]->SetPosition({470, -110});
+            m_LaserMechBoxes[1]->SetVisible(true);
+            m_LaserMechBoxes[2]->SetPosition({320, 30});
+            m_LaserMechBoxes[2]->SetVisible(true);
+            m_LaserMechBoxes[3]->SetPosition({330, -320});
+            m_LaserMechBoxes[3]->SetVisible(true);
+            m_LaserMechBoxes[4]->SetPosition({250, 30});
+            m_LaserMechBoxes[4]->SetVisible(true);
+            m_LaserMechBoxes[5]->SetPosition({-250, -260});
+            m_LaserMechBoxes[5]->SetVisible(true);
+            m_LaserMechBoxes[6]->SetPosition({-320, -260});
+            m_LaserMechBoxes[6]->SetVisible(true);
+            m_LaserMechBoxes[7]->SetPosition({-390, -260});
+            m_LaserMechBoxes[7]->SetVisible(true);
+            m_LaserMechBoxes[8]->SetPosition({-460, -120});
+            m_LaserMechBoxes[8]->SetVisible(true);
+            m_LaserMechBoxes[9]->SetPosition({-460, -190});
+            m_LaserMechBoxes[9]->SetVisible(true);
 
             InitiateBlinkLaser();
             ControlShootLaser();

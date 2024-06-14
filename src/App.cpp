@@ -98,7 +98,7 @@ App::App(){
     }
 
     //lasers
-    for (int i = 0; i < 20; ++i) {
+    for (int i = 0; i < 30; ++i) {
         m_LaserTs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/laserBeamT.png"));
         m_LaserTs[i]->SetZIndex(70);
         m_LaserTs[i]->SetTag(Character::Tag::Laser);
@@ -106,7 +106,7 @@ App::App(){
         m_CollideObjects.push_back(m_LaserTs[i]);
         m_LaserTs[i]->SetIfHurt(true);
     }
-    for (int i = 0; i < 20; ++i) {
+    for (int i = 0; i < 30; ++i) {
         m_LaserLs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/laserBeamL.png"));
         m_LaserLs[i]->SetZIndex(70);
         m_LaserLs[i]->SetTag(Character::Tag::Laser);
@@ -114,7 +114,7 @@ App::App(){
         m_CollideObjects.push_back(m_LaserLs[i]);
         m_LaserLs[i]->SetIfHurt(true);
     }
-    for (int i = 0; i < 20; ++i) {
+    for (int i = 0; i < 30; ++i) {
         m_LaserRs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/laserBeamR.png"));
         m_LaserRs[i]->SetZIndex(70);
         m_LaserRs[i]->SetTag(Character::Tag::Laser);
@@ -122,7 +122,7 @@ App::App(){
         m_CollideObjects.push_back(m_LaserRs[i]);
         m_LaserRs[i]->SetIfHurt(true);
     }
-    for (int i = 0; i < 20; ++i) {
+    for (int i = 0; i < 30; ++i) {
         m_LaserBs.push_back(std::make_shared<Character>(RESOURCE_DIR"/Image/Object/laserBeamB.png"));
         m_LaserBs[i]->SetZIndex(70);
         m_LaserBs[i]->SetTag(Character::Tag::Laser);
@@ -629,7 +629,9 @@ void App::Update() {
                 BlinkChain();
 
                 if (!FM.IsCycleDone()) {
-                    UpGoingPlayer();
+                    if (m_Player->GetPosition().y > - 300) {
+                        UpGoingPlayer();
+                    }
                 }
                 else {
                     m_StateImage->SetVisible(true);
@@ -650,6 +652,7 @@ void App::Update() {
             }
             else {
                 Origin();
+                m_Phase = Phase::PhaseEnd;
                 m_PRM->GameEnd();
             }
         }
